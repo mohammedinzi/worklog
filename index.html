@@ -1,197 +1,293 @@
-<title>Engineering Worklog — ERPNext &amp; CRM Platform</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engineering Worklog — Mohammed Inzi · EasyCloud</title>
+<meta name="description" content="Daily engineering worklog — ERPNext infrastructure, the EasyCloud CRM build, and client deployments.">
 <style>
   :root{
-    --paper:#F5F3EE;
-    --surface:#FFFFFF;
-    --ink:#1C1B19;
-    --ink-muted:#5B6570;
-    --ink-faint:#8B8F94;
-    --line:#E2DDD3;
-    --line-strong:#CFC8BA;
-    --accent:#25508F;
-    --accent-strong:#15355E;
-    --accent-soft:#E7EEF7;
-    --good:#2F7D4F; --good-soft:#E4F3E9;
-    --warn:#A9670C; --warn-soft:#FBF0DD;
-    --bad:#B33B2E;  --bad-soft:#FBE7E3;
-    --rail:#CFC8BA;
-    --shadow: 0 1px 2px rgba(28,27,25,0.04), 0 6px 20px -8px rgba(28,27,25,0.10);
-    --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "URW Palladio L", serif;
-    --font-body: "Charter", -apple-system, BlinkMacSystemFont, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: ui-monospace, "SF Mono", Menlo, "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+    --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#F1F3F6; --surface-hover:#EAECF0;
+    --border:#E4E7EC; --border-strong:#D0D5DD;
+    --text:#101828; --text-muted:#475467; --text-faint:#98A2B3;
+    --accent:#4F46E5; --accent-strong:#3730A3; --accent-soft:#EEF2FF; --accent-text:#3730A3;
+    --good:#079455; --good-soft:#E7F6EC;
+    --warn:#B54708; --warn-soft:#FFF6E9;
+    --bad:#D92D20; --bad-soft:#FEF3F2;
+    --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+    --shadow-md: 0 2px 4px -1px rgba(16,24,40,0.03), 0 6px 16px -4px rgba(16,24,40,0.07);
+    --shadow-lg: 0 12px 32px -8px rgba(16,24,40,0.14);
+    --radius: 14px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, ui-sans-serif, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
   }
-
   @media (prefers-color-scheme: dark){
     :root{
-      --paper:#14171B;
-      --surface:#1B1F24;
-      --ink:#EDEAE3;
-      --ink-muted:#9AA3AD;
-      --ink-faint:#6D7580;
-      --line:#2B3036;
-      --line-strong:#3A4048;
-      --accent:#8FB0EC;
-      --accent-strong:#C4D6F6;
-      --accent-soft:#1D2A3D;
-      --good:#5FC98A; --good-soft:#16281F;
-      --warn:#E8AC4E; --warn-soft:#2E230F;
-      --bad:#E8776A;  --bad-soft:#2E1712;
-      --rail:#3A4048;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px -10px rgba(0,0,0,0.5);
+      --bg:#0B0E14; --surface:#12161F; --surface-2:#171C27; --surface-hover:#1D2330;
+      --border:#232A37; --border-strong:#2E3648;
+      --text:#E7EAF0; --text-muted:#9AA4B2; --text-faint:#5C6674;
+      --accent:#8B85F5; --accent-strong:#C7C3FB; --accent-soft:#1D2140; --accent-text:#C7C3FB;
+      --good:#3FCB8C; --good-soft:#0F2A1E;
+      --warn:#F0A94E; --warn-soft:#2B2113;
+      --bad:#F2766A; --bad-soft:#2C1815;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow-md: 0 2px 4px -1px rgba(0,0,0,0.3), 0 8px 20px -4px rgba(0,0,0,0.45);
+      --shadow-lg: 0 16px 40px -8px rgba(0,0,0,0.55);
     }
   }
-  :root[data-theme="dark"]{
-    --paper:#14171B; --surface:#1B1F24; --ink:#EDEAE3; --ink-muted:#9AA3AD; --ink-faint:#6D7580;
-    --line:#2B3036; --line-strong:#3A4048; --accent:#8FB0EC; --accent-strong:#C4D6F6; --accent-soft:#1D2A3D;
-    --good:#5FC98A; --good-soft:#16281F; --warn:#E8AC4E; --warn-soft:#2E230F; --bad:#E8776A; --bad-soft:#2E1712;
-    --rail:#3A4048; --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px -10px rgba(0,0,0,0.5);
+  html[data-theme="dark"]{
+    --bg:#0B0E14; --surface:#12161F; --surface-2:#171C27; --surface-hover:#1D2330;
+    --border:#232A37; --border-strong:#2E3648;
+    --text:#E7EAF0; --text-muted:#9AA4B2; --text-faint:#5C6674;
+    --accent:#8B85F5; --accent-strong:#C7C3FB; --accent-soft:#1D2140; --accent-text:#C7C3FB;
+    --good:#3FCB8C; --good-soft:#0F2A1E;
+    --warn:#F0A94E; --warn-soft:#2B2113;
+    --bad:#F2766A; --bad-soft:#2C1815;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 2px 4px -1px rgba(0,0,0,0.3), 0 8px 20px -4px rgba(0,0,0,0.45);
+    --shadow-lg: 0 16px 40px -8px rgba(0,0,0,0.55);
   }
-  :root[data-theme="light"]{
-    --paper:#F5F3EE; --surface:#FFFFFF; --ink:#1C1B19; --ink-muted:#5B6570; --ink-faint:#8B8F94;
-    --line:#E2DDD3; --line-strong:#CFC8BA; --accent:#25508F; --accent-strong:#15355E; --accent-soft:#E7EEF7;
-    --good:#2F7D4F; --good-soft:#E4F3E9; --warn:#A9670C; --warn-soft:#FBF0DD; --bad:#B33B2E; --bad-soft:#FBE7E3;
-    --rail:#CFC8BA; --shadow: 0 1px 2px rgba(28,27,25,0.04), 0 6px 20px -8px rgba(28,27,25,0.10);
+  html[data-theme="light"]{
+    --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#F1F3F6; --surface-hover:#EAECF0;
+    --border:#E4E7EC; --border-strong:#D0D5DD;
+    --text:#101828; --text-muted:#475467; --text-faint:#98A2B3;
+    --accent:#4F46E5; --accent-strong:#3730A3; --accent-soft:#EEF2FF; --accent-text:#3730A3;
+    --good:#079455; --good-soft:#E7F6EC;
+    --warn:#B54708; --warn-soft:#FFF6E9;
+    --bad:#D92D20; --bad-soft:#FEF3F2;
+    --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+    --shadow-md: 0 2px 4px -1px rgba(16,24,40,0.03), 0 6px 16px -4px rgba(16,24,40,0.07);
+    --shadow-lg: 0 12px 32px -8px rgba(16,24,40,0.14);
   }
 
   *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
   body{
-    margin:0; background:var(--paper); color:var(--ink);
-    font-family:var(--font-body);
-    font-size:16px; line-height:1.6;
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--font); font-size:15.5px; line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
   a{color:var(--accent);}
-  a:focus-visible, summary:focus-visible, button:focus-visible{
-    outline:2px solid var(--accent); outline-offset:2px; border-radius:2px;
-  }
+  button{font-family:inherit;}
+  ::selection{ background:var(--accent-soft); color:var(--accent-text); }
   @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
     *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
   }
-
-  .wrap{ max-width:840px; margin:0 auto; padding:0 24px 96px; }
-
-  /* ---------- Masthead ---------- */
-  .masthead{
-    padding:56px 0 32px; border-bottom:1px solid var(--line);
+  a:focus-visible, summary:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;
   }
-  .masthead-eyebrow{
-    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.09em; text-transform:uppercase;
-    color:var(--accent); margin:0 0 14px;
+
+  .skip-link{ position:absolute; left:-999px; top:0; background:var(--accent); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; z-index:200; }
+  .skip-link:focus{ left:0; }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:1280px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .brand-mark{
+    width:34px; height:34px; border-radius:9px; flex:0 0 auto;
+    background:linear-gradient(135deg, var(--accent), var(--accent-strong));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:700; font-size:14px; font-family:var(--font-mono);
+    box-shadow:var(--shadow-sm);
+  }
+  .brand-text{ min-width:0; }
+  .brand-title{ font-weight:700; font-size:15px; margin:0; white-space:nowrap; }
+  .brand-sub{ font-size:12px; color:var(--text-faint); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .topbar-actions{ display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+
+  .icon-btn{
+    width:36px; height:36px; border-radius:10px; border:1px solid var(--border);
+    background:var(--surface); color:var(--text-muted); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .12s ease, color .12s ease, border-color .12s ease;
+  }
+  .icon-btn:hover{ background:var(--surface-hover); color:var(--text); border-color:var(--border-strong); }
+  .icon-btn svg{ width:18px; height:18px; }
+  .icon-btn .i-moon{ display:none; }
+  html[data-theme="dark"] .icon-btn .i-sun{ display:none; }
+  html[data-theme="dark"] .icon-btn .i-moon{ display:block; }
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]) .icon-btn .i-sun{ display:none; }
+    html:not([data-theme="light"]) .icon-btn .i-moon{ display:block; }
+  }
+
+  .filters-toggle{ display:none; }
+  @media (max-width:920px){
+    .filters-toggle{ display:flex; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{ max-width:1280px; margin:0 auto; padding:40px 24px 0; }
+  .hero-eyebrow{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--accent-text); margin:0 0 12px; font-weight:600;
   }
   h1{
-    font-family:var(--font-display); font-weight:700; font-size:clamp(30px, 4.4vw, 42px);
-    line-height:1.12; margin:0 0 12px; text-wrap:balance; letter-spacing:-0.01em;
+    font-weight:800; font-size:clamp(26px, 3.6vw, 36px); line-height:1.15; margin:0 0 10px;
+    letter-spacing:-0.02em; text-wrap:balance;
   }
-  .masthead-sub{
-    font-size:17px; color:var(--ink-muted); max-width:62ch; margin:0; line-height:1.6;
-  }
+  .hero-sub{ font-size:16px; color:var(--text-muted); max-width:68ch; margin:0 0 28px; line-height:1.6; }
 
-  /* ---------- Stat strip ---------- */
-  .stats{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
-    background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
-    margin-top:32px;
+  .stats{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:28px; }
+  .stat{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px 18px; box-shadow:var(--shadow-sm);
   }
-  .stat{ background:var(--surface); padding:16px 18px; }
   .stat-num{
-    font-family:var(--font-mono); font-weight:600; font-size:22px; color:var(--ink);
-    font-variant-numeric:tabular-nums; display:block;
+    font-weight:800; font-size:24px; color:var(--text); font-variant-numeric:tabular-nums; display:block; letter-spacing:-0.02em;
   }
-  .stat-label{ font-size:12.5px; color:var(--ink-muted); margin-top:2px; }
-  @media (max-width:640px){ .stats{ grid-template-columns:repeat(2, 1fr); } }
+  .stat-label{ font-size:12.5px; color:var(--text-muted); margin-top:3px; }
+  @media (max-width:760px){ .stats{ grid-template-columns:repeat(2, 1fr); } }
 
-  /* ---------- Exec summary ---------- */
-  .summary{ padding:40px 0 8px; }
-  .summary h2{
-    font-family:var(--font-display); font-weight:700; font-size:22px; margin:0 0 18px;
+  details.summary-box{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    margin-bottom:32px; box-shadow:var(--shadow-sm); overflow:hidden;
   }
-  .summary-grid{ display:grid; gap:12px; }
-  .summary-item{
-    display:flex; gap:12px; padding:14px 16px; background:var(--surface);
-    border:1px solid var(--line); border-radius:10px;
+  details.summary-box summary{
+    cursor:pointer; padding:16px 20px; font-weight:700; font-size:14.5px; list-style:none;
+    display:flex; align-items:center; justify-content:space-between; user-select:none;
   }
+  details.summary-box summary::-webkit-details-marker{ display:none; }
+  details.summary-box summary::after{
+    content:"▾"; color:var(--text-faint); transition:transform .15s ease; font-size:12px;
+  }
+  details.summary-box[open] summary::after{ transform:rotate(180deg); }
+  details.summary-box summary:hover{ color:var(--accent); }
+  .summary-grid{ display:grid; gap:10px; padding:0 20px 20px; }
+  .summary-item{ display:flex; gap:12px; }
   .summary-item .mark{
-    font-family:var(--font-mono); color:var(--accent); font-weight:600; font-size:13px;
-    flex:0 0 auto; padding-top:2px;
+    font-family:var(--font-mono); color:var(--accent-text); background:var(--accent-soft); font-weight:700; font-size:11px;
+    flex:0 0 auto; width:22px; height:22px; border-radius:6px; display:flex; align-items:center; justify-content:center; margin-top:1px;
   }
-  .summary-item p{ margin:0; font-size:15px; color:var(--ink); }
+  .summary-item p{ margin:0; font-size:14.5px; color:var(--text); line-height:1.6; }
   .summary-item strong{ font-weight:600; }
 
-  /* ---------- Quick nav ---------- */
-  .quicknav{
-    margin-top:28px; padding:18px 20px; background:var(--accent-soft); border-radius:10px;
-  }
-  .quicknav-label{
-    font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
-    color:var(--accent-strong); margin:0 0 10px;
-  }
-  .quicknav ol{ margin:0; padding:0; list-style:none; display:grid; gap:6px; grid-template-columns:repeat(2, 1fr); }
-  .quicknav a{
-    font-size:13.5px; text-decoration:none; color:var(--ink); display:flex; gap:8px;
-  }
-  .quicknav a:hover{ color:var(--accent); }
-  .quicknav .qn-num{ font-family:var(--font-mono); color:var(--ink-faint); font-variant-numeric:tabular-nums; }
-  @media (max-width:560px){ .quicknav ol{ grid-template-columns:1fr; } }
+  /* ---------- Layout ---------- */
+  .layout{ max-width:1280px; margin:0 auto; padding:0 24px 100px; display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start; }
+  @media (max-width:920px){ .layout{ grid-template-columns:1fr; } }
 
-  /* ---------- Phase sections ---------- */
-  .phase{ padding:56px 0 8px; position:relative; }
-  .phase + .phase{ border-top:1px solid var(--line); }
-  .phase-head{ margin-bottom:28px; }
-  .phase-eyebrow{
-    font-family:var(--font-mono); font-size:12px; letter-spacing:0.06em;
-    color:var(--ink-faint); margin:0 0 10px; text-transform:uppercase;
+  .sidebar{ position:sticky; top:76px; display:grid; gap:16px; max-height:calc(100vh - 96px); overflow-y:auto; padding-bottom:8px; }
+  @media (max-width:920px){
+    .sidebar{ position:static; max-height:none; overflow:visible; }
+    .sidebar.is-collapsed{ display:none; }
   }
-  .phase-eyebrow b{ color:var(--accent); font-weight:600; font-style:italic; }
-  .phase-head h2{
-    font-family:var(--font-display); font-weight:700; font-size:26px; margin:0 0 10px; text-wrap:balance;
-  }
-  .phase-sub{ margin:0; color:var(--ink-muted); font-size:15px; max-width:64ch; line-height:1.6; }
 
-  /* ---------- Entries with timeline rail ---------- */
-  .entries{
-    display:grid; gap:14px;
-    padding-left:28px; border-left:1px solid var(--rail);
-    margin-left:4px;
-  }
-  @media (max-width:560px){ .entries{ padding-left:16px; margin-left:0; } }
+  .panel{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow-sm); }
+  .panel-title{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); margin:0 0 12px; }
 
+  .search-wrap{ position:relative; }
+  .search-wrap svg{ position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--text-faint); pointer-events:none; }
+  #search{
+    width:100%; padding:10px 12px 10px 36px; border-radius:10px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--text); font-size:14px;
+  }
+  #search:focus{ background:var(--surface); }
+  #search::placeholder{ color:var(--text-faint); }
+
+  .chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .chip{
+    border:1px solid var(--border); background:var(--surface-2); color:var(--text-muted);
+    font-size:12.5px; font-weight:600; padding:6px 11px; border-radius:99px; cursor:pointer;
+    transition:all .12s ease; white-space:nowrap;
+  }
+  .chip:hover{ border-color:var(--border-strong); color:var(--text); }
+  .chip[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .chip.chip-good[aria-pressed="true"]{ background:var(--good); border-color:var(--good); }
+  .chip.chip-warn[aria-pressed="true"]{ background:var(--warn); border-color:var(--warn); }
+  .chip.chip-bad[aria-pressed="true"]{ background:var(--bad); border-color:var(--bad); }
+
+  select#phase-filter{
+    width:100%; padding:9px 10px; border-radius:10px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--text); font-size:13.5px;
+  }
+
+  .clear-filters{
+    display:none; width:100%; margin-top:10px; padding:8px; border-radius:10px; border:1px dashed var(--border-strong);
+    background:transparent; color:var(--text-muted); font-size:12.5px; font-weight:600; cursor:pointer;
+  }
+  .clear-filters:hover{ color:var(--text); border-color:var(--accent); }
+  .clear-filters.is-visible{ display:block; }
+
+  /* Calendar */
+  .cal-month + .cal-month{ margin-top:16px; }
+  .cal-month-label{ font-size:13px; font-weight:700; margin:0 0 8px; color:var(--text); }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7, 1fr); gap:3px; }
+  .cal-dow{ font-size:10px; text-align:center; color:var(--text-faint); font-weight:600; padding-bottom:2px; }
+  .cal-day{
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center; position:relative;
+    border-radius:8px; font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--text-faint);
+  }
+  .cal-day.has-entries{
+    background:var(--accent-soft); color:var(--accent-text); font-weight:700; cursor:pointer; border:none;
+  }
+  .cal-day.has-entries:hover{ background:var(--accent); color:#fff; }
+  .cal-day.is-empty{ visibility:hidden; }
+  .cal-day-dot{ position:absolute; bottom:2px; width:3px; height:3px; border-radius:50%; background:currentColor; opacity:0.7; }
+
+  .legend{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--text-faint); margin-top:10px; }
+  .legend-swatch{ width:10px; height:10px; border-radius:3px; background:var(--accent-soft); border:1px solid var(--accent); }
+
+  /* ---------- Timeline ---------- */
+  #result-count{ font-size:13px; color:var(--text-faint); margin:0 0 20px; }
+  .month-group + .month-group{ margin-top:44px; }
+  .month-heading{
+    font-size:20px; font-weight:800; letter-spacing:-0.01em; margin:0 0 20px;
+    position:sticky; top:64px; background:var(--bg); padding:10px 0; z-index:10;
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .month-heading .count{ font-size:12.5px; font-weight:600; color:var(--text-faint); font-family:var(--font-mono); }
+
+  .day-group{ position:relative; padding-left:26px; border-left:2px solid var(--border); margin-bottom:28px; }
+  .day-group:last-child{ margin-bottom:0; }
+  .day-heading{
+    display:flex; align-items:baseline; gap:10px; margin:0 0 12px; position:relative;
+  }
+  .day-heading::before{
+    content:""; position:absolute; left:-31px; top:4px; width:10px; height:10px; border-radius:50%;
+    background:var(--accent); border:2px solid var(--bg); box-shadow:0 0 0 2px var(--accent);
+  }
+  .day-heading h3{ font-size:15px; font-weight:700; margin:0; }
+  .day-heading .day-count{ font-size:12px; color:var(--text-faint); font-family:var(--font-mono); }
+
+  .entries{ display:grid; gap:10px; }
   .entry{
-    position:relative; background:var(--surface); border:1px solid var(--line);
-    border-radius:12px; padding:18px 20px; box-shadow:var(--shadow);
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 18px;
+    box-shadow:var(--shadow-sm); transition:box-shadow .15s ease, border-color .15s ease;
   }
-  .entry::before{
-    content:""; position:absolute; left:-32.5px; top:24px; width:9px; height:9px; border-radius:50%;
-    background:var(--surface); border:2px solid var(--accent);
-  }
-  @media (max-width:560px){ .entry::before{ left:-20.5px; } }
-
-  .entry-meta{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
-  .entry-date{
-    font-family:var(--font-mono); font-size:12.5px; color:var(--ink-faint);
-    font-variant-numeric:tabular-nums; letter-spacing:0.02em;
-  }
+  .entry:hover{ box-shadow:var(--shadow-md); border-color:var(--border-strong); }
+  .entry-meta{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; flex-wrap:wrap; }
+  .entry-time{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); }
   .pill{
-    font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:0.03em;
-    padding:3px 9px; border-radius:99px; white-space:nowrap;
+    font-size:11px; font-weight:700; letter-spacing:0.02em; padding:3px 10px; border-radius:99px; white-space:nowrap;
   }
   .pill-good{ background:var(--good-soft); color:var(--good); }
   .pill-warn{ background:var(--warn-soft); color:var(--warn); }
   .pill-bad{ background:var(--bad-soft); color:var(--bad); }
 
-  .entry-title{
-    font-family:var(--font-display); font-weight:700; font-size:18px; margin:0 0 6px;
-    line-height:1.32; text-wrap:balance;
-  }
+  .entry-title{ font-weight:700; font-size:16px; margin:0 0 5px; line-height:1.35; text-wrap:balance; }
+  .entry-taglist{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 9px; }
   .entry-tag{
-    font-size:12px; color:var(--accent); margin:0 0 10px; font-weight:600;
-    text-transform:uppercase; letter-spacing:0.03em;
+    font-size:11px; color:var(--accent-text); background:var(--accent-soft); font-weight:600;
+    padding:2px 8px; border-radius:6px;
   }
-  .entry-purpose{ margin:0; font-size:15px; color:var(--ink); line-height:1.62; }
+  .entry-phase-tag{
+    font-size:11px; color:var(--text-muted); background:var(--surface-2); font-weight:600;
+    padding:2px 8px; border-radius:6px; border:1px solid var(--border);
+  }
+  .entry-purpose{ margin:0; font-size:14.5px; color:var(--text); line-height:1.6; }
 
-  details.entry-tech{ margin-top:12px; }
+  details.entry-tech{ margin-top:10px; }
   details.entry-tech summary{
-    cursor:pointer; font-size:12.5px; font-weight:600; color:var(--ink-muted);
+    cursor:pointer; font-size:12.5px; font-weight:600; color:var(--text-muted);
     list-style:none; display:inline-flex; align-items:center; gap:6px; user-select:none;
   }
   details.entry-tech summary::-webkit-details-marker{ display:none; }
@@ -201,37 +297,65 @@
   details.entry-tech[open] summary::before{ transform:rotate(90deg); }
   details.entry-tech summary:hover{ color:var(--accent); }
   .tech-body{
-    margin-top:10px; padding:12px 14px; background:var(--paper); border:1px solid var(--line);
-    border-radius:8px; font-size:13.5px; color:var(--ink-muted); line-height:1.6;
+    margin-top:9px; padding:12px 14px; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; font-size:13px; color:var(--text-muted); line-height:1.6;
   }
   .tech-body p{ margin:0 0 8px; }
   .tech-body p:last-child{ margin-bottom:0; }
-  .tech-body strong{ color:var(--ink); font-weight:600; }
+  .tech-body strong{ color:var(--text); font-weight:600; }
 
-  /* ---------- Footer ---------- */
+  .empty-state{
+    text-align:center; padding:64px 20px; color:var(--text-faint); display:none;
+  }
+  .empty-state.is-visible{ display:block; }
+  .empty-state svg{ width:36px; height:36px; margin-bottom:12px; opacity:0.5; }
+  .empty-state p{ margin:4px 0; font-size:14px; }
+
   .foot{
-    margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
-    font-size:12.5px; color:var(--ink-faint); font-family:var(--font-mono);
+    max-width:1280px; margin:0 auto; padding:32px 24px 60px; border-top:1px solid var(--border); margin-top:40px;
+    font-size:12.5px; color:var(--text-faint); font-family:var(--font-mono);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
   }
 </style>
+</head>
+<body>
+<a class="skip-link" href="#timeline">Skip to worklog</a>
 
-<div class="wrap">
-
-  <header class="masthead">
-    <p class="masthead-eyebrow">Status report · Jul 3 – Aug 6, 2026</p>
-    <h1>Engineering Worklog</h1>
-    <p class="masthead-sub">ERPNext infrastructure, the EasyCloud CRM build, and client deployments across five weeks — from the first server hardening pass to the latest production fix. Every item below is expandable for the technical detail behind it.</p>
-
-    <div class="stats">
-      <div class="stat"><span class="stat-num">75</span><div class="stat-label">Work items logged</div></div>
-      <div class="stat"><span class="stat-num">7</span><div class="stat-label">Client sites live</div></div>
-      <div class="stat"><span class="stat-num">12</span><div class="stat-label">Workstreams</div></div>
-      <div class="stat"><span class="stat-num">3</span><div class="stat-label">Open / blocked items</div></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">EC</div>
+      <div class="brand-text">
+        <p class="brand-title">Engineering Worklog</p>
+        <p class="brand-sub">EasyCloud · Mohammed Inzi</p>
+      </div>
     </div>
-  </header>
+    <div class="topbar-actions">
+      <button class="icon-btn filters-toggle" id="filters-toggle" type="button" aria-expanded="false" aria-controls="sidebar" title="Show filters &amp; calendar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="9" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button class="icon-btn" id="theme-toggle" type="button" title="Toggle dark / light theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-  <section class="summary">
-    <h2>What this covers</h2>
+<section class="hero">
+  <p class="hero-eyebrow">Status report · Jul 3 – Aug 6, 2026</p>
+  <h1>Engineering Worklog</h1>
+  <p class="hero-sub">Every task logged the day it happened — server hardening, the EasyCloud CRM build, client deployments, and production fixes. Search, filter, or jump straight to any date.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-num">75</span><div class="stat-label">Work items logged</div></div>
+<div class="stat"><span class="stat-num">7</span><div class="stat-label">Client sites live</div></div>
+<div class="stat"><span class="stat-num">12</span><div class="stat-label">Workstreams</div></div>
+<div class="stat"><span class="stat-num">3</span><div class="stat-label">Open / blocked items</div></div>
+  </div>
+
+  <details class="summary-box" open>
+    <summary>What this month covers</summary>
     <div class="summary-grid">
       <div class="summary-item"><span class="mark">01</span><p><strong>Built secure, monitored production infrastructure from scratch.</strong> Seven client ERPNext sites are now live, each firewalled, on HTTPS, and watched by real-time dashboards.</p></div>
       <div class="summary-item"><span class="mark">02</span><p><strong>Built the sales CRM end to end</strong> — lead capture, deal pipeline, Kanban board, voice-note logging, and automated follow-up reminders — and rolled it into live production use.</p></div>
@@ -240,910 +364,325 @@
       <div class="summary-item"><span class="mark">05</span><p><strong>Diagnosed and resolved every production incident the same day it happened</strong>, including three self-caused outages fixed within minutes to an hour.</p></div>
       <div class="summary-item"><span class="mark">06</span><p><strong>Currently planning the next phase:</strong> deal/lead scoring, multi-team pipelines, and lead capture beyond Meta ads.</p></div>
     </div>
+  </details>
+</section>
 
-    <nav class="quicknav">
-      <p class="quicknav-label">Jump to a workstream</p>
-      <ol>
-        <li><a href="#phase-1"><span class="qn-num">01</span> Server &amp; Platform Setup</a></li>
-        <li><a href="#phase-2"><span class="qn-num">02</span> CRM Core Build</a></li>
-        <li><a href="#phase-3"><span class="qn-num">03</span> Production Migration</a></li>
-        <li><a href="#phase-4"><span class="qn-num">04</span> CRM UX &amp; Meta Hardening</a></li>
-        <li><a href="#phase-5"><span class="qn-num">05</span> Bigin Migration &amp; Hardening</a></li>
-        <li><a href="#phase-6"><span class="qn-num">06</span> Enhancement Planning</a></li>
-        <li><a href="#phase-7"><span class="qn-num">07</span> Filter &amp; Notification Backlog</a></li>
-        <li><a href="#phase-8"><span class="qn-num">08</span> GL Ledger Report Fixes</a></li>
-        <li><a href="#phase-9"><span class="qn-num">09</span> Powertex UAT Domain Mapping</a></li>
-        <li><a href="#phase-10"><span class="qn-num">10</span> Barcode Printing &amp; Org Chart</a></li>
-        <li><a href="#phase-11"><span class="qn-num">11</span> UAT Domain Migrations</a></li>
-        <li><a href="#phase-12"><span class="qn-num">12</span> SKU Generator &amp; Org Tree</a></li>
-      </ol>
-    </nav>
-  </section>
-
-  <!-- ================= PHASE 1 ================= -->
-  <section class="phase" id="phase-1">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>01</b> · Jul 3 – Jul 13, 2026 · 11 items</p>
-      <h2>Server &amp; Platform Setup</h2>
-      <p class="phase-sub">Before any software could run, the team built and locked down the server itself — firewall, containers, database, HTTPS, and monitoring — establishing the foundation every later CRM feature runs on.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 3</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Server hardening &amp; kernel tuning</h3>
-        <p class="entry-tag">Infrastructure / Server Provisioning</p>
-        <p class="entry-purpose">Locked down a fresh Ubuntu server before installing anything client-facing, cutting the attack surface and avoiding resource-limit crashes once the database and app servers come under load.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Installed core security packages, set the firewall to deny everything by default and only allow SSH plus web traffic from Cloudflare's own IP ranges, turned on fail2ban against SSH brute-forcing, and raised kernel and file-limit ceilings ahead of installing MariaDB.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 4</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Docker platform installed, project scaffolded</h3>
-        <p class="entry-tag">Infrastructure / Docker Platform</p>
-        <p class="entry-purpose">Installed the containerization platform the CRM runs on and laid out a clean, repeatable folder structure — the standard groundwork rather than a shortcut that causes problems later.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Installed Docker Engine and Compose from Docker's official repository, created the project directories, and generated a strong random database password instead of a default value.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 5</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Database &amp; ERPNext application stood up</h3>
-        <p class="entry-tag">Infrastructure / ERPNext Core</p>
-        <p class="entry-purpose">Brought the application online for the first time with the correct character encoding from day one — getting this wrong is the kind of mistake that silently corrupts data and forces a redo months later.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Initialized MariaDB with the correct UTF-8 variant, brought up Redis and the full 11-container stack, created the ERPNext site, and confirmed every service started cleanly before moving on.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 6</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Public HTTPS access configured (Cloudflare + Traefik)</h3>
-        <p class="entry-tag">Infrastructure / Reverse Proxy &amp; Edge Security</p>
-        <p class="entry-purpose">Made the site securely reachable from the public internet without the "infinite redirect" failure that happens when Cloudflare and the server's own SSL disagree — and closed two configuration mistakes before they became a real problem.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Diagnosed and fixed a redirect loop by switching Cloudflare to Full (Strict) SSL mode.</p>
-          <p><strong>Issues found and fixed:</strong> a database password left at a weak placeholder value, and a background job pointed at the wrong internal address.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 7</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Custom app build pipeline established (Powertex)</h3>
-        <p class="entry-tag">Custom App Deployment / Powertex</p>
-        <p class="entry-purpose">Added the client's custom Powertex features to the live system, building a safe, repeatable process for adding future custom apps without risking existing data.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Took a full backup as a safety net first.</p>
-          <p><strong>Issue found and fixed:</strong> a silent build failure where the custom app was being left out of the image with no error message — resolved by using Docker's proper secrets mechanism.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 8</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Powertex app verified and cut over to production</h3>
-        <p class="entry-tag">Custom App Deployment / Powertex</p>
-        <p class="entry-purpose">Switched the live site over to the new build without downtime, leaving behind a documented rollback plan and checklist for the next custom app.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Verified the new build actually contained the custom app before touching production, fixed a "pull access denied" error caused by a missing configuration flag, then cut over and confirmed the new features were live.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 9</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Second client site stood up (Mtarmes)</h3>
-        <p class="entry-tag">Custom App Deployment / Mtarmes</p>
-        <p class="entry-purpose">Brought a second, fully independent client site online on the same server — without a second IP address and without touching the first client's site — shipping a working version despite an incomplete field in the vendor's own app.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Built Mtarmes as a fully separate project sharing the existing web proxy safely.</p>
-          <p><strong>Issue found and fixed:</strong> a setup error caused by a field referencing a table the vendor's app never actually shipped — applied an interim fix and flagged it back to the vendor.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 10</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Both client sites live; monitoring kicked off</h3>
-        <p class="entry-tag">Custom App Deployment + Observability</p>
-        <p class="entry-purpose">Got both client sites (Powertex and Mtarmes) fully live and working independently, and started closing the visibility gap on server health before it could cause an unplanned outage.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Issue found and fixed:</strong> a subtle bug where Mtarmes's site was silently serving Powertex's backend, due to ambiguous internal network naming.</p>
-          <p>Same day, installed the first 3 of what became a 7-part monitoring stack, running under a locked-down, low-privilege account.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 11</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Centralized log search set up</h3>
-        <p class="entry-tag">Observability / Log Aggregation</p>
-        <p class="entry-purpose">Made it possible to search the application's error and activity logs from a browser, instead of logging into the server and searching flat files by hand.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Installed Loki and Promtail to collect and store 7 days of logs. Fixed a startup crash and a rate-limit warning triggered by the first large backfill of historical logs.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 12</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Shared health dashboard published (Grafana)</h3>
-        <p class="entry-tag">Observability / Dashboards &amp; Public Access</p>
-        <p class="entry-purpose">Gave the whole team an always-on dashboard to check server health from a browser, with no need for server access — secured on its own HTTPS subdomain.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Changed the default admin password before any public exposure and set it up on its own subdomain with a real, auto-renewing HTTPS certificate.</p>
-          <p><strong>Open follow-up:</strong> individual read-only logins for each team member — everyone currently shares one admin login.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 13</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Wasteful server configuration fixed; 3 dashboards built</h3>
-        <p class="entry-tag">Observability / Cost Optimization &amp; Dashboards</p>
-        <p class="entry-purpose">Found the server quietly running nearly double the application workers it needed, and fixed it — a real, measured improvement.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Reduced background worker processes from 9 to 5 to match the server's actual capacity, dropping memory usage from 55% to 47% and swap usage from 32% to 20%.</p>
-          <p>Built three dashboards, including a plain-language "command center" view for non-technical stakeholders.</p>
-          <p><strong>Note:</strong> closes out the initial infrastructure build; automated alerting and per-team dashboard logins remain open follow-ups.</p>
-        </div></details>
-      </article>
-
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="panel">
+      <p class="panel-title">Find a day</p>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="search" type="search" placeholder="Search work items, tags, tools…" autocomplete="off">
+      </div>
     </div>
-  </section>
 
-  <!-- ================= PHASE 2 ================= -->
-  <section class="phase" id="phase-2">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>02</b> · Jul 13 – Jul 21, 2026 · 16 items</p>
-      <h2>CRM Core Build</h2>
-      <p class="phase-sub">With the server ready, the team built the CRM itself — the deal pipeline, voice-note logging, automated lead handling, and the polish that makes it usable day to day.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 13</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Project scaffold created</h3>
-        <p class="entry-tag">Infrastructure / App Scaffold</p>
-        <p class="entry-purpose">Laid the groundwork for the CRM app and confirmed the development setup worked end to end before any real feature was built on top of it.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 14</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Deal pipeline, Kanban board &amp; dashboards built</h3>
-        <p class="entry-tag">Lead / Deal / CRM Activity</p>
-        <p class="entry-purpose">Gave the sales team an actual working pipeline to track deals from first contact to close — visually, on a drag-and-drop board, and numerically, on a dashboard — with the right people able to see the right records.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Introduced the Deal and CRM Activity record types as the pipeline's backbone. Built automation so winning a deal automatically creates the Customer and Project records plus 5 starter tasks. Added a Kanban board, a CRM home screen with charts and reports, and role-based permissions.</p>
-          <p><strong>Note:</strong> the single largest day of foundational work in the project — 7 changes merged into one release.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 14</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Lost-deal reasons &amp; marketing retargeting list</h3>
-        <p class="entry-tag">Deal / Marketing</p>
-        <p class="entry-purpose">When a deal is lost, the reason is now captured — and marketing gets a clean, exportable list of lost-but-still-worth-reaching contacts, turning a dead end into future pipeline.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>A deal can't be marked Lost without a reason. Built a dedicated report and a read-only marketing role to pull the retargeting list.</p>
-          <p><strong>Note:</strong> uploading the exported list to ad platforms remains a manual step for marketing, by design.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 14</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Documentation written; CRM set as default home screen</h3>
-        <p class="entry-tag">Documentation / Platform</p>
-        <p class="entry-purpose">Made the system explainable to future team members, and ensured every user lands on the CRM the moment they log in.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 16</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Voice-note recording with AI transcription</h3>
-        <p class="entry-tag">CRM Activity</p>
-        <p class="entry-purpose">Lets a sales rep log a call by talking instead of typing — saving time, capturing more detail than a rushed typed note, and making that detail searchable afterward.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Built a recording button on the Deal and Activity forms with cross-browser microphone handling, a live transcription service, and a background retry job for reliability. Tested against real recorded speech including names, amounts, and phone numbers.</p>
-          <p><strong>Note:</strong> 6 separate changes merged into one release; runs on a self-hosted transcription service reached only over the internal network.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 16</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Customer naming fixed after a deal is won</h3>
-        <p class="entry-tag">Deal</p>
-        <p class="entry-purpose">A new customer record is now named after the actual company, not the internal deal name — a small fix that avoids an unprofessional-looking, confusing record reaching the client's own books.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug fixed:</strong> Customer and Project records were being named after the internal deal instead of the company. Automatic creation now uses the linked Lead's company name, falling back to the deal name only if no lead is attached.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 16</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Visual design pass — colors, icons, layout</h3>
-        <p class="entry-tag">Platform / UI</p>
-        <p class="entry-purpose">Made the CRM look and feel more polished and easier to scan at a glance, without a full redesign.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Added a small color palette on top of the existing theme (so dark mode kept working automatically), color-coded the Kanban stages, added icons throughout, and reorganized form fields into clearer sections.</p>
-          <p><strong>Note:</strong> 5 changes, labeled internally as Phases 33–37, merged into one release.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 16</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Lead source tracking, more Lost Reasons, last-contacted tracking</h3>
-        <p class="entry-tag">Lead / Deal</p>
-        <p class="entry-purpose">More accurate reporting on where leads actually come from, more precise loss-reason data, and an at-a-glance view of which deals haven't been followed up on recently.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Added a Last Contacted field that updates automatically whenever an activity is logged, with a safeguard so an older backdated activity can't overwrite a more recent contact.</p>
-          <p><strong>Bugs fixed:</strong> leads were displaying their internal record ID instead of their name in multiple places; a date-comparison bug in the first draft of Last Contacted was caught and fixed the same day.</p>
-          <p><strong>Note:</strong> labeled internally as Phases 38–42.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 17</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Data model extended to support importing history from the old CRM</h3>
-        <p class="entry-tag">Deal / Lead</p>
-        <p class="entry-purpose">Preserves the sales team's existing deal history and notes when migrating off the previous CRM (Zoho Bigin), instead of starting from a blank slate.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Added fields to hold historical progress notes, recurring-income figures, and location data from the old system; added two more loss-reason categories to map cleanly from it.</p>
-          <p><strong>Bug fixed:</strong> a workspace shortcut was pointing at the wrong record type.</p>
-          <p><strong>Note:</strong> the actual historical data import ran separately — see the Bigin migration on Jul 28.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 17</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Deal-to-customer automation simplified; tasks re-linked to leads</h3>
-        <p class="entry-tag">Deal / Task / Dashboard</p>
-        <p class="entry-purpose">The automatic project/task creation didn't match how the team actually works day to day, so it was simplified — and a real duplicate-customer-creation risk was fixed along the way.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Winning a deal now creates only a Customer, with a genuine duplicate check (the old check only worked by accident). Removed an unused report and dashboard clutter after confirming nothing else depended on them.</p>
-          <p><strong>Note:</strong> all pre-existing project/task records from before this change were explicitly left untouched.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 20</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Automatic lead capture from Facebook &amp; Instagram ads</h3>
-        <p class="entry-tag">Lead / Integrations</p>
-        <p class="entry-purpose">Leads from paid social ads now flow straight into the CRM with no manual re-typing, and a new lead now has a clear progression that hands off cleanly into the deal pipeline once qualified.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Built a secure, signature-verified webhook that receives lead-form submissions from Meta in real time and maps the answers onto CRM fields. Gave leads their own New → Contacted → Qualified pipeline; reaching Qualified automatically creates a Deal.</p>
-          <p><strong>Note:</strong> tested against Meta's real API; registering the webhook on Meta's own developer dashboard was a separate manual step.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 20</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Visual deal progress bar &amp; full stage history</h3>
-        <p class="entry-tag">Deal</p>
-        <p class="entry-purpose">Makes it immediately obvious how far along a deal is and how it got there — closer to the feel of modern CRM products the team is used to.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Every stage change is now logged automatically, powering a clickable progress bar and full timeline. Added a Products tab and gave Deal its own Notes and Activities tabs.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 20</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Readable activity titles; removed a mislabeled tab</h3>
-        <p class="entry-tag">CRM Activity / Lead</p>
-        <p class="entry-purpose">Fixed real confusion reported by pilot testers — activity records were showing meaningless IDs, and a tab labeled "Notes" didn't actually contain notes.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Activity records now show a readable title referencing the lead, deal, or contact they belong to. Hid the misleading Notes tab on Lead.</p>
-          <p><strong>Note:</strong> driven directly by feedback from real pilot-testing customers.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 20</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Automatic email alerts on assignment &amp; new leads</h3>
-        <p class="entry-tag">Notifications / Lead / Deal</p>
-        <p class="entry-purpose">Ensures nothing falls through the cracks — the right person is notified the moment work is assigned to them or a new lead comes in.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Configured two email alerts using the CRM's built-in notification engine — no custom code required, and both are editable later without a deployment.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 20</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Codebase documented; README rewritten</h3>
-        <p class="entry-tag">Documentation / Platform</p>
-        <p class="entry-purpose">Makes the codebase understandable to any future engineer, reducing onboarding time and the risk of mistakes.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Added explanatory comments to 29 files and rewrote the README, which had drifted out of date. Re-ran the full test suite afterward to confirm zero behavioral changes (30/30 passing).</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 21</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Competitive gap-closing: auto-assignment, duplicate warnings, stale-deal reminders</h3>
-        <p class="entry-tag">Lead / Deal / Notifications / UI</p>
-        <p class="entry-purpose">Closed gaps found in a direct comparison against CRMs like Zoho Bigin — leads no longer sit unclaimed, duplicates get flagged, and overdue follow-ups get a nudge.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Turned on automatic round-robin lead assignment, added duplicate-phone warnings, made tasks visible from the Lead/Deal forms, and added an automatic reminder when a deal goes 3+ days without contact.</p>
-          <p><strong>Issues found and fixed:</strong> a misconfigured setting that would have silently blocked every real won-deal conversion, and a test-data gap that was leaving stray records in the live database.</p>
-          <p><strong>Note:</strong> driven by an explicit competitive analysis against Zoho Bigin; browser-verified by the product owner before deploy.</p>
-        </div></details>
-      </article>
-
+    <div class="panel">
+      <p class="panel-title">Status</p>
+      <div class="chip-row" id="status-filters">
+        <button class="chip" data-status="all" aria-pressed="true" type="button">All</button>
+        <button class="chip chip-good" data-status="good" aria-pressed="false" type="button">Completed</button>
+        <button class="chip chip-warn" data-status="warn" aria-pressed="false" type="button">In progress</button>
+        <button class="chip chip-bad" data-status="bad" aria-pressed="false" type="button">Blocked</button>
+      </div>
     </div>
-  </section>
 
-  <!-- ================= PHASE 3 ================= -->
-  <section class="phase" id="phase-3">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>03</b> · Jul 22 – Jul 24, 2026 · 3 items</p>
-      <h2>Production Migration</h2>
-      <p class="phase-sub">Proved the CRM could run on a shared production server hosting other live client systems, then completed the rollout with the business owner confirming it live.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 22</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">CRM proven on a second, pre-existing server</h3>
-        <p class="entry-tag">Deployment / CRM App Migration</p>
-        <p class="entry-purpose">De-risked the real production rollout by first proving the CRM installs cleanly next to an already-running ERPNext system, without needing a fresh site.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Installed the CRM onto an existing site on a test server alongside its existing apps and data. Completed with no errors and no disruption to what was already running.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 23</span><span class="pill pill-warn">Blocked · resolved next day</span></div>
-        <h3 class="entry-title">Production rollout attempted — blocked by unmerged code</h3>
-        <p class="entry-tag">Deployment / CRM App Migration</p>
-        <p class="entry-purpose">Attempted to bring the CRM onto the real production server the business already depends on, hosting a dozen other live apps — paused deliberately rather than risk that shared system.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug:</strong> the install failed partway through because a pending code fix hadn't been merged yet, and the production version of the underlying CRM framework differed from the environments this app was built against. Confirmed the other 12 apps on the shared site were unaffected before stopping for the day.</p>
-          <p><strong>Note:</strong> hardest day of the migration — a live, business-critical server with 12+ existing apps left very little room for error.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 24</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Production rollout completed — confirmed live by the business owner</h3>
-        <p class="entry-tag">Deployment / CRM App Migration</p>
-        <p class="entry-purpose">Completed the production rollout so the business owner can use the CRM day to day on the real, already-critical server.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Resolved the previous day's blocker, reinstalled cleanly with no errors, and verified every feature end to end alongside the other pre-existing apps with no regressions.</p>
-          <p><strong>Note:</strong> production sign-off received directly from the business owner using the live system.</p>
-        </div></details>
-      </article>
-
+    <div class="panel">
+      <p class="panel-title">Workstream</p>
+      <select id="phase-filter">
+        <option value="all">All workstreams</option>
+        <option value="phase-1">Server & Platform Setup</option>
+        <option value="phase-2">CRM Core Build</option>
+        <option value="phase-3">Production Migration</option>
+        <option value="phase-4">CRM UX & Meta Integration Hardening</option>
+        <option value="phase-5">Bigin Migration & CRM Hardening</option>
+        <option value="phase-6">CRM Enhancement Planning & Dev Workflow</option>
+        <option value="phase-7">CRM Filter & Notification Backlog</option>
+        <option value="phase-8">GL Ledger Report Fixes</option>
+        <option value="phase-9">Powertex UAT Domain Mapping</option>
+        <option value="phase-10">Vendor Barcode Printing & Org Chart</option>
+        <option value="phase-11">UAT Domain Migrations</option>
+        <option value="phase-12">SKU Generator & Org Tree Finalization</option>
+      </select>
     </div>
-  </section>
 
-  <!-- ================= PHASE 4 ================= -->
-  <section class="phase" id="phase-4">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>04</b> · Jul 27, 2026 · 11 items</p>
-      <h2>CRM UX &amp; Meta Integration Hardening</h2>
-      <p class="phase-sub">A single intensive day closing UX gaps and — most importantly — discovering and fixing a completely broken Facebook/Instagram lead integration that had been silently losing every lead.</p>
-    </header>
-    <div class="entries">
+    <button class="clear-filters" id="clear-filters" type="button">Clear all filters</button>
 
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 13:13</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Tagging added to Contacts</h3>
-        <p class="entry-tag">CRM Activity / Contacts</p>
-        <p class="entry-purpose">Lets reps organize and filter contacts the same way they already could with leads and deals.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 13:16</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Lead alert recipients corrected</h3>
-        <p class="entry-tag">Notifications / Lead</p>
-        <p class="entry-purpose">Ensured the new-lead email alert actually reaches the right people.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 14:33</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Tags filter — first-pass fix</h3>
-        <p class="entry-tag">CRM Activity / Contacts</p>
-        <p class="entry-purpose">Fixed the new tag filter overlapping contact names and not applying until a manual refresh.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Note:</strong> a deeper root cause in the same filtering system, affecting the whole app, was found and fixed later the same day (22:31 entry below).</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 15:04</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Facebook/Instagram lead sync rebuilt from scratch</h3>
-        <p class="entry-tag">Lead / Integrations</p>
-        <p class="entry-purpose">The CRM's built-in Meta lead sync was completely broken — 100% of sync attempts were failing and zero leads were being captured. Replacing it stopped active, ongoing loss of paid-ad leads.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug:</strong> native CRM Facebook lead sync was 100% broken despite appearing configured — replaced, not patched.</p>
-          <p>Replaced it with a custom pipeline that auto-discovers every ad form across every accessible page, syncs in real time with an hourly safety-net backfill, and preserves any unmapped answers as a note instead of silently dropping them.</p>
-          <p><strong>Note:</strong> single largest fix of the day.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 15:18</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">More lead-form fields mapped correctly</h3>
-        <p class="entry-tag">Lead / Integrations</p>
-        <p class="entry-purpose">Captures more of what a lead actually submitted in proper structured fields instead of losing it to a catch-all note.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Manual recovery of leads from a mistracked ad campaign</h3>
-        <p class="entry-tag">Lead / Data Recovery</p>
-        <p class="entry-purpose">Recovered leads from a separate campaign that weren't syncing automatically, checking for duplicates first — 2 existing leads enriched, 1 new lead created, no duplicates.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 16:20</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Tags filter — scoped to real usage, with delete</h3>
-        <p class="entry-tag">CRM Activity / Contacts</p>
-        <p class="entry-purpose">Keeps the tag filter usable as the number of tags grows, and lets reps clean up tags no longer needed.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Built as a custom feature specifically so it survives future upstream CRM updates, instead of patching the core code where it would be silently overwritten later.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 16:56</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Voice-note transcription accuracy improved</h3>
-        <p class="entry-tag">CRM Activity / Voice Note</p>
-        <p class="entry-purpose">Reduces mistranscriptions and made-up text in voice notes, so reps can trust the feature day to day.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27 · 22:31</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">App-wide search &amp; filtering fixed at the root cause</h3>
-        <p class="entry-tag">Platform / Filters &amp; Search</p>
-        <p class="entry-purpose">What looked like one small tag-filter bug on Contacts turned out to be three separate bugs breaking search and filtering across every list in the CRM — Leads, Deals, Contacts, and Organizations.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Three root causes found and fixed:</strong> a component that silently fell back to a plain text box instead of a searchable dropdown; search results shared and going stale across unrelated fields; and a startup-timing bug that could crash quick-filter, sort, and export on the very first use after loading a page.</p>
-          <p><strong>Note:</strong> the deepest and most consequential fix of the day. Committed locally; not yet pushed to the shared repository, pending a decision.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">New-lead notification recipients fixed to a known list</h3>
-        <p class="entry-tag">Notifications / Lead</p>
-        <p class="entry-purpose">Ensures new-lead alerts reach a fixed, known set of people.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Note:</strong> trades some flexibility for reliability — worth revisiting if the recipient list needs to change again.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 27</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">"CRM feels slow, needs a hard refresh" — root-caused and fixed</h3>
-        <p class="entry-tag">Platform / Performance</p>
-        <p class="entry-purpose">Fixed a real, user-visible complaint that could easily have been mistaken for a database or server capacity problem — restoring trust in the tool right after go-live.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Ruled out the network, database, and server resources as causes.</p>
-          <p><strong>Two real causes found and fixed:</strong> the web server was caching the app's own update-check file for a full year, and a separate push-notification app was serving stale cached data on every page.</p>
-        </div></details>
-      </article>
-
+    <div class="panel">
+      <p class="panel-title">Calendar</p>
+      <div id="calendar"></div>
+      <div class="legend"><span class="legend-swatch"></span> Days with logged work</div>
     </div>
-  </section>
+  </aside>
 
-  <!-- ================= PHASE 5 ================= -->
-  <section class="phase" id="phase-5">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>05</b> · Jul 28, 2026 · 10 items</p>
-      <h2>Bigin Migration &amp; CRM Hardening</h2>
-      <p class="phase-sub">Migrated the client's entire sales history off Zoho Bigin into the CRM as the single system of record, and closed out a batch of real UX bugs the same day.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Connected to the old CRM (Zoho Bigin)</h3>
-        <p class="entry-tag">Integrations / Zoho Bigin</p>
-        <p class="entry-purpose">Established reliable, live read access to the old system as the first step of migrating off it.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Full sales history migrated from Zoho Bigin</h3>
-        <p class="entry-tag">Lead / Deal / Contact / Organization / Migration</p>
-        <p class="entry-purpose">Moved the client's entire sales pipeline and history into the CRM as the single system of record, with sign-off on scope beforehand and zero data loss.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Migrated 199 of 210 pipeline records (11 deliberately out of scope), 215 contacts, 206 accounts, 75 tasks, 23 notes, and full stage history — matched against everything already in the CRM so nothing was duplicated.</p>
-          <p><strong>Bug found and fixed:</strong> 3 contacts incorrectly merged due to a placeholder phone value in the source data — corrected and re-verified.</p>
-          <p><strong>Note:</strong> single largest item of the day.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Task assignment emails fixed</h3>
-        <p class="entry-tag">Notifications / Task</p>
-        <p class="entry-purpose">Task assignees now get notified the same way lead and deal owners already were, so assigned work doesn't go unnoticed.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug fixed:</strong> a filter condition was silently excluding Task from the assignment-notification rule.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Tasks now sync to Google Calendar</h3>
-        <p class="entry-tag">Task / Integrations</p>
-        <p class="entry-purpose">Gives each assignee an automatic calendar entry for their due tasks in the calendar they already use, with no manual re-entry.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Reassigning a task moves the calendar event; cancelling removes it. Built on the CRM's existing Google Calendar integration.</p>
-          <p><strong>Note:</strong> activates per person once they connect their Google account — not yet live for everyone.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Country field added to Contacts</h3>
-        <p class="entry-tag">Contact</p>
-        <p class="entry-purpose">Lets reps see and filter contacts by country, closing a data-capture gap.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Duplicate "Organization" field removed from Contact view</h3>
-        <p class="entry-tag">Contact</p>
-        <p class="entry-purpose">Removed a confusing, unprofessional-looking bug where the same field appeared twice.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Duplicate leads from Meta ads fixed at the source</h3>
-        <p class="entry-tag">Lead / Integrations</p>
-        <p class="entry-purpose">Stopped the same person from ending up as two separate CRM records, which was causing real confusion for reps working an already-contacted lead.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug fixed:</strong> leads imported before Meta-ID tracking existed had no way to match later duplicates. New leads are now also matched by email and phone as a fallback. One live duplicate found and merged with no data loss.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Meta lead data now lands in the right fields</h3>
-        <p class="entry-tag">Lead / Integrations</p>
-        <p class="entry-purpose">Captures more of what a lead actually submitted in clean fields instead of an unreadable data dump, and stops losing legitimate data to fields the CRM didn't have.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Mapped 4 previously-unmapped form questions (industry, employee count, website, job title) to proper fields, and rewrote the fallback storage from a raw data dump into clean, readable text. Backfilled every previously-affected lead.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Migration project put under version control</h3>
-        <p class="entry-tag">Platform / Version Control</p>
-        <p class="entry-purpose">Made the migration's scripts and data auditable and recoverable instead of living only as local files.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 28</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Day's code changes committed and cleaned up</h3>
-        <p class="entry-tag">Platform / Version Control</p>
-        <p class="entry-purpose">Ensured the day's work is properly saved, attributed, and free of clutter that doesn't belong in version control.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Found and committed roughly 216 lines of already-written fixes that were sitting on disk at risk of being lost; kept a 443MB dependency folder and an auto-generated cache out of the repository.</p>
-        </div></details>
-      </article>
-
+  <main>
+    <p id="result-count"></p>
+    <div id="timeline"></div>
+    <div class="empty-state" id="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p><strong>No entries match your filters.</strong></p>
+      <p>Try clearing the search or filters.</p>
     </div>
-  </section>
-
-  <!-- ================= PHASE 6 ================= -->
-  <section class="phase" id="phase-6">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>06</b> · Aug 1, 2026 · 4 items</p>
-      <h2>CRM Enhancement Planning &amp; Dev Workflow</h2>
-      <p class="phase-sub">Stepped back to plan the next phase properly, and fixed a structural risk: the business had no safe place to test changes before they hit the live server.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 1</span><span class="pill pill-good">Completed · planning</span></div>
-        <h3 class="entry-title">Competitive gap analysis &amp; 3-phase enhancement plan</h3>
-        <p class="entry-tag">Product Planning / Lead / Deal</p>
-        <p class="entry-purpose">Identified where the CRM genuinely still lags the client's old system, so future engineering effort targets real gaps instead of assumptions.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Verified every claim against the actual codebase rather than assuming. Got sign-off on a 3-phase plan: deal/lead scoring, then multi-team pipelines, then lead capture beyond Meta — built to survive future CRM framework upgrades.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 1</span><span class="pill pill-good">Completed · planning</span></div>
-        <h3 class="entry-title">Local dev/test/deploy workflow designed</h3>
-        <p class="entry-tag">Platform / DevOps</p>
-        <p class="entry-purpose">Stops untested changes from shipping directly to the only Frappe site that exists — which is production.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Designed a workflow: build and test on a local machine, push to GitHub, merge and deploy to production only after local verification, with a mandatory backup before every migration.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 1</span><span class="pill pill-warn">Mostly completed</span></div>
-        <h3 class="entry-title">Production housekeeping ahead of new feature work</h3>
-        <p class="entry-tag">Platform / Version Control / Deployment</p>
-        <p class="entry-purpose">Brought production in line with the main codebase and applied a pending fix safely, so the next phase of work builds on a clean, known-good base.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Found:</strong> production was running on an unmerged feature branch 6 commits ahead of main. Merged it in, took a backup, and applied a pending patch with no errors.</p>
-          <p><strong>Note:</strong> logged as Phase 0 of the 3-phase plan; treat as not fully closed out per the engineer's own framing.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 1</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Handoff briefing written for the next work session</h3>
-        <p class="entry-tag">Documentation / Platform</p>
-        <p class="entry-purpose">Let a separate work session pick up the next phase with full context, without re-deriving project history already confirmed.</p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= PHASE 7 ================= -->
-  <section class="phase" id="phase-7">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>07</b> · Jul 30 – Aug 3, 2026 · 5 items</p>
-      <h2>CRM Filter &amp; Notification Backlog</h2>
-      <p class="phase-sub">A handful of items that trailed across several days: a fix that had to be redone after files were lost, a notification framework built ahead of need, and voice notes reaching Contacts.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 30</span><span class="pill pill-warn">Deployed · browser check open</span></div>
-        <h3 class="entry-title">Filter fix redone after local files were lost</h3>
-        <p class="entry-tag">Platform / Filters &amp; Search</p>
-        <p class="entry-purpose">Restored the quick-filter/sort/export fix from Jul 27 after the underlying files were accidentally wiped that morning, so list views keep working without a manual refresh.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Note:</strong> worth understanding how the directory was lost, to prevent a repeat.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Jul 31</span><span class="pill pill-warn">Authored · wired live Aug 1</span></div>
-        <h3 class="entry-title">Structured notification email framework built</h3>
-        <p class="entry-tag">Notifications</p>
-        <p class="entry-purpose">Laid the groundwork for richer, event-driven emails across the CRM, built as a standalone framework ahead of being wired to any live event.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>756 lines across 4 modules, covering 3 events — shipped inert, then wired to live events by a colleague the next day.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 1</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Fresh-clone crash fixed (missing notification module)</h3>
-        <p class="entry-tag">Notifications</p>
-        <p class="entry-purpose">Stopped a fresh copy of the codebase from crashing on startup, which would have blocked the new local dev workflow from working at all.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug fixed:</strong> code referenced a class that was never actually committed — added the missing file.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 3</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Voice notes brought to Contacts</h3>
-        <p class="entry-tag">Contact / CRM Activity / Voice Note</p>
-        <p class="entry-purpose">Brings the same voice-note recording and transcription already on Deals and Activities to Contacts, so reps can log a note by talking there too.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 3</span><span class="pill pill-warn">In progress</span></div>
-        <h3 class="entry-title">Contacts filter switched from Status to Tags</h3>
-        <p class="entry-tag">Contact / CRM Activity / Tags</p>
-        <p class="entry-purpose">Replaces a less useful Status filter with a more flexible Tags filter, matching how reps actually organize contacts.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Status:</strong> filtering is live; tag-delete for managers is not yet built, and the change is not yet committed to version control.</p>
-        </div></details>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= PHASE 8 ================= -->
-  <section class="phase" id="phase-8">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>08</b> · Aug 3, 2026 · 2 items</p>
-      <h2>GL Ledger Report Fixes</h2>
-      <p class="phase-sub">Two accuracy fixes to the General Ledger report used for customer and supplier statements.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 3</span><span class="pill pill-bad">Blocked · not yet pushed</span></div>
-        <h3 class="entry-title">Missing opening balance restored on printed GL Ledger</h3>
-        <p class="entry-tag">Reports / GL Ledger</p>
-        <p class="entry-purpose">Printed ledger reports were silently omitting the opening balance for each group — a real risk of misleading anyone reading a printed statement. Fixed.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p><strong>Bug fixed:</strong> the opening balance row was silently discarded by the print template due to how it checked for a date.</p>
-          <p><strong>Status:</strong> committed locally, blocked on being pushed to the shared repository.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 3</span><span class="pill pill-warn">In progress</span></div>
-        <h3 class="entry-title">Journal Entry rows hidden from Customer/Supplier statements</h3>
-        <p class="entry-tag">Reports / GL Ledger</p>
-        <p class="entry-purpose">Matches a specific client request to hide Journal Entry lines from printed and exported customer/supplier ledgers, while keeping them visible in the normal on-screen report.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Applied to both the print view and the Excel/CSV export path.</p>
-          <p><strong>Open question sent to the client:</strong> hiding the line doesn't remove its effect on the running balance, so the visible numbers won't exactly foot to the total unless a deeper fix is wanted.</p>
-        </div></details>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= PHASE 9 ================= -->
-  <section class="phase" id="phase-9">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>09</b> · Aug 3, 2026 · 2 items</p>
-      <h2>Powertex UAT Domain Mapping</h2>
-      <p class="phase-sub">Gave the Powertex test site its own branded web address, and cleanly resolved a brief self-caused outage along the way.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 3</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">uat.powertex.in mapped to the Powertex test site</h3>
-        <p class="entry-tag">Infrastructure / Domain Mapping</p>
-        <p class="entry-purpose">Gave the client's UAT site a proper branded domain instead of an internal subdomain.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Added the domain, expanded the HTTPS certificate to cover it, and verified it serves correctly.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 3</span><span class="pill pill-good">Completed · self-resolved</span></div>
-        <h3 class="entry-title">Brief self-caused outage, resolved same day</h3>
-        <p class="entry-tag">Infrastructure / Incident</p>
-        <p class="entry-purpose">Transparent record of a short production incident caused by the domain work above.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>A bug in the server tooling briefly misrouted 3 unrelated client sites to the monitoring dashboard's login page for about 16 minutes (07:24–07:40 UTC). Diagnosed and repaired by hand; all 3 sites verified restored.</p>
-        </div></details>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= PHASE 10 ================= -->
-  <section class="phase" id="phase-10">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>10</b> · Aug 4, 2026 · 4 items</p>
-      <h2>Vendor Barcode Printing &amp; Org Chart</h2>
-      <p class="phase-sub">Built a warehouse label-printing feature correctly after the first draft missed the real requirement, then rolled it out to a second client the same day.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Vendor barcode label printing — corrected build (Powertex)</h3>
-        <p class="entry-tag">Purchasing / Barcode &amp; Label Printing</p>
-        <p class="entry-purpose">Gives warehouse staff a working, requirement-accurate way to print Child/Parent/Grandparent barcode labels — after the first build turned out not to match what was actually needed.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Rebuilt as a Purchase-Receipt-triggered calculator. Revised the same day after a live review against a real 10,000-unit receipt — deliberately kept the smallest label tier virtual (not a database record) to avoid inserting 10,000+ rows per receipt. Tested 27/27 checks at realistic scale.</p>
-          <p><strong>Note:</strong> the original spec was corrected mid-day rather than shipped as first scoped.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Barcode label printing ported to a second client (Pixeled)</h3>
-        <p class="entry-tag">Purchasing / Barcode &amp; Label Printing</p>
-        <p class="entry-purpose">Brought the corrected feature to a second client's live system the same day it was finalized.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Tested 24/24 checks against real production data, including a 995,000-unit receipt line.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-bad">Blocked · awaiting owner</span></div>
-        <h3 class="entry-title">Deboxing feature — scope unclear, flagged rather than guessed</h3>
-        <p class="entry-tag">Purchasing / Deboxing</p>
-        <p class="entry-purpose">Avoided building a feature against a spec that may no longer apply — the earlier version it depended on was retired, and the corrected barcode spec doesn't describe an equivalent.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Employee org chart tree view, deployed to 4 sites</h3>
-        <p class="entry-tag">HR / Employee</p>
-        <p class="entry-purpose">Gives HR and managers a visual way to browse the org structure from company down to individual employee, with no new data to maintain.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Reused existing department data and the CRM framework's own tree widget. Deployed identically across all 4 client apps and verified live on each.</p>
-          <p><strong>Note:</strong> surfaced two real data gaps to flag to clients, not engineering bugs — missing department data for one client's employees, and a company record count discrepancy for another.</p>
-        </div></details>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= PHASE 11 ================= -->
-  <section class="phase" id="phase-11">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>11</b> · Aug 4, 2026 · 3 items</p>
-      <h2>UAT Domain Migrations</h2>
-      <p class="phase-sub">Rolled the branded-domain pattern out to a second client and properly retired the old addresses with redirects, again resolving a same-tooling incident along the way.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Powertex old domain retired with a proper redirect</h3>
-        <p class="entry-tag">Infrastructure / Domain Migration</p>
-        <p class="entry-purpose">Completed the branded-domain switch by retiring the old address with a redirect instead of leaving it dangling, so old bookmarks and links still resolve.</p>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-good">Completed · self-resolved</span></div>
-        <h3 class="entry-title">Second self-caused nginx incident — root cause fully identified</h3>
-        <p class="entry-tag">Infrastructure / Incident</p>
-        <p class="entry-purpose">Transparent record of a second, related incident, with the exact tool and command identified as the cause.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>A specific server-setup command was found to wipe HTTPS configuration across every site on the box, not just the one being changed — briefly misrouting 3 domains to the monitoring dashboard. Repaired by hand; all 3 verified restored.</p>
-          <p><strong>Process change adopted:</strong> that command will not be run again — domain changes will be hand-edited going forward.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 4</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Sun Consultancy Services given its own branded domain</h3>
-        <p class="entry-tag">Infrastructure / Domain Migration</p>
-        <p class="entry-purpose">Gave a second client's UAT site its own client-owned domain, with the old internal address safely retired via the same redirect pattern.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Confirmed with the client that only the domain mapping should be retired, not the site or its data, after an initially ambiguous instruction to "delete completely."</p>
-        </div></details>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= PHASE 12 ================= -->
-  <section class="phase" id="phase-12">
-    <header class="phase-head">
-      <p class="phase-eyebrow"><b>12</b> · Aug 6, 2026 · 4 items</p>
-      <h2>SKU Generator &amp; Org Tree Finalization</h2>
-      <p class="phase-sub">Closed out two features across the client fleet and did a full pass of version-control housekeeping across all 10 application repositories.</p>
-    </header>
-    <div class="entries">
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 6</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Auto-generated supplier part numbers (SKUs)</h3>
-        <p class="entry-tag">Inventory / SKU Generation</p>
-        <p class="entry-purpose">Gives each supplier item row a consistent, auto-generated part number instead of manual entry, reducing data-entry errors.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Generates a code from factory, category, and brand automatically. Ported from a separate development machine that was unreachable, then verified against real records on live production.</p>
-          <p><strong>Note:</strong> worth a follow-up diff review once the original source machine is reachable again, to confirm nothing was lost in the port.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 6</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Employee org chart finalized — switched to the framework's own tree view, rolled out to a 5th site</h3>
-        <p class="entry-tag">HR / Employee</p>
-        <p class="entry-purpose">Replaced the custom-built org chart from Aug 4 with the CRM framework's own tree view for lower long-term maintenance, and extended the same navigation to a 5th client site that had none.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Simplified the toolbar down to a single "Add Employee" button after iterating through two more elaborate designs based on actual usage needs.</p>
-          <p><strong>Note:</strong> supersedes the custom page shipped Aug 4.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 6</span><span class="pill pill-warn">In progress</span></div>
-        <h3 class="entry-title">Bench-wide repository cleanup — 12 commits across 7 apps</h3>
-        <p class="entry-tag">Platform / Version Control</p>
-        <p class="entry-purpose">Got accumulated work across the whole server safely into version control without blindly bundling unrelated changes together.</p>
-        <details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">
-          <p>Reviewed each change individually rather than committing everything at once; deliberately left 3 risky-looking files uncommitted pending a decision, including one live-behavior change in a tax invoice print format.</p>
-          <p><strong>Open items needing a decision:</strong> two dependency lockfiles that may just be a local tooling mismatch, and a tax-invoice print format change that needs sign-off before committing.</p>
-        </div></details>
-      </article>
-
-      <article class="entry">
-        <div class="entry-meta"><span class="entry-date">Aug 6</span><span class="pill pill-good">Completed</span></div>
-        <h3 class="entry-title">Print-format update pushed to the shared repository</h3>
-        <p class="entry-tag">Platform / Version Control</p>
-        <p class="entry-purpose">Closed out one of the standing "committed but not shared with the team" loose threads.</p>
-      </article>
-
-    </div>
-  </section>
-
-  <footer class="foot">Compiled from the engineering worklog · Jul 3 – Aug 6, 2026</footer>
-
+  </main>
 </div>
+
+<footer class="foot">
+  <span>Compiled from the engineering worklog · Jul 3 – Aug 6, 2026</span>
+  <span>Updated by appending to <code>data/entries.js</code></span>
+</footer>
+
+<script src="data/entries.js"></script>
+<script>
+(function(){
+  var root = document.documentElement;
+  var stored = localStorage.getItem('worklog-theme');
+  if(stored){ root.setAttribute('data-theme', stored); }
+
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    var current = root.getAttribute('data-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var effective = current || (prefersDark ? 'dark' : 'light');
+    var next = effective === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('worklog-theme', next);
+  });
+
+  var filtersToggle = document.getElementById('filters-toggle');
+  var sidebar = document.getElementById('sidebar');
+  filtersToggle.addEventListener('click', function(){
+    var collapsed = sidebar.classList.toggle('is-collapsed');
+    filtersToggle.setAttribute('aria-expanded', String(!collapsed));
+  });
+  function syncSidebarForWidth(){
+    if(window.innerWidth <= 920){ sidebar.classList.add('is-collapsed'); }
+    else{ sidebar.classList.remove('is-collapsed'); }
+  }
+  syncSidebarForWidth();
+  window.addEventListener('resize', syncSidebarForWidth);
+
+  var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var DOW = ["S","M","T","W","T","F","S"];
+
+  var ENTRIES = window.WORKLOG_ENTRIES || [];
+
+  var state = { query: '', status: 'all', phase: 'all' };
+
+  function dayKey(iso){ return iso; }
+
+  function groupByMonthThenDay(list){
+    var months = {};
+    list.forEach(function(e){
+      var monthKey = e.date.slice(0,7);
+      months[monthKey] = months[monthKey] || {};
+      var d = e.date;
+      months[monthKey][d] = months[monthKey][d] || [];
+      months[monthKey][d].push(e);
+    });
+    return months;
+  }
+
+  function fmtDayHeading(iso){
+    var parts = iso.split('-').map(Number);
+    var d = new Date(parts[0], parts[1]-1, parts[2]);
+    var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getDay()];
+    return weekday + ", " + MONTH_NAMES[parts[1]-1] + " " + parts[2];
+  }
+
+  function matchesFilters(e){
+    if(state.status !== 'all' && e.status !== state.status) return false;
+    if(state.phase !== 'all' && e.phaseId !== state.phase) return false;
+    if(state.query){
+      var q = state.query.toLowerCase();
+      var hay = (e.title + ' ' + e.tag + ' ' + e.purpose + ' ' + e.phase + ' ' + (e.detailText||'')).toLowerCase();
+      if(hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  }
+
+  function render(){
+    var filtered = ENTRIES.filter(matchesFilters);
+    var timeline = document.getElementById('timeline');
+    var emptyState = document.getElementById('empty-state');
+    var resultCount = document.getElementById('result-count');
+    timeline.innerHTML = '';
+
+    if(filtered.length === 0){
+      emptyState.classList.add('is-visible');
+      resultCount.textContent = '';
+      renderCalendar(filtered);
+      return;
+    }
+    emptyState.classList.remove('is-visible');
+
+    var totalCount = ENTRIES.length;
+    resultCount.textContent = (state.query || state.status !== 'all' || state.phase !== 'all')
+      ? filtered.length + ' of ' + totalCount + ' items'
+      : totalCount + ' items across ' + Object.keys(groupByMonthThenDay(ENTRIES)).length + ' months';
+
+    var months = groupByMonthThenDay(filtered);
+    var monthKeys = Object.keys(months).sort().reverse();
+
+    monthKeys.forEach(function(mk){
+      var monthEntries = months[mk];
+      var dayKeys = Object.keys(monthEntries).sort().reverse();
+      var monthCount = dayKeys.reduce(function(sum, dk){ return sum + monthEntries[dk].length; }, 0);
+      var parts = mk.split('-').map(Number);
+
+      var monthEl = document.createElement('section');
+      monthEl.className = 'month-group';
+      var heading = document.createElement('h2');
+      heading.className = 'month-heading';
+      heading.innerHTML = MONTH_NAMES[parts[1]-1] + ' ' + parts[0] + ' <span class="count">' + monthCount + ' item' + (monthCount===1?'':'s') + '</span>';
+      monthEl.appendChild(heading);
+
+      dayKeys.forEach(function(dk){
+        var dayEntries = monthEntries[dk];
+        var dayEl = document.createElement('div');
+        dayEl.className = 'day-group';
+        dayEl.id = 'day-' + dk;
+
+        var dh = document.createElement('div');
+        dh.className = 'day-heading';
+        dh.innerHTML = '<h3>' + fmtDayHeading(dk) + '</h3><span class="day-count">' + dayEntries.length + ' item' + (dayEntries.length===1?'':'s') + '</span>';
+        dayEl.appendChild(dh);
+
+        var entriesWrap = document.createElement('div');
+        entriesWrap.className = 'entries';
+
+        dayEntries.forEach(function(e){
+          var art = document.createElement('article');
+          art.className = 'entry';
+          var metaTime = e.time ? '<span class="entry-time">' + e.time + '</span>' : '<span></span>';
+          var detailHtml = e.detail ? '<details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">' + e.detail + '</div></details>' : '';
+          art.innerHTML =
+            '<div class="entry-meta">' + metaTime + '<span class="pill pill-' + e.status + '">' + escapeHtml(e.statusLabel) + '</span></div>' +
+            '<h4 class="entry-title">' + escapeHtml(e.title) + '</h4>' +
+            '<div class="entry-taglist"><span class="entry-tag">' + escapeHtml(e.tag) + '</span><span class="entry-phase-tag">' + escapeHtml(e.phase) + '</span></div>' +
+            '<p class="entry-purpose">' + escapeHtml(e.purpose) + '</p>' +
+            detailHtml;
+          entriesWrap.appendChild(art);
+        });
+
+        dayEl.appendChild(entriesWrap);
+        monthEl.appendChild(dayEl);
+      });
+
+      timeline.appendChild(monthEl);
+    });
+
+    renderCalendar(filtered);
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str == null ? '' : str;
+    return div.innerHTML;
+  }
+
+  function renderCalendar(filtered){
+    var cal = document.getElementById('calendar');
+    cal.innerHTML = '';
+    var byDay = {};
+    ENTRIES.forEach(function(e){ byDay[e.date] = (byDay[e.date]||0) + 1; });
+    var filteredDays = {};
+    filtered.forEach(function(e){ filteredDays[e.date] = true; });
+
+    var monthSet = {};
+    ENTRIES.forEach(function(e){ monthSet[e.date.slice(0,7)] = true; });
+    var monthKeys = Object.keys(monthSet).sort();
+
+    monthKeys.forEach(function(mk){
+      var parts = mk.split('-').map(Number);
+      var year = parts[0], month = parts[1];
+      var firstDow = new Date(year, month-1, 1).getDay();
+      var daysInMonth = new Date(year, month, 0).getDate();
+
+      var wrap = document.createElement('div');
+      wrap.className = 'cal-month';
+      var label = document.createElement('p');
+      label.className = 'cal-month-label';
+      label.textContent = MONTH_NAMES[month-1] + ' ' + year;
+      wrap.appendChild(label);
+
+      var grid = document.createElement('div');
+      grid.className = 'cal-grid';
+      DOW.forEach(function(d){
+        var el = document.createElement('div');
+        el.className = 'cal-dow';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+      for(var i=0;i<firstDow;i++){
+        var empty = document.createElement('div');
+        empty.className = 'cal-day is-empty';
+        grid.appendChild(empty);
+      }
+      for(var day=1; day<=daysInMonth; day++){
+        var iso = mk + '-' + String(day).padStart(2,'0');
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cal-day' + (byDay[iso] ? ' has-entries' : '');
+        btn.textContent = day;
+        if(byDay[iso]){
+          btn.title = byDay[iso] + ' item' + (byDay[iso]===1?'':'s') + ' logged';
+          if(!filteredDays[iso]){ btn.style.opacity = '0.35'; }
+          btn.addEventListener('click', function(targetIso){
+            return function(){
+              var el = document.getElementById('day-' + targetIso);
+              if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+            };
+          }(iso));
+        } else {
+          btn.disabled = true;
+        }
+        grid.appendChild(btn);
+      }
+      wrap.appendChild(grid);
+      cal.appendChild(wrap);
+    });
+  }
+
+  document.getElementById('search').addEventListener('input', function(e){
+    state.query = e.target.value.trim();
+    updateClearVisibility();
+    render();
+  });
+
+  document.getElementById('status-filters').addEventListener('click', function(e){
+    var btn = e.target.closest('.chip');
+    if(!btn) return;
+    state.status = btn.getAttribute('data-status');
+    Array.prototype.forEach.call(document.querySelectorAll('#status-filters .chip'), function(c){
+      c.setAttribute('aria-pressed', String(c === btn));
+    });
+    updateClearVisibility();
+    render();
+  });
+
+  document.getElementById('phase-filter').addEventListener('change', function(e){
+    state.phase = e.target.value;
+    updateClearVisibility();
+    render();
+  });
+
+  document.getElementById('clear-filters').addEventListener('click', function(){
+    state = { query:'', status:'all', phase:'all' };
+    document.getElementById('search').value = '';
+    document.getElementById('phase-filter').value = 'all';
+    Array.prototype.forEach.call(document.querySelectorAll('#status-filters .chip'), function(c){
+      c.setAttribute('aria-pressed', String(c.getAttribute('data-status') === 'all'));
+    });
+    updateClearVisibility();
+    render();
+  });
+
+  function updateClearVisibility(){
+    var active = state.query || state.status !== 'all' || state.phase !== 'all';
+    document.getElementById('clear-filters').classList.toggle('is-visible', !!active);
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
