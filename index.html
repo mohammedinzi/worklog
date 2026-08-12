@@ -348,10 +348,10 @@
   <p class="hero-sub">Every task logged the day it happened — server hardening, the EasyCloud CRM build, client deployments, and production fixes. Search, filter, or jump straight to any date.</p>
 
   <div class="stats">
-    <div class="stat"><span class="stat-num">75</span><div class="stat-label">Work items logged</div></div>
+    <div class="stat"><span class="stat-num" id="stat-items">—</span><div class="stat-label">Work items logged</div></div>
 <div class="stat"><span class="stat-num">7</span><div class="stat-label">Client sites live</div></div>
-<div class="stat"><span class="stat-num">12</span><div class="stat-label">Workstreams</div></div>
-<div class="stat"><span class="stat-num">3</span><div class="stat-label">Open / blocked items</div></div>
+<div class="stat"><span class="stat-num" id="stat-workstreams">—</span><div class="stat-label">Workstreams</div></div>
+<div class="stat"><span class="stat-num" id="stat-open">—</span><div class="stat-label">Open / blocked items</div></div>
   </div>
 
   <details class="summary-box" open>
@@ -474,6 +474,16 @@
   var DOW = ["S","M","T","W","T","F","S"];
 
   var ENTRIES = window.WORKLOG_ENTRIES || [];
+
+  (function renderHeroStats(){
+    var itemsEl = document.getElementById('stat-items');
+    var workstreamsEl = document.getElementById('stat-workstreams');
+    var openEl = document.getElementById('stat-open');
+    if(!itemsEl) return;
+    itemsEl.textContent = ENTRIES.length;
+    workstreamsEl.textContent = new Set(ENTRIES.map(function(e){ return e.phaseId; })).size;
+    openEl.textContent = ENTRIES.filter(function(e){ return e.status === 'bad'; }).length;
+  })();
 
   var state = { query: '', status: 'all', phase: 'all' };
 
