@@ -10,7 +10,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Installed core security packages, set the firewall to deny everything by default and only allow SSH plus web traffic from Cloudflare's own IP ranges, turned on fail2ban against SSH brute-forcing, and raised kernel and file-limit ceilings ahead of installing MariaDB.</p>",
     "detailText": "Installed core security packages, set the firewall to deny everything by default and only allow SSH plus web traffic from Cloudflare's own IP ranges, turned on fail2ban against SSH brute-forcing, and raised kernel and file-limit ceilings ahead of installing MariaDB.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-04",
@@ -23,7 +25,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Installed Docker Engine and Compose from Docker's official repository, created the project directories, and generated a strong random database password instead of a default value.</p>",
     "detailText": "Installed Docker Engine and Compose from Docker's official repository, created the project directories, and generated a strong random database password instead of a default value.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-05",
@@ -36,7 +40,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Initialized MariaDB with the correct UTF-8 variant, brought up Redis and the full 11-container stack, created the ERPNext site, and confirmed every service started cleanly before moving on.</p>",
     "detailText": "Initialized MariaDB with the correct UTF-8 variant, brought up Redis and the full 11-container stack, created the ERPNext site, and confirmed every service started cleanly before moving on.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-06",
@@ -49,7 +55,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Diagnosed and fixed a redirect loop by switching Cloudflare to Full (Strict) SSL mode.</p>\n<p><strong>Issues found and fixed:</strong> a database password left at a weak placeholder value, and a background job pointed at the wrong internal address.</p>",
     "detailText": "Diagnosed and fixed a redirect loop by switching Cloudflare to Full (Strict) SSL mode. Issues found and fixed: a database password left at a weak placeholder value, and a background job pointed at the wrong internal address.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-07",
@@ -62,7 +70,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Took a full backup as a safety net first.</p>\n<p><strong>Issue found and fixed:</strong> a silent build failure where the custom app was being left out of the image with no error message — resolved by using Docker's proper secrets mechanism.</p>",
     "detailText": "Took a full backup as a safety net first. Issue found and fixed: a silent build failure where the custom app was being left out of the image with no error message — resolved by using Docker's proper secrets mechanism.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-08",
@@ -75,7 +85,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Verified the new build actually contained the custom app before touching production, fixed a \"pull access denied\" error caused by a missing configuration flag, then cut over and confirmed the new features were live.</p>",
     "detailText": "Verified the new build actually contained the custom app before touching production, fixed a \"pull access denied\" error caused by a missing configuration flag, then cut over and confirmed the new features were live.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-09",
@@ -88,7 +100,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Built Mtarmes as a fully separate project sharing the existing web proxy safely.</p>\n<p><strong>Issue found and fixed:</strong> a setup error caused by a field referencing a table the vendor's app never actually shipped — applied an interim fix and flagged it back to the vendor.</p>",
     "detailText": "Built Mtarmes as a fully separate project sharing the existing web proxy safely. Issue found and fixed: a setup error caused by a field referencing a table the vendor's app never actually shipped — applied an interim fix and flagged it back to the vendor.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-10",
@@ -101,7 +115,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Issue found and fixed:</strong> a subtle bug where Mtarmes's site was silently serving Powertex's backend, due to ambiguous internal network naming.</p>\n<p>Same day, installed the first 3 of what became a 7-part monitoring stack, running under a locked-down, low-privilege account.</p>",
     "detailText": "Issue found and fixed: a subtle bug where Mtarmes's site was silently serving Powertex's backend, due to ambiguous internal network naming. Same day, installed the first 3 of what became a 7-part monitoring stack, running under a locked-down, low-privilege account.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-11",
@@ -114,7 +130,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Installed Loki and Promtail to collect and store 7 days of logs. Fixed a startup crash and a rate-limit warning triggered by the first large backfill of historical logs.</p>",
     "detailText": "Installed Loki and Promtail to collect and store 7 days of logs. Fixed a startup crash and a rate-limit warning triggered by the first large backfill of historical logs.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-12",
@@ -127,7 +145,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Changed the default admin password before any public exposure and set it up on its own subdomain with a real, auto-renewing HTTPS certificate.</p>\n<p><strong>Open follow-up:</strong> individual read-only logins for each team member — everyone currently shares one admin login.</p>",
     "detailText": "Changed the default admin password before any public exposure and set it up on its own subdomain with a real, auto-renewing HTTPS certificate. Open follow-up: individual read-only logins for each team member — everyone currently shares one admin login.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-13",
@@ -140,7 +160,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Reduced background worker processes from 9 to 5 to match the server's actual capacity, dropping memory usage from 55% to 47% and swap usage from 32% to 20%.</p>\n<p>Built three dashboards, including a plain-language \"command center\" view for non-technical stakeholders.</p>\n<p><strong>Note:</strong> closes out the initial infrastructure build; automated alerting and per-team dashboard logins remain open follow-ups.</p>",
     "detailText": "Reduced background worker processes from 9 to 5 to match the server's actual capacity, dropping memory usage from 55% to 47% and swap usage from 32% to 20%. Built three dashboards, including a plain-language \"command center\" view for non-technical stakeholders. Note: closes out the initial infrastructure build; automated alerting and per-team dashboard logins remain open follow-ups.",
     "phase": "Server & Platform Setup",
-    "phaseId": "phase-1"
+    "phaseId": "phase-1",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-07-13",
@@ -153,7 +175,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-14",
@@ -166,7 +190,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Introduced the Deal and CRM Activity record types as the pipeline's backbone. Built automation so winning a deal automatically creates the Customer and Project records plus 5 starter tasks. Added a Kanban board, a CRM home screen with charts and reports, and role-based permissions.</p>\n<p><strong>Note:</strong> the single largest day of foundational work in the project — 7 changes merged into one release.</p>",
     "detailText": "Introduced the Deal and CRM Activity record types as the pipeline's backbone. Built automation so winning a deal automatically creates the Customer and Project records plus 5 starter tasks. Added a Kanban board, a CRM home screen with charts and reports, and role-based permissions. Note: the single largest day of foundational work in the project — 7 changes merged into one release.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-14",
@@ -179,7 +205,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>A deal can't be marked Lost without a reason. Built a dedicated report and a read-only marketing role to pull the retargeting list.</p>\n<p><strong>Note:</strong> uploading the exported list to ad platforms remains a manual step for marketing, by design.</p>",
     "detailText": "A deal can't be marked Lost without a reason. Built a dedicated report and a read-only marketing role to pull the retargeting list. Note: uploading the exported list to ad platforms remains a manual step for marketing, by design.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-14",
@@ -192,7 +220,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-16",
@@ -205,7 +235,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Built a recording button on the Deal and Activity forms with cross-browser microphone handling, a live transcription service, and a background retry job for reliability. Tested against real recorded speech including names, amounts, and phone numbers.</p>\n<p><strong>Note:</strong> 6 separate changes merged into one release; runs on a self-hosted transcription service reached only over the internal network.</p>",
     "detailText": "Built a recording button on the Deal and Activity forms with cross-browser microphone handling, a live transcription service, and a background retry job for reliability. Tested against real recorded speech including names, amounts, and phone numbers. Note: 6 separate changes merged into one release; runs on a self-hosted transcription service reached only over the internal network.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-16",
@@ -218,7 +250,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug fixed:</strong> Customer and Project records were being named after the internal deal instead of the company. Automatic creation now uses the linked Lead's company name, falling back to the deal name only if no lead is attached.</p>",
     "detailText": "Bug fixed: Customer and Project records were being named after the internal deal instead of the company. Automatic creation now uses the linked Lead's company name, falling back to the deal name only if no lead is attached.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-16",
@@ -231,7 +265,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added a small color palette on top of the existing theme (so dark mode kept working automatically), color-coded the Kanban stages, added icons throughout, and reorganized form fields into clearer sections.</p>\n<p><strong>Note:</strong> 5 changes, labeled internally as Phases 33–37, merged into one release.</p>",
     "detailText": "Added a small color palette on top of the existing theme (so dark mode kept working automatically), color-coded the Kanban stages, added icons throughout, and reorganized form fields into clearer sections. Note: 5 changes, labeled internally as Phases 33–37, merged into one release.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-16",
@@ -244,7 +280,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added a Last Contacted field that updates automatically whenever an activity is logged, with a safeguard so an older backdated activity can't overwrite a more recent contact.</p>\n<p><strong>Bugs fixed:</strong> leads were displaying their internal record ID instead of their name in multiple places; a date-comparison bug in the first draft of Last Contacted was caught and fixed the same day.</p>\n<p><strong>Note:</strong> labeled internally as Phases 38–42.</p>",
     "detailText": "Added a Last Contacted field that updates automatically whenever an activity is logged, with a safeguard so an older backdated activity can't overwrite a more recent contact. Bugs fixed: leads were displaying their internal record ID instead of their name in multiple places; a date-comparison bug in the first draft of Last Contacted was caught and fixed the same day. Note: labeled internally as Phases 38–42.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-17",
@@ -257,7 +295,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added fields to hold historical progress notes, recurring-income figures, and location data from the old system; added two more loss-reason categories to map cleanly from it.</p>\n<p><strong>Bug fixed:</strong> a workspace shortcut was pointing at the wrong record type.</p>\n<p><strong>Note:</strong> the actual historical data import ran separately — see the Bigin migration on Jul 28.</p>",
     "detailText": "Added fields to hold historical progress notes, recurring-income figures, and location data from the old system; added two more loss-reason categories to map cleanly from it. Bug fixed: a workspace shortcut was pointing at the wrong record type. Note: the actual historical data import ran separately — see the Bigin migration on Jul 28.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-17",
@@ -270,7 +310,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Winning a deal now creates only a Customer, with a genuine duplicate check (the old check only worked by accident). Removed an unused report and dashboard clutter after confirming nothing else depended on them.</p>\n<p><strong>Note:</strong> all pre-existing project/task records from before this change were explicitly left untouched.</p>",
     "detailText": "Winning a deal now creates only a Customer, with a genuine duplicate check (the old check only worked by accident). Removed an unused report and dashboard clutter after confirming nothing else depended on them. Note: all pre-existing project/task records from before this change were explicitly left untouched.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-20",
@@ -283,7 +325,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Built a secure, signature-verified webhook that receives lead-form submissions from Meta in real time and maps the answers onto CRM fields. Gave leads their own New → Contacted → Qualified pipeline; reaching Qualified automatically creates a Deal.</p>\n<p><strong>Note:</strong> tested against Meta's real API; registering the webhook on Meta's own developer dashboard was a separate manual step.</p>",
     "detailText": "Built a secure, signature-verified webhook that receives lead-form submissions from Meta in real time and maps the answers onto CRM fields. Gave leads their own New → Contacted → Qualified pipeline; reaching Qualified automatically creates a Deal. Note: tested against Meta's real API; registering the webhook on Meta's own developer dashboard was a separate manual step.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-20",
@@ -296,7 +340,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Every stage change is now logged automatically, powering a clickable progress bar and full timeline. Added a Products tab and gave Deal its own Notes and Activities tabs.</p>",
     "detailText": "Every stage change is now logged automatically, powering a clickable progress bar and full timeline. Added a Products tab and gave Deal its own Notes and Activities tabs.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-20",
@@ -309,7 +355,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Activity records now show a readable title referencing the lead, deal, or contact they belong to. Hid the misleading Notes tab on Lead.</p>\n<p><strong>Note:</strong> driven directly by feedback from real pilot-testing customers.</p>",
     "detailText": "Activity records now show a readable title referencing the lead, deal, or contact they belong to. Hid the misleading Notes tab on Lead. Note: driven directly by feedback from real pilot-testing customers.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-20",
@@ -322,7 +370,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Configured two email alerts using the CRM's built-in notification engine — no custom code required, and both are editable later without a deployment.</p>",
     "detailText": "Configured two email alerts using the CRM's built-in notification engine — no custom code required, and both are editable later without a deployment.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-20",
@@ -335,7 +385,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added explanatory comments to 29 files and rewrote the README, which had drifted out of date. Re-ran the full test suite afterward to confirm zero behavioral changes (30/30 passing).</p>",
     "detailText": "Added explanatory comments to 29 files and rewrote the README, which had drifted out of date. Re-ran the full test suite afterward to confirm zero behavioral changes (30/30 passing).",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-21",
@@ -348,7 +400,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Turned on automatic round-robin lead assignment, added duplicate-phone warnings, made tasks visible from the Lead/Deal forms, and added an automatic reminder when a deal goes 3+ days without contact.</p>\n<p><strong>Issues found and fixed:</strong> a misconfigured setting that would have silently blocked every real won-deal conversion, and a test-data gap that was leaving stray records in the live database.</p>\n<p><strong>Note:</strong> driven by an explicit competitive analysis against Zoho Bigin; browser-verified by the product owner before deploy.</p>",
     "detailText": "Turned on automatic round-robin lead assignment, added duplicate-phone warnings, made tasks visible from the Lead/Deal forms, and added an automatic reminder when a deal goes 3+ days without contact. Issues found and fixed: a misconfigured setting that would have silently blocked every real won-deal conversion, and a test-data gap that was leaving stray records in the live database. Note: driven by an explicit competitive analysis against Zoho Bigin; browser-verified by the product owner before deploy.",
     "phase": "CRM Core Build",
-    "phaseId": "phase-2"
+    "phaseId": "phase-2",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-22",
@@ -361,7 +415,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Installed the CRM onto an existing site on a test server alongside its existing apps and data. Completed with no errors and no disruption to what was already running.</p>",
     "detailText": "Installed the CRM onto an existing site on a test server alongside its existing apps and data. Completed with no errors and no disruption to what was already running.",
     "phase": "Production Migration",
-    "phaseId": "phase-3"
+    "phaseId": "phase-3",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-23",
@@ -374,7 +430,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug:</strong> the install failed partway through because a pending code fix hadn't been merged yet, and the production version of the underlying CRM framework differed from the environments this app was built against. Confirmed the other 12 apps on the shared site were unaffected before stopping for the day.</p>\n<p><strong>Note:</strong> hardest day of the migration — a live, business-critical server with 12+ existing apps left very little room for error.</p>",
     "detailText": "Bug: the install failed partway through because a pending code fix hadn't been merged yet, and the production version of the underlying CRM framework differed from the environments this app was built against. Confirmed the other 12 apps on the shared site were unaffected before stopping for the day. Note: hardest day of the migration — a live, business-critical server with 12+ existing apps left very little room for error.",
     "phase": "Production Migration",
-    "phaseId": "phase-3"
+    "phaseId": "phase-3",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-24",
@@ -387,7 +445,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Resolved the previous day's blocker, reinstalled cleanly with no errors, and verified every feature end to end alongside the other pre-existing apps with no regressions.</p>\n<p><strong>Note:</strong> production sign-off received directly from the business owner using the live system.</p>",
     "detailText": "Resolved the previous day's blocker, reinstalled cleanly with no errors, and verified every feature end to end alongside the other pre-existing apps with no regressions. Note: production sign-off received directly from the business owner using the live system.",
     "phase": "Production Migration",
-    "phaseId": "phase-3"
+    "phaseId": "phase-3",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -400,7 +460,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -413,7 +475,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -426,7 +490,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Note:</strong> a deeper root cause in the same filtering system, affecting the whole app, was found and fixed later the same day (22:31 entry below).</p>",
     "detailText": "Note: a deeper root cause in the same filtering system, affecting the whole app, was found and fixed later the same day (22:31 entry below).",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -439,7 +505,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug:</strong> native CRM Facebook lead sync was 100% broken despite appearing configured — replaced, not patched.</p>\n<p>Replaced it with a custom pipeline that auto-discovers every ad form across every accessible page, syncs in real time with an hourly safety-net backfill, and preserves any unmapped answers as a note instead of silently dropping them.</p>\n<p><strong>Note:</strong> single largest fix of the day.</p>",
     "detailText": "Bug: native CRM Facebook lead sync was 100% broken despite appearing configured — replaced, not patched. Replaced it with a custom pipeline that auto-discovers every ad form across every accessible page, syncs in real time with an hourly safety-net backfill, and preserves any unmapped answers as a note instead of silently dropping them. Note: single largest fix of the day.",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -452,7 +520,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -465,7 +535,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -478,7 +550,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Built as a custom feature specifically so it survives future upstream CRM updates, instead of patching the core code where it would be silently overwritten later.</p>",
     "detailText": "Built as a custom feature specifically so it survives future upstream CRM updates, instead of patching the core code where it would be silently overwritten later.",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -491,7 +565,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -504,7 +580,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Three root causes found and fixed:</strong> a component that silently fell back to a plain text box instead of a searchable dropdown; search results shared and going stale across unrelated fields; and a startup-timing bug that could crash quick-filter, sort, and export on the very first use after loading a page.</p>\n<p><strong>Note:</strong> the deepest and most consequential fix of the day. Committed locally; not yet pushed to the shared repository, pending a decision.</p>",
     "detailText": "Three root causes found and fixed: a component that silently fell back to a plain text box instead of a searchable dropdown; search results shared and going stale across unrelated fields; and a startup-timing bug that could crash quick-filter, sort, and export on the very first use after loading a page. Note: the deepest and most consequential fix of the day. Committed locally; not yet pushed to the shared repository, pending a decision.",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -517,7 +595,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Note:</strong> trades some flexibility for reliability — worth revisiting if the recipient list needs to change again.</p>",
     "detailText": "Note: trades some flexibility for reliability — worth revisiting if the recipient list needs to change again.",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-27",
@@ -530,7 +610,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Ruled out the network, database, and server resources as causes.</p>\n<p><strong>Two real causes found and fixed:</strong> the web server was caching the app's own update-check file for a full year, and a separate push-notification app was serving stale cached data on every page.</p>",
     "detailText": "Ruled out the network, database, and server resources as causes. Two real causes found and fixed: the web server was caching the app's own update-check file for a full year, and a separate push-notification app was serving stale cached data on every page.",
     "phase": "CRM UX & Meta Integration Hardening",
-    "phaseId": "phase-4"
+    "phaseId": "phase-4",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -543,7 +625,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -556,7 +640,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Migrated 199 of 210 pipeline records (11 deliberately out of scope), 215 contacts, 206 accounts, 75 tasks, 23 notes, and full stage history — matched against everything already in the CRM so nothing was duplicated.</p>\n<p><strong>Bug found and fixed:</strong> 3 contacts incorrectly merged due to a placeholder phone value in the source data — corrected and re-verified.</p>\n<p><strong>Note:</strong> single largest item of the day.</p>",
     "detailText": "Migrated 199 of 210 pipeline records (11 deliberately out of scope), 215 contacts, 206 accounts, 75 tasks, 23 notes, and full stage history — matched against everything already in the CRM so nothing was duplicated. Bug found and fixed: 3 contacts incorrectly merged due to a placeholder phone value in the source data — corrected and re-verified. Note: single largest item of the day.",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -569,7 +655,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug fixed:</strong> a filter condition was silently excluding Task from the assignment-notification rule.</p>",
     "detailText": "Bug fixed: a filter condition was silently excluding Task from the assignment-notification rule.",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -582,7 +670,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Reassigning a task moves the calendar event; cancelling removes it. Built on the CRM's existing Google Calendar integration.</p>\n<p><strong>Note:</strong> activates per person once they connect their Google account — not yet live for everyone.</p>",
     "detailText": "Reassigning a task moves the calendar event; cancelling removes it. Built on the CRM's existing Google Calendar integration. Note: activates per person once they connect their Google account — not yet live for everyone.",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -595,7 +685,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -608,7 +700,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -621,7 +715,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug fixed:</strong> leads imported before Meta-ID tracking existed had no way to match later duplicates. New leads are now also matched by email and phone as a fallback. One live duplicate found and merged with no data loss.</p>",
     "detailText": "Bug fixed: leads imported before Meta-ID tracking existed had no way to match later duplicates. New leads are now also matched by email and phone as a fallback. One live duplicate found and merged with no data loss.",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -634,7 +730,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Mapped 4 previously-unmapped form questions (industry, employee count, website, job title) to proper fields, and rewrote the fallback storage from a raw data dump into clean, readable text. Backfilled every previously-affected lead.</p>",
     "detailText": "Mapped 4 previously-unmapped form questions (industry, employee count, website, job title) to proper fields, and rewrote the fallback storage from a raw data dump into clean, readable text. Backfilled every previously-affected lead.",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -647,7 +745,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-28",
@@ -660,7 +760,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Found and committed roughly 216 lines of already-written fixes that were sitting on disk at risk of being lost; kept a 443MB dependency folder and an auto-generated cache out of the repository.</p>",
     "detailText": "Found and committed roughly 216 lines of already-written fixes that were sitting on disk at risk of being lost; kept a 443MB dependency folder and an auto-generated cache out of the repository.",
     "phase": "Bigin Migration & CRM Hardening",
-    "phaseId": "phase-5"
+    "phaseId": "phase-5",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-01",
@@ -673,7 +775,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Verified every claim against the actual codebase rather than assuming. Got sign-off on a 3-phase plan: deal/lead scoring, then multi-team pipelines, then lead capture beyond Meta — built to survive future CRM framework upgrades.</p>",
     "detailText": "Verified every claim against the actual codebase rather than assuming. Got sign-off on a 3-phase plan: deal/lead scoring, then multi-team pipelines, then lead capture beyond Meta — built to survive future CRM framework upgrades.",
     "phase": "CRM Enhancement Planning & Dev Workflow",
-    "phaseId": "phase-6"
+    "phaseId": "phase-6",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-01",
@@ -686,7 +790,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Designed a workflow: build and test on a local machine, push to GitHub, merge and deploy to production only after local verification, with a mandatory backup before every migration.</p>",
     "detailText": "Designed a workflow: build and test on a local machine, push to GitHub, merge and deploy to production only after local verification, with a mandatory backup before every migration.",
     "phase": "CRM Enhancement Planning & Dev Workflow",
-    "phaseId": "phase-6"
+    "phaseId": "phase-6",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-01",
@@ -699,7 +805,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Found:</strong> production was running on an unmerged feature branch 6 commits ahead of main. Merged it in, took a backup, and applied a pending patch with no errors.</p>\n<p><strong>Note:</strong> logged as Phase 0 of the 3-phase plan; treat as not fully closed out per the engineer's own framing.</p>",
     "detailText": "Found: production was running on an unmerged feature branch 6 commits ahead of main. Merged it in, took a backup, and applied a pending patch with no errors. Note: logged as Phase 0 of the 3-phase plan; treat as not fully closed out per the engineer's own framing.",
     "phase": "CRM Enhancement Planning & Dev Workflow",
-    "phaseId": "phase-6"
+    "phaseId": "phase-6",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-01",
@@ -712,7 +820,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM Enhancement Planning & Dev Workflow",
-    "phaseId": "phase-6"
+    "phaseId": "phase-6",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-30",
@@ -725,7 +835,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Note:</strong> worth understanding how the directory was lost, to prevent a repeat.</p>",
     "detailText": "Note: worth understanding how the directory was lost, to prevent a repeat.",
     "phase": "CRM Filter & Notification Backlog",
-    "phaseId": "phase-7"
+    "phaseId": "phase-7",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-07-31",
@@ -738,7 +850,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>756 lines across 4 modules, covering 3 events — shipped inert, then wired to live events by a colleague the next day.</p>",
     "detailText": "756 lines across 4 modules, covering 3 events — shipped inert, then wired to live events by a colleague the next day.",
     "phase": "CRM Filter & Notification Backlog",
-    "phaseId": "phase-7"
+    "phaseId": "phase-7",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-01",
@@ -751,7 +865,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug fixed:</strong> code referenced a class that was never actually committed — added the missing file.</p>",
     "detailText": "Bug fixed: code referenced a class that was never actually committed — added the missing file.",
     "phase": "CRM Filter & Notification Backlog",
-    "phaseId": "phase-7"
+    "phaseId": "phase-7",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-03",
@@ -764,7 +880,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "CRM Filter & Notification Backlog",
-    "phaseId": "phase-7"
+    "phaseId": "phase-7",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-03",
@@ -777,7 +895,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Status:</strong> filtering is live; tag-delete for managers is not yet built, and the change is not yet committed to version control.</p>",
     "detailText": "Status: filtering is live; tag-delete for managers is not yet built, and the change is not yet committed to version control.",
     "phase": "CRM Filter & Notification Backlog",
-    "phaseId": "phase-7"
+    "phaseId": "phase-7",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-03",
@@ -790,7 +910,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug fixed:</strong> the opening balance row was silently discarded by the print template due to how it checked for a date.</p>\n<p><strong>Status:</strong> committed locally, blocked on being pushed to the shared repository.</p>",
     "detailText": "Bug fixed: the opening balance row was silently discarded by the print template due to how it checked for a date. Status: committed locally, blocked on being pushed to the shared repository.",
     "phase": "GL Ledger Report Fixes",
-    "phaseId": "phase-8"
+    "phaseId": "phase-8",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-03",
@@ -803,7 +925,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Applied to both the print view and the Excel/CSV export path.</p>\n<p><strong>Open question sent to the client:</strong> hiding the line doesn't remove its effect on the running balance, so the visible numbers won't exactly foot to the total unless a deeper fix is wanted.</p>",
     "detailText": "Applied to both the print view and the Excel/CSV export path. Open question sent to the client: hiding the line doesn't remove its effect on the running balance, so the visible numbers won't exactly foot to the total unless a deeper fix is wanted.",
     "phase": "GL Ledger Report Fixes",
-    "phaseId": "phase-8"
+    "phaseId": "phase-8",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-03",
@@ -816,7 +940,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added the domain, expanded the HTTPS certificate to cover it, and verified it serves correctly.</p>",
     "detailText": "Added the domain, expanded the HTTPS certificate to cover it, and verified it serves correctly.",
     "phase": "Powertex UAT Domain Mapping",
-    "phaseId": "phase-9"
+    "phaseId": "phase-9",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-03",
@@ -829,7 +955,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>A bug in the server tooling briefly misrouted 3 unrelated client sites to the monitoring dashboard's login page for about 16 minutes (07:24–07:40 UTC). Diagnosed and repaired by hand; all 3 sites verified restored.</p>",
     "detailText": "A bug in the server tooling briefly misrouted 3 unrelated client sites to the monitoring dashboard's login page for about 16 minutes (07:24–07:40 UTC). Diagnosed and repaired by hand; all 3 sites verified restored.",
     "phase": "Powertex UAT Domain Mapping",
-    "phaseId": "phase-9"
+    "phaseId": "phase-9",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-04",
@@ -842,7 +970,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Rebuilt as a Purchase-Receipt-triggered calculator. Revised the same day after a live review against a real 10,000-unit receipt — deliberately kept the smallest label tier virtual (not a database record) to avoid inserting 10,000+ rows per receipt. Tested 27/27 checks at realistic scale.</p>\n<p><strong>Note:</strong> the original spec was corrected mid-day rather than shipped as first scoped.</p>",
     "detailText": "Rebuilt as a Purchase-Receipt-triggered calculator. Revised the same day after a live review against a real 10,000-unit receipt — deliberately kept the smallest label tier virtual (not a database record) to avoid inserting 10,000+ rows per receipt. Tested 27/27 checks at realistic scale. Note: the original spec was corrected mid-day rather than shipped as first scoped.",
     "phase": "Vendor Barcode Printing & Org Chart",
-    "phaseId": "phase-10"
+    "phaseId": "phase-10",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-04",
@@ -855,7 +985,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Tested 24/24 checks against real production data, including a 995,000-unit receipt line.</p>",
     "detailText": "Tested 24/24 checks against real production data, including a 995,000-unit receipt line.",
     "phase": "Vendor Barcode Printing & Org Chart",
-    "phaseId": "phase-10"
+    "phaseId": "phase-10",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-04",
@@ -868,7 +1000,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Update (2026-08-07):</strong> spec clarified and the feature built — see \"Deboxing added, with no cascade to child/parent records\" on the Aug 7 log.</p>",
     "detailText": "Update (2026-08-07): spec clarified and the feature built — see \"Deboxing added, with no cascade to child/parent records\" on the Aug 7 log.",
     "phase": "Vendor Barcode Printing & Org Chart",
-    "phaseId": "phase-10"
+    "phaseId": "phase-10",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-04",
@@ -881,7 +1015,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Reused existing department data and the CRM framework's own tree widget. Deployed identically across all 4 client apps and verified live on each.</p>\n<p><strong>Note:</strong> surfaced two real data gaps to flag to clients, not engineering bugs — missing department data for one client's employees, and a company record count discrepancy for another.</p>",
     "detailText": "Reused existing department data and the CRM framework's own tree widget. Deployed identically across all 4 client apps and verified live on each. Note: surfaced two real data gaps to flag to clients, not engineering bugs — missing department data for one client's employees, and a company record count discrepancy for another.",
     "phase": "Vendor Barcode Printing & Org Chart",
-    "phaseId": "phase-10"
+    "phaseId": "phase-10",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-04",
@@ -894,7 +1030,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "UAT Domain Migrations",
-    "phaseId": "phase-11"
+    "phaseId": "phase-11",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-04",
@@ -907,7 +1045,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>A specific server-setup command was found to wipe HTTPS configuration across every site on the box, not just the one being changed — briefly misrouting 3 domains to the monitoring dashboard. Repaired by hand; all 3 verified restored.</p>\n<p><strong>Process change adopted:</strong> that command will not be run again — domain changes will be hand-edited going forward.</p>",
     "detailText": "A specific server-setup command was found to wipe HTTPS configuration across every site on the box, not just the one being changed — briefly misrouting 3 domains to the monitoring dashboard. Repaired by hand; all 3 verified restored. Process change adopted: that command will not be run again — domain changes will be hand-edited going forward.",
     "phase": "UAT Domain Migrations",
-    "phaseId": "phase-11"
+    "phaseId": "phase-11",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-04",
@@ -920,7 +1060,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Confirmed with the client that only the domain mapping should be retired, not the site or its data, after an initially ambiguous instruction to \"delete completely.\"</p>",
     "detailText": "Confirmed with the client that only the domain mapping should be retired, not the site or its data, after an initially ambiguous instruction to \"delete completely.\"",
     "phase": "UAT Domain Migrations",
-    "phaseId": "phase-11"
+    "phaseId": "phase-11",
+    "projectId": "sun-consultancy",
+    "project": "Sun Consultancy Services App"
   },
   {
     "date": "2026-08-06",
@@ -933,7 +1075,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Generates a code from factory, category, and brand automatically. Ported from a separate development machine that was unreachable, then verified against real records on live production.</p>\n<p><strong>Note:</strong> worth a follow-up diff review once the original source machine is reachable again, to confirm nothing was lost in the port.</p>",
     "detailText": "Generates a code from factory, category, and brand automatically. Ported from a separate development machine that was unreachable, then verified against real records on live production. Note: worth a follow-up diff review once the original source machine is reachable again, to confirm nothing was lost in the port.",
     "phase": "SKU Generator & Org Tree Finalization",
-    "phaseId": "phase-12"
+    "phaseId": "phase-12",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-06",
@@ -946,7 +1090,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Simplified the toolbar down to a single \"Add Employee\" button after iterating through two more elaborate designs based on actual usage needs.</p>\n<p><strong>Note:</strong> supersedes the custom page shipped Aug 4.</p>",
     "detailText": "Simplified the toolbar down to a single \"Add Employee\" button after iterating through two more elaborate designs based on actual usage needs. Note: supersedes the custom page shipped Aug 4.",
     "phase": "SKU Generator & Org Tree Finalization",
-    "phaseId": "phase-12"
+    "phaseId": "phase-12",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-06",
@@ -959,7 +1105,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Reviewed each change individually rather than committing everything at once; deliberately left 3 risky-looking files uncommitted pending a decision, including one live-behavior change in a tax invoice print format.</p>\n<p><strong>Open items needing a decision:</strong> two dependency lockfiles that may just be a local tooling mismatch, and a tax-invoice print format change that needs sign-off before committing.</p>",
     "detailText": "Reviewed each change individually rather than committing everything at once; deliberately left 3 risky-looking files uncommitted pending a decision, including one live-behavior change in a tax invoice print format. Open items needing a decision: two dependency lockfiles that may just be a local tooling mismatch, and a tax-invoice print format change that needs sign-off before committing.",
     "phase": "SKU Generator & Org Tree Finalization",
-    "phaseId": "phase-12"
+    "phaseId": "phase-12",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-06",
@@ -972,7 +1120,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "SKU Generator & Org Tree Finalization",
-    "phaseId": "phase-12"
+    "phaseId": "phase-12",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-07",
@@ -985,7 +1135,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added Parent and Grandparent Serial Number Series fields to the item master (Child reuses the existing native field). Codes now look like <code>AG52200-8907704103941-0001</code>. Handles the edge case where an item already has real per-unit Serial No tracking — uses the real serial instead of a synthetic one.</p>",
     "detailText": "Added Parent and Grandparent Serial Number Series fields to the item master (Child reuses the existing native field). Codes now look like AG52200-8907704103941-0001. Handles the edge case where an item already has real per-unit Serial No tracking — uses the real serial instead of a synthetic one.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -998,7 +1150,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Records can be marked opened (is_deboxed/deboxed_by/deboxed_at/reason) with no cascade to child/parent records. Guard rails tested: can't debox twice, reason required.</p>",
     "detailText": "Records can be marked opened (is_deboxed/deboxed_by/deboxed_at/reason) with no cascade to child/parent records. Guard rails tested: can't debox twice, reason required.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1011,7 +1165,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Computed live from real data; deliberately does not touch the real Stock Ledger. Verified at real scale — 280 Parent records, matched hand-computed expectations exactly.</p>",
     "detailText": "Computed live from real data; deliberately does not touch the real Stock Ledger. Verified at real scale — 280 Parent records, matched hand-computed expectations exactly.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1024,7 +1180,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Small receipts (2 units or fewer) no longer offer Parent/Grandparent printing; only graduates to the next tier above 2 units. Driven directly by user feedback while testing.</p>",
     "detailText": "Small receipts (2 units or fewer) no longer offer Parent/Grandparent printing; only graduates to the next tier above 2 units. Driven directly by user feedback while testing.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1037,7 +1195,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1050,7 +1210,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Flagged rather than guessed at a fix, since reconciling the historical labels against the changed conversion factor needs a decision from whoever owns that item's UOM setup.</p>",
     "detailText": "Flagged rather than guessed at a fix, since reconciling the historical labels against the changed conversion factor needs a decision from whoever owns that item's UOM setup.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1063,7 +1225,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Bug:</strong> stuck on \"Loading...\" indefinitely in a real browser despite working server-side. Ruled out, across four separate fix attempts: stale deployment, permissions, CSP, client-side caching, Brave Shields, and a timing/race condition between multiple triggers — each disproven in turn. Root cause still unknown.</p>\n<p><strong>Next step:</strong> get one clean, filtered console capture at the exact moment of a click.</p>\n<p><strong>Update (2026-08-08):</strong> root cause was never found. The tab was removed entirely and replaced by the standalone /app/pixel-packaging-status page — see the Aug 8 log.</p>",
     "detailText": "Bug: stuck on \"Loading...\" indefinitely in a real browser despite working server-side. Ruled out, across four separate fix attempts: stale deployment, permissions, CSP, client-side caching, Brave Shields, and a timing/race condition between multiple triggers — each disproven in turn. Root cause still unknown. Next step: get one clean, filtered console capture at the exact moment of a click. Update (2026-08-08): root cause was never found. The tab was removed entirely and replaced by the standalone /app/pixel-packaging-status page — see the Aug 8 log.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1076,7 +1240,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Fully recovered via Frappe's Deleted Document snapshots — exact original names, timestamps, and print status restored. No data lost.</p>\n<p><strong>Process change adopted:</strong> always hard-assert expected pre-state before any cleanup step going forward.</p>",
     "detailText": "Fully recovered via Frappe's Deleted Document snapshots — exact original names, timestamps, and print status restored. No data lost. Process change adopted: always hard-assert expected pre-state before any cleanup step going forward.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-07",
@@ -1089,7 +1255,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Marked <strong>DO NOT PUSH</strong> in the commit message, authored as mohammedinzi.</p>",
     "detailText": "Marked DO NOT PUSH in the commit message, authored as mohammedinzi.",
     "phase": "Packaging Labels v3",
-    "phaseId": "phase-13"
+    "phaseId": "phase-13",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-08",
@@ -1102,7 +1270,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Added a permission_query_conditions hook on Contact that excludes rows matching Easycloud employees — matched by Contact.user = Employee.user_id, and by primary/secondary Contact email vs the employee's company/personal/preferred email. Employee-table driven, so new hires drop out automatically with no per-contact flag or data migration; leavers stay hidden.</p><p>Scoped strictly to CRM portal requests (Referer/request path /crm, or cmd starting crm.) — Desk, HRMS, reports, and server-side frappe.get_all calls are unaffected, and a deal already linked to a hidden Contact still renders it via get_doc.</p><p>Name set is Redis-cached (6h TTL), busted on Employee/Contact insert, update, and delete. Verified read-only on live data: 52 of 438 Contacts hidden from the portal (386 shown), Desk list unchanged at 438. Gate matrix checked across all four request types.</p>",
     "detailText": "Added a permission_query_conditions hook on Contact that excludes rows matching Easycloud employees — matched by Contact.user = Employee.user_id, and by primary/secondary Contact email vs the employee's company/personal/preferred email. Employee-table driven, so new hires drop out automatically with no per-contact flag or data migration; leavers stay hidden. Scoped strictly to CRM portal requests (Referer/request path /crm, or cmd starting crm.) — Desk, HRMS, reports, and server-side frappe.get_all calls are unaffected, and a deal already linked to a hidden Contact still renders it via get_doc. Name set is Redis-cached (6h TTL), busted on Employee/Contact insert, update, and delete. Verified read-only on live data: 52 of 438 Contacts hidden from the portal (386 shown), Desk list unchanged at 438. Gate matrix checked across all four request types.",
     "phase": "EasyCloud CRM Automations",
-    "phaseId": "phase-14"
+    "phaseId": "phase-14",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-08",
@@ -1115,7 +1285,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Committed as-is: backend endpoint and whitelist-method override verified working; the frontend list-view wiring wasn't clicked through end to end before committing.</p>",
     "detailText": "Committed as-is: backend endpoint and whitelist-method override verified working; the frontend list-view wiring wasn't clicked through end to end before committing.",
     "phase": "EasyCloud CRM Automations",
-    "phaseId": "phase-14"
+    "phaseId": "phase-14",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-08",
@@ -1128,7 +1300,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "",
     "detailText": "",
     "phase": "EasyCloud CRM Automations",
-    "phaseId": "phase-14"
+    "phaseId": "phase-14",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-08",
@@ -1141,7 +1315,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Needs on production: <code>bench --site easycloud clear-cache</code>, then a supervisor restart of the web and worker processes.</p><p><strong>Note:</strong> apps/crm still carries 9 unrelated dirty files in a separate repo, untouched — a standing TODO item.</p>",
     "detailText": "Needs on production: bench --site easycloud clear-cache, then a supervisor restart of the web and worker processes. Note: apps/crm still carries 9 unrelated dirty files in a separate repo, untouched — a standing TODO item.",
     "phase": "EasyCloud CRM Automations",
-    "phaseId": "phase-14"
+    "phaseId": "phase-14",
+    "projectId": "easycloud-crm",
+    "project": "EasyCloud CRM"
   },
   {
     "date": "2026-08-08",
@@ -1154,7 +1330,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Deleted the custom_packaging_status_tab and custom_packaging_status_html Custom Fields (Tab Break + HTML) from Purchase Receipt, including their field-order entries, and removed the dead JS functions (render_packaging_status_placeholder, render_packaging_status_tab, build_packaging_item_node, build_packaging_pack_node, prompt_for_debox_reason) from purchase_receipt.js, leaving the unrelated Print Labels dialog untouched.</p><p>Migrated, explicitly deleted the 2 orphaned Custom Field database rows (fixture sync doesn't auto-delete removed fields), cleared cache, restarted gunicorn, verified pixeled and powertexuat both healthy. Confirmed via direct database/meta checks that nothing else referenced the removed tab and the standalone page's backend was unaffected.</p>",
     "detailText": "Deleted the custom_packaging_status_tab and custom_packaging_status_html Custom Fields (Tab Break + HTML) from Purchase Receipt, including their field-order entries, and removed the dead JS functions (render_packaging_status_placeholder, render_packaging_status_tab, build_packaging_item_node, build_packaging_pack_node, prompt_for_debox_reason) from purchase_receipt.js, leaving the unrelated Print Labels dialog untouched. Migrated, explicitly deleted the 2 orphaned Custom Field database rows (fixture sync doesn't auto-delete removed fields), cleared cache, restarted gunicorn, verified pixeled and powertexuat both healthy. Confirmed via direct database/meta checks that nothing else referenced the removed tab and the standalone page's backend was unaffected.",
     "phase": "Packaging Status Rebuild & Security Hardening",
-    "phaseId": "phase-15"
+    "phaseId": "phase-15",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-08",
@@ -1167,7 +1345,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Stock Balance's per-UOM columns are pure arithmetic off the Stock Ledger; there's no concept of \"boxes currently sealed\" in it, and the packaging/deboxing feature has never touched the Stock Ledger by original design. Making this work would mean rearchitecting packaging tiers as real Batches with Stock Entries fired on every debox — reversing an earlier explicit decision, and not something to fix by editing ERPNext core given two other companies share this bench.</p><p>Wrote up the full rearchitecture plan (cost, valuation implications, scale) and saved it for later, rather than shipping a partial fix.</p>",
     "detailText": "Stock Balance's per-UOM columns are pure arithmetic off the Stock Ledger; there's no concept of \"boxes currently sealed\" in it, and the packaging/deboxing feature has never touched the Stock Ledger by original design. Making this work would mean rearchitecting packaging tiers as real Batches with Stock Entries fired on every debox — reversing an earlier explicit decision, and not something to fix by editing ERPNext core given two other companies share this bench. Wrote up the full rearchitecture plan (cost, valuation implications, scale) and saved it for later, rather than shipping a partial fix.",
     "phase": "Packaging Status Rebuild & Security Hardening",
-    "phaseId": "phase-15"
+    "phaseId": "phase-15",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-08",
@@ -1180,7 +1360,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Backend: a new Purchase Receipt on_submit hook creates Parent/Grandparent box records immediately on submit; a new Overview report shows item count, printed/total, and deboxed counts per receipt, filterable by item, date range, and status; a new bulk-deboxing endpoint marks several boxes deboxed under one shared reason, reporting per-box success/skip instead of failing the whole batch.</p><p>Frontend rewritten with a Single Receipt / Overview toggle, a filter bar with click-through rows, bulk print across selected items with one printer (already-printed items skipped), and bulk debox with one shared reason prompt.</p><p>Verified against real data: overview counts matched raw database counts exactly on two receipts (280/280 and 99,500/99,500 boxes), bulk deboxing tested and reverted cleanly, on-submit hook checked for idempotency. Migrated, gunicorn restarted, both sites verified healthy.</p>",
     "detailText": "Backend: a new Purchase Receipt on_submit hook creates Parent/Grandparent box records immediately on submit; a new Overview report shows item count, printed/total, and deboxed counts per receipt, filterable by item, date range, and status; a new bulk-deboxing endpoint marks several boxes deboxed under one shared reason, reporting per-box success/skip instead of failing the whole batch. Frontend rewritten with a Single Receipt / Overview toggle, a filter bar with click-through rows, bulk print across selected items with one printer (already-printed items skipped), and bulk debox with one shared reason prompt. Verified against real data: overview counts matched raw database counts exactly on two receipts (280/280 and 99,500/99,500 boxes), bulk deboxing tested and reverted cleanly, on-submit hook checked for idempotency. Migrated, gunicorn restarted, both sites verified healthy.",
     "phase": "Packaging Status Rebuild & Security Hardening",
-    "phaseId": "phase-15"
+    "phaseId": "phase-15",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-08",
@@ -1193,7 +1375,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Fixed immediately:</strong> both functions now reject anything that isn't a plain record name before it reaches the database. Verified live, read-only, that the attack path is blocked and the real record count is untouched, then re-verified normal operation still works.</p><p><strong>Also fixed in the same pass:</strong> the on-submit box-creation hook wrapped in a database savepoint so a failed bulk write on a large receipt (99,500+ boxes) rolls back cleanly instead of leaving a partial box count; a running-batch guard added to bulk print to stop the same physical label being printed twice; a silent no-op fixed where re-selecting an already-selected receipt in Overview did nothing. Two minor items noted, left as-is.</p><p>Restarted gunicorn immediately to close the live vulnerability before anything else, confirmed both sites healthy again.</p>",
     "detailText": "Fixed immediately: both functions now reject anything that isn't a plain record name before it reaches the database. Verified live, read-only, that the attack path is blocked and the real record count is untouched, then re-verified normal operation still works. Also fixed in the same pass: the on-submit box-creation hook wrapped in a database savepoint so a failed bulk write on a large receipt (99,500+ boxes) rolls back cleanly instead of leaving a partial box count; a running-batch guard added to bulk print to stop the same physical label being printed twice; a silent no-op fixed where re-selecting an already-selected receipt in Overview did nothing. Two minor items noted, left as-is. Restarted gunicorn immediately to close the live vulnerability before anything else, confirmed both sites healthy again.",
     "phase": "Packaging Status Rebuild & Security Hardening",
-    "phaseId": "phase-15"
+    "phaseId": "phase-15",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-08",
@@ -1206,7 +1390,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>main had a genuine conflict with today's branch in one shared file (api.py), from a teammate's own Warehouse Control Tower API and pallet-weight field work landed since this branch last synced. Resolved the conflict in an isolated git worktree — never touching the server's actual running code — verified the resolution against both original branches by diff, and syntax-checked the full merged codebase before finalizing. Pushed to origin/main; the live server stayed on its own branch throughout and was never disturbed.</p>",
     "detailText": "main had a genuine conflict with today's branch in one shared file (api.py), from a teammate's own Warehouse Control Tower API and pallet-weight field work landed since this branch last synced. Resolved the conflict in an isolated git worktree — never touching the server's actual running code — verified the resolution against both original branches by diff, and syntax-checked the full merged codebase before finalizing. Pushed to origin/main; the live server stayed on its own branch throughout and was never disturbed.",
     "phase": "Packaging Status Rebuild & Security Hardening",
-    "phaseId": "phase-15"
+    "phaseId": "phase-15",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-10",
@@ -1219,7 +1405,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Confirmed config: Dry Run off, API URL http://103.60.213.109:8000/erpstockupdate/, Authorization set (encrypted), Price List Standard Selling, Timeout 30s, the 5 junk items excluded.</p><p>Now automatic: Stock Entry, Delivery Note, Purchase Receipt, Sales/Purchase Invoice with update_stock, Stock Reconciliation, and Subcontracting Receipt — plus their cancellations — fire a push within seconds of the transaction committing. A 5-minute cron backs it up for endpoint outages or anything the event path misses. Pushes are skipped entirely when nothing changed, so a quiet site generating no Integration Requests is correct, not a fault.</p><p><strong>Caveat:</strong> the instant trigger hasn't actually been observed firing yet — no stock movement happened on pixeled since the restart. Wiring verified by construction (hooks.py parses with the entry present, the Scheduled Job Type row proves Frappe read the file, gunicorn restarted after the edit), but that's not the same as seen-working. Cancellation revert and the killswitch also remain untested against live data.</p>",
     "detailText": "Confirmed config: Dry Run off, API URL http://103.60.213.109:8000/erpstockupdate/, Authorization set (encrypted), Price List Standard Selling, Timeout 30s, the 5 junk items excluded. Now automatic: Stock Entry, Delivery Note, Purchase Receipt, Sales/Purchase Invoice with update_stock, Stock Reconciliation, and Subcontracting Receipt — plus their cancellations — fire a push within seconds of the transaction committing. A 5-minute cron backs it up for endpoint outages or anything the event path misses. Pushes are skipped entirely when nothing changed, so a quiet site generating no Integration Requests is correct, not a fault. Caveat: the instant trigger hasn't actually been observed firing yet — no stock movement happened on pixeled since the restart. Wiring verified by construction (hooks.py parses with the entry present, the Scheduled Job Type row proves Frappe read the file, gunicorn restarted after the edit), but that's not the same as seen-working. Cancellation revert and the killswitch also remain untested against live data.",
     "phase": "Outbound Stock Feed Enablement",
-    "phaseId": "phase-16"
+    "phaseId": "phase-16",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-11",
@@ -1232,7 +1420,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>The first real push returned created=149 plus updated=[\"VARNISHP408\"] — that item had been pushed by hand from Postman earlier, and the endpoint matched and updated it instead of duplicating. This overturns the earlier \"200 OK but nothing lands\" conclusion. created vs. updated is the only trustworthy signal; the \"Stock update completed\" string comes back regardless and means nothing. A second push confirmed it: created=0, all 150 product ids already existed.</p><p>Design decisions confirmed directly: productid = Item.item_code (not custom_sku_no, despite Aug 6 evidence that SKU matches the client's own product pages); qty = Bin.actual_qty summed across warehouses; mrp = Item Price on Standard Selling, 0 when absent. 5 junk items excluded — the parenthesised \"(1610)\" and plain \"1610\" are different items, only the parenthesised one is junk. 155 saleable items narrowed to 150 after exclusions; only 8 have a price, so 147 push mrp=0 — accepted, since there's no fallback and standard_rate is 0 on every item.</p><p>Hooked on Stock Ledger Entry on_submit, not Bin — Bin.actual_qty is written by a raw frappe.db.set_value and fires no document events, so a Bin hook would catch reservations and silently miss every real movement. Sends a full snapshot with a stored payload SHA-256, so an unchanged snapshot sends nothing. The app's first-ever scheduler_events entry and first background job.</p><p><strong>Note:</strong> their side doesn't round-trip decimal mrp — SHAFT 6-100 201 (206.23) and TCTRF 4 X 40 (88.14) are the only two non-integer prices and will report as updated on every push forever. Harmless; only worth raising with the client if paise matter.</p><p><strong>Outstanding:</strong> the instant SLE trigger still hasn't been observed firing (no real stock movement occurred this session); the cancellation path and the killswitch remain untested on live data.</p>",
     "detailText": "The first real push returned created=149 plus updated=[VARNISHP408] — that item had been pushed by hand from Postman earlier, and the endpoint matched and updated it instead of duplicating. This overturns the earlier \"200 OK but nothing lands\" conclusion. created vs. updated is the only trustworthy signal; the \"Stock update completed\" string comes back regardless and means nothing. A second push confirmed it: created=0, all 150 product ids already existed. Design decisions confirmed directly: productid = Item.item_code (not custom_sku_no, despite Aug 6 evidence that SKU matches the client's own product pages); qty = Bin.actual_qty summed across warehouses; mrp = Item Price on Standard Selling, 0 when absent. 5 junk items excluded — the parenthesised (1610) and plain 1610 are different items, only the parenthesised one is junk. 155 saleable items narrowed to 150 after exclusions; only 8 have a price, so 147 push mrp=0 — accepted, since there's no fallback and standard_rate is 0 on every item. Hooked on Stock Ledger Entry on_submit, not Bin — Bin.actual_qty is written by a raw frappe.db.set_value and fires no document events, so a Bin hook would catch reservations and silently miss every real movement. Sends a full snapshot with a stored payload SHA-256, so an unchanged snapshot sends nothing. The app's first-ever scheduler_events entry and first background job. Note: their side doesn't round-trip decimal mrp — SHAFT 6-100 201 (206.23) and TCTRF 4 X 40 (88.14) are the only two non-integer prices and will report as updated on every push forever. Harmless; only worth raising with the client if paise matter. Outstanding: the instant SLE trigger still hasn't been observed firing (no real stock movement occurred this session); the cancellation path and the killswitch remain untested on live data.",
     "phase": "Stock Sync, Packaging Tiers & Label Rename",
-    "phaseId": "phase-17"
+    "phaseId": "phase-17",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-11",
@@ -1245,7 +1435,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Chose an ERPNext Inventory Dimension after ruling out the alternatives on real constraints, not preference. Stock Balance's get_group_by_key() groups by (company, item_code, warehouse) plus each inventory dimension, and never by batch — that alone kills any batch-based design. Separately, all 4 real packaging items are locked out of has_batch_no by submitted documents, and forcing it via the database would make every future Stock Ledger Entry throw. Real Serial Nos are out too — a serial entry is forced to qty = 1, so a 200-piece Grandparent can't be one Serial No.</p><p>The tier move is a Material Transfer with the same source and target warehouse — explicitly legal in ERPNext when an inventory dimension differs, not a hack.</p><p>Verified on scratch item ZZTEST-PKG-TIER, receipt PR-08-26-013, 200 Nos, with hard asserts against real Stock Balance output: received → Grandparent 1; debox 1 Grandparent → Grandparent 0, Parent 10; debox 1 Parent → Parent 9, Child 20; debox another Parent → Parent 8, Child 40. Total conserved at 200 throughout, matching the spec exactly.</p><p>Gated behind is_dimension_ready(), so it's inert until setup runs; existing real stock shows as an untiered row alongside tiered ones.</p><p><strong>Note:</strong> test residue left in place deliberately, since deleting submitted stock documents is destructive — item ZZTEST-PKG-TIER, receipt PR-08-26-013 (200 Nos in Stores - PI), Stock Entries MAT-STE-00046/47/48, and their labels.</p><p><strong>Update (2026-08-12):</strong> this verification covered only the scratch item. Every real receipt predates the tier stamp this feature relies on, so deboxing on real stock was a silent no-op until root-caused and fixed — see the Aug 12 log.</p>",
     "detailText": "Chose an ERPNext Inventory Dimension after ruling out the alternatives on real constraints, not preference. Stock Balance's get_group_by_key() groups by (company, item_code, warehouse) plus each inventory dimension, and never by batch — that alone kills any batch-based design. Separately, all 4 real packaging items are locked out of has_batch_no by submitted documents, and forcing it via the database would make every future Stock Ledger Entry throw. Real Serial Nos are out too — a serial entry is forced to qty = 1, so a 200-piece Grandparent can't be one Serial No. The tier move is a Material Transfer with the same source and target warehouse — explicitly legal in ERPNext when an inventory dimension differs, not a hack. Verified on scratch item ZZTEST-PKG-TIER, receipt PR-08-26-013, 200 Nos, with hard asserts against real Stock Balance output: received → Grandparent 1; debox 1 Grandparent → Grandparent 0, Parent 10; debox 1 Parent → Parent 9, Child 20; debox another Parent → Parent 8, Child 40. Total conserved at 200 throughout, matching the spec exactly. Gated behind is_dimension_ready(), so it's inert until setup runs; existing real stock shows as an untiered row alongside tiered ones. Note: test residue left in place deliberately, since deleting submitted stock documents is destructive — item ZZTEST-PKG-TIER, receipt PR-08-26-013 (200 Nos in Stores - PI), Stock Entries MAT-STE-00046/47/48, and their labels. Update (2026-08-12): this verification covered only the scratch item. Every real receipt predates the tier stamp this feature relies on, so deboxing on real stock was a silent no-op until root-caused and fixed — see the Aug 12 log.",
     "phase": "Stock Sync, Packaging Tiers & Label Rename",
-    "phaseId": "phase-17"
+    "phaseId": "phase-17",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-11",
@@ -1258,7 +1450,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Item Barcode ruled authoritative for tier-to-barcode mapping — live data backed it, with GTINs ascending by pack size on both items that have a full barcode set. That check surfaced a real error: item 1610's hand-typed series had Child and Grandparent swapped, corrected on the live Item master. Where a UOM has no barcode, the token falls back to CHD/PAR/GPR rather than being dropped — dropping it would collapse all three tiers of an item onto one shared counter. There's deliberately no generic fallback: no SKU No. means no code and no printing.</p><p>The 124,066-record rename ran via rename_pack_labels.py (dry-run by default; needs dry_run=0 and confirm='RENAME'). Not frappe.rename_doc — that would take hours at this scale for two inbound references — instead a map table plus three UPDATE ... JOINs. Result: 124,066 renamed, 20,814 packed_into links rewritten, 0 orphans, 288 left on old codes (the two no-SKU items), and tabSeries counters set so new labels continue the sequence.</p><p><strong>Two traps found and written down:</strong> frappe.db.sql raises ImplicitCommitError on DDL once the transaction has writes — the script's final drop table rolled back the entire rename, twice, printing nothing; frappe.db.commit() must precede any cleanup DDL. Separately, bench execute hides tracebacks — it catches the exception and re-runs via eval(), which dies with a misleading NameError, so a failing script looks like a silent exit 1.</p><p>Printing is now gated receipt-wide and enforced server-side in both generate_tspl and commit_print — the greyed-out dialog buttons are presentation only. A receipt is put away as one job, and a part-labelled receipt is worse on the floor than an unlabelled one.</p><p><strong>Testing:</strong> 20 of 21 end-to-end checks passed; the one failure was a wrong assertion in the test itself, which assumed zero labels were flagged printed when 102,283 already were from Aug 7 and an earlier run today.</p>",
     "detailText": "Item Barcode ruled authoritative for tier-to-barcode mapping — live data backed it, with GTINs ascending by pack size on both items that have a full barcode set. That check surfaced a real error: item 1610's hand-typed series had Child and Grandparent swapped, corrected on the live Item master. Where a UOM has no barcode, the token falls back to CHD/PAR/GPR rather than being dropped — dropping it would collapse all three tiers of an item onto one shared counter. There's deliberately no generic fallback: no SKU No. means no code and no printing. The 124,066-record rename ran via rename_pack_labels.py (dry-run by default; needs dry_run=0 and confirm='RENAME'). Not frappe.rename_doc — that would take hours at this scale for two inbound references — instead a map table plus three UPDATE ... JOINs. Result: 124,066 renamed, 20,814 packed_into links rewritten, 0 orphans, 288 left on old codes (the two no-SKU items), and tabSeries counters set so new labels continue the sequence. Two traps found and written down: frappe.db.sql raises ImplicitCommitError on DDL once the transaction has writes — the script's final drop table rolled back the entire rename, twice, printing nothing; frappe.db.commit() must precede any cleanup DDL. Separately, bench execute hides tracebacks — it catches the exception and re-runs via eval(), which dies with a misleading NameError, so a failing script looks like a silent exit 1. Printing is now gated receipt-wide and enforced server-side in both generate_tspl and commit_print — the greyed-out dialog buttons are presentation only. A receipt is put away as one job, and a part-labelled receipt is worse on the floor than an unlabelled one. Testing: 20 of 21 end-to-end checks passed; the one failure was a wrong assertion in the test itself, which assumed zero labels were flagged printed when 102,283 already were from Aug 7 and an earlier run today.",
     "phase": "Stock Sync, Packaging Tiers & Label Rename",
-    "phaseId": "phase-17"
+    "phaseId": "phase-17",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1271,7 +1465,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Switched attendance status to hours-worked based — 9+ hours worked is Present, 4.5+ is Half Day, less (or a missing IN/OUT) is Absent — independent of which shift the punch falls in.</p><p>Restored late_entry/early_exit tracking, now matched against the employee's assigned shift first, falling back to whichever roster shift (A/B/C/D) the punch actually falls into — so someone walking in for a different shift than assigned is graded against that shift's start time, not their nominal one. Grace periods now downgrade an otherwise-Present day to Half Day when exceeded, and are read per-shift straight off each Shift Type's own late_entry_grace_period / early_exit_grace_period, falling back to 5 minutes only when a shift has it unset.</p>",
     "detailText": "Switched attendance status to hours-worked based — 9+ hours worked is Present, 4.5+ is Half Day, less (or a missing IN/OUT) is Absent — independent of which shift the punch falls in. Restored late_entry/early_exit tracking, now matched against the employee's assigned shift first, falling back to whichever roster shift (A/B/C/D) the punch actually falls into — so someone walking in for a different shift than assigned is graded against that shift's start time, not their nominal one. Grace periods now downgrade an otherwise-Present day to Half Day when exceeded, and are read per-shift straight off each Shift Type's own late_entry_grace_period / early_exit_grace_period, falling back to 5 minutes only when a shift has it unset.",
     "phase": "Wadi Surgicals HRMS — Attendance Engine Fix",
-    "phaseId": "phase-18"
+    "phaseId": "phase-18",
+    "projectId": "wadi-hrms",
+    "project": "Wadi Surgicals HRMS"
   },
   {
     "date": "2026-08-12",
@@ -1284,7 +1480,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p><strong>Cause 1 (real, fixed):</strong> the previous day's build stamps packaging_level at Purchase Receipt before_submit — every real receipt predates it, so the legacy guard in make_debox_transfer silently no-opped every debox on old stock: flag flipped, transfer empty, ledger untouched.</p><p><strong>Cause 2 (not a bug):</strong> core's get_group_by_key() only splits Stock Balance rows by dimension when \"Show Dimension Wise Stock\" is ticked. With it off, everything collapses to one row per item/warehouse and the Grand Parent column is just balance ÷ conversion factor — arithmetically conserved by a same-warehouse transfer no matter how correct the tier logic is.</p><p><strong>Cause 3 (real, fixed):</strong> Stock Balance on pixeled runs as a prepared background report — it was serving one cached run per filter set (22 accumulated that day alone) until manually rebuilt, so real stock changes stayed invisible.</p>",
     "detailText": "Cause 1 (real, fixed): the previous day's build stamps packaging_level at Purchase Receipt before_submit — every real receipt predates it, so the legacy guard in make_debox_transfer silently no-opped every debox on old stock: flag flipped, transfer empty, ledger untouched. Cause 2 (not a bug): core's get_group_by_key() only splits Stock Balance rows by dimension when \"Show Dimension Wise Stock\" is ticked. With it off, everything collapses to one row per item/warehouse and the Grand Parent column is just balance ÷ conversion factor — arithmetically conserved by a same-warehouse transfer no matter how correct the tier logic is. Cause 3 (real, fixed): Stock Balance on pixeled runs as a prepared background report — it was serving one cached run per filter set (22 accumulated that day alone) until manually rebuilt, so real stock changes stayed invisible.",
     "phase": "Packaging Tier Stock — Root-Caused & Fixed",
-    "phaseId": "phase-19"
+    "phaseId": "phase-19",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1297,7 +1495,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Seeded and DB-committed MAT-STE-00053 through 00060; totals conserved and matched Bin exactly across all four affected item/warehouse combinations. Confirmed with the dimension checkbox off that the numbers are byte-identical to before the seed, so no existing report or user was disturbed — no gunicorn restart needed, since seeding only stamps data the already-running code already reads.</p><p>Also switched prepared_report off for Stock Balance on pixeled (measured worst case 0.03s on this site's 373 SLE rows / 157 items) so future changes stay live instead of needing a manual rebuild — a deliberate divergence from upstream that a future ERPNext upgrade touching stock_balance.json will silently revert.</p><p><strong>Note:</strong> a same-day false alarm — the bookmarked Stock Balance URL was filtered to a different item than the one being deboxed. Working feature, wrong filter.</p>",
     "detailText": "Seeded and DB-committed MAT-STE-00053 through 00060; totals conserved and matched Bin exactly across all four affected item/warehouse combinations. Confirmed with the dimension checkbox off that the numbers are byte-identical to before the seed, so no existing report or user was disturbed — no gunicorn restart needed, since seeding only stamps data the already-running code already reads. Also switched prepared_report off for Stock Balance on pixeled (measured worst case 0.03s on this site's 373 SLE rows / 157 items) so future changes stay live instead of needing a manual rebuild — a deliberate divergence from upstream that a future ERPNext upgrade touching stock_balance.json will silently revert. Note: a same-day false alarm — the bookmarked Stock Balance URL was filtered to a different item than the one being deboxed. Working feature, wrong filter.",
     "phase": "Packaging Tier Stock — Root-Caused & Fixed",
-    "phaseId": "phase-19"
+    "phaseId": "phase-19",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1310,7 +1510,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Fixed by gating both hooks on the same readiness check. Added a readiness audit report, since a misconfigured item looks identical to a broken feature from the Purchase Receipt screen — SILICAGELP413 (4,001 Nos, zero labels) was the live strand caught by it. Went live at the same day's 11:07 gunicorn restart.</p>",
     "detailText": "Fixed by gating both hooks on the same readiness check. Added a readiness audit report, since a misconfigured item looks identical to a broken feature from the Purchase Receipt screen — SILICAGELP413 (4,001 Nos, zero labels) was the live strand caught by it. Went live at the same day's 11:07 gunicorn restart.",
     "phase": "Packaging Tier Stock — Root-Caused & Fixed",
-    "phaseId": "phase-19"
+    "phaseId": "phase-19",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1323,7 +1525,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>ZZTEST-PKG-TIER fully purged — item, PO, 2 receipts, 7 Stock Entries, 176 pack labels, 3,200 Nos of stock, plus 32 cancelled-but-orphaned SLE rows that survive document deletion in ERPNext.</p><p>Rolled out Parent ×10 / Grand Parent ×100 to all 149 single-UOM items; readiness went from 4 ready to 131 ready / 24 needing an SKU. Caught before applying: conversion_factor is always relative to the stock UOM, not the tier below it, so a template of 10/10 would have meant 1 Grand Parent = 1 Parent — no hierarchy at all. Corrected to 10/100, and renamed the columns to *_factor_stock_uom so the mistake can't recur.</p><p><strong>Flagged, not resolved:</strong> these factors are provisional and likely wrong per item — a 4-inch blade and a 14-inch cut-off machine both got the same 10/100 template, against a real existing range of 20/120 to 20/200. Also raises stranding exposure from 2 items to 24 until those items get SKU numbers.</p>",
     "detailText": "ZZTEST-PKG-TIER fully purged — item, PO, 2 receipts, 7 Stock Entries, 176 pack labels, 3,200 Nos of stock, plus 32 cancelled-but-orphaned SLE rows that survive document deletion in ERPNext. Rolled out Parent ×10 / Grand Parent ×100 to all 149 single-UOM items; readiness went from 4 ready to 131 ready / 24 needing an SKU. Caught before applying: conversion_factor is always relative to the stock UOM, not the tier below it, so a template of 10/10 would have meant 1 Grand Parent = 1 Parent — no hierarchy at all. Corrected to 10/100, and renamed the columns to *_factor_stock_uom so the mistake can't recur. Flagged, not resolved: these factors are provisional and likely wrong per item — a 4-inch blade and a 14-inch cut-off machine both got the same 10/100 template, against a real existing range of 20/120 to 20/200. Also raises stranding exposure from 2 items to 24 until those items get SKU numbers.",
     "phase": "Packaging Tier Stock — Root-Caused & Fixed",
-    "phaseId": "phase-19"
+    "phaseId": "phase-19",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1336,7 +1540,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>Confirmed real by reading SANs off the live socket — cert covered 6 names, powertexdubaiuat wasn't one; frappe.ping still returned pong, so $host → site routing was fine. Applied 3 edits to nginx.conf (backed up first): added the host to both the :443 and :80 server_name blocks, and added a 301 redirect block for :80, which previously 404'd for that host. Parse-verified with nginx -t before handing over the root-level certonly commands (not --nginx, so the installer wouldn't overwrite the hand edits), with an explicit warning that --expand replaces the lineage's whole domain set.</p><p>Verified live: cert now carries 7 SANs including powertexdubaiuat.easycloud.co.in, reissued same day (expiry moved Nov 9 → Nov 10), nginx master restarted 09:58. Closed the corresponding remediation-queue item, which still read \"cert expansion STILL PENDING.\"</p><p><strong>Residual:</strong> powertexdubai's site_config.json still has no host_name/domains set, so Frappe-generated absolute URLs (password resets, notification mail, PDF assets) don't pin to this hostname.</p>",
     "detailText": "Confirmed real by reading SANs off the live socket — cert covered 6 names, powertexdubaiuat wasn't one; frappe.ping still returned pong, so $host → site routing was fine. Applied 3 edits to nginx.conf (backed up first): added the host to both the :443 and :80 server_name blocks, and added a 301 redirect block for :80, which previously 404'd for that host. Parse-verified with nginx -t before handing over the root-level certonly commands (not --nginx, so the installer wouldn't overwrite the hand edits), with an explicit warning that --expand replaces the lineage's whole domain set. Verified live: cert now carries 7 SANs including powertexdubaiuat.easycloud.co.in, reissued same day (expiry moved Nov 9 → Nov 10), nginx master restarted 09:58. Closed the corresponding remediation-queue item, which still read \"cert expansion STILL PENDING.\" Residual: powertexdubai's site_config.json still has no host_name/domains set, so Frappe-generated absolute URLs (password resets, notification mail, PDF assets) don't pin to this hostname.",
     "phase": "powertexdubaiuat TLS Certificate Fix",
-    "phaseId": "phase-20"
+    "phaseId": "phase-20",
+    "projectId": "powertex-erp",
+    "project": "Powertex ERP"
   },
   {
     "date": "2026-08-12",
@@ -1349,7 +1555,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>has_serial_no can't be toggled on 153 of 156 items — they already have Stock Ledger Entries and ERPNext's own Item.cant_change() hard-blocks it; only 3 items are genuinely serial-tracked. Also corrected a bad scalar subquery that had been echoing the barcode count as if only 144 items were multi-tier — all 156 are, 467 tier slots total, verified twice.</p><p>Built seed_tier_barcodes.py with two write gates, per-item commit, and a read-only report() that re-derives every code independently so results don't have to be trusted from the seeder's own bookkeeping. Generated codes are EAN-13 in the GS1 restricted-circulation range (prefix 29, which GS1 never issues as a real company prefix) so they can't collide with Pixeled's real 890 7704 GTINs, and fabricated SKUs use a PXL##### shape no real SKU uses, so a generated code stays recognisable. Never overwrites a real barcode or touches has_serial_no.</p><p>Dry run: 467 slots → 467 unique barcodes, 467 unique series, 0 invalid check digits, 0 failures. Live write was denied by the permission classifier; re-verified Item Barcode count still at 12 — nothing seeded.</p>",
     "detailText": "has_serial_no can't be toggled on 153 of 156 items — they already have Stock Ledger Entries and ERPNext's own Item.cant_change() hard-blocks it; only 3 items are genuinely serial-tracked. Also corrected a bad scalar subquery that had been echoing the barcode count as if only 144 items were multi-tier — all 156 are, 467 tier slots total, verified twice. Built seed_tier_barcodes.py with two write gates, per-item commit, and a read-only report() that re-derives every code independently so results don't have to be trusted from the seeder's own bookkeeping. Generated codes are EAN-13 in the GS1 restricted-circulation range (prefix 29, which GS1 never issues as a real company prefix) so they can't collide with Pixeled's real 890 7704 GTINs, and fabricated SKUs use a PXL##### shape no real SKU uses, so a generated code stays recognisable. Never overwrites a real barcode or touches has_serial_no. Dry run: 467 slots → 467 unique barcodes, 467 unique series, 0 invalid check digits, 0 failures. Live write was denied by the permission classifier; re-verified Item Barcode count still at 12 — nothing seeded.",
     "phase": "Per-Tier Barcode Seeder",
-    "phaseId": "phase-21"
+    "phaseId": "phase-21",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1362,7 +1570,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>The hooks had already been active since the previous day's 18:27 checkout uncommented them, armed by the same day's 11:07 restart. Dry-run tested against a real order (rolled back, not committed): as-stored 55%+20% compounds to 64% (1000 → 360); 55%+5% → 57.25% (427.5); a 100% first discount correctly zeroes the second and the rate; 0%+0% resets cleanly to MRP. No india_compliance throw — the Aug 8 GST fix is holding.</p><p>Left every other commented hook untouched — they point at modules and assets that don't exist in this app, and uncommenting any of them would break the next restart. Fixed the stale docs instead: pixelederp/CLAUDE.md and 3 memory files, which had the wrong wiring map and line numbers off by roughly 25.</p>",
     "detailText": "The hooks had already been active since the previous day's 18:27 checkout uncommented them, armed by the same day's 11:07 restart. Dry-run tested against a real order (rolled back, not committed): as-stored 55%+20% compounds to 64% (1000 → 360); 55%+5% → 57.25% (427.5); a 100% first discount correctly zeroes the second and the rate; 0%+0% resets cleanly to MRP. No india_compliance throw — the Aug 8 GST fix is holding. Left every other commented hook untouched — they point at modules and assets that don't exist in this app, and uncommenting any of them would break the next restart. Fixed the stale docs instead: pixelederp/CLAUDE.md and 3 memory files, which had the wrong wiring map and line numbers off by roughly 25.",
     "phase": "Discount Hook Audit & Day's Commits",
-    "phaseId": "phase-22"
+    "phaseId": "phase-22",
+    "projectId": "pixeled-erp",
+    "project": "Pixeled ERP"
   },
   {
     "date": "2026-08-12",
@@ -1375,7 +1585,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>pixelederp a75e06e (packaging tier seeding, stranding fix, barcode seeder), easy_common 055bbc9 (restored no_cache on the shadowed login page), banking_integration a8cc9af (removed Guest CRUD grants from the custom_docperm fixture), powertexerp 77a590e and sun_consultancy_services_app eed076b (closed a credential-check bypass in getUsers on both). All authored as mohammedinzi; none pushed to origin yet.</p>",
     "detailText": "pixelederp a75e06e (packaging tier seeding, stranding fix, barcode seeder), easy_common 055bbc9 (restored no_cache on the shadowed login page), banking_integration a8cc9af (removed Guest CRUD grants from the custom_docperm fixture), powertexerp 77a590e and sun_consultancy_services_app eed076b (closed a credential-check bypass in getUsers on both). All authored as mohammedinzi; none pushed to origin yet.",
     "phase": "Discount Hook Audit & Day's Commits",
-    "phaseId": "phase-22"
+    "phaseId": "phase-22",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-12",
@@ -1388,7 +1600,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>One Frappe/ERPNext bench (/opt/erp) is the real, live system — Frappe is the underlying engine, ERPNext the business app on top (accounting, sales, purchases, inventory, invoicing) — shared across 5 client companies, each isolated in its own site and database on the same codebase.</p><p>A second copy (/opt/erplatest) sits on disk a full major version ahead — Frappe v16.13 / ERPNext v16.12 versus the live v15.96 / v15.94 — holding only 2 of the 5 sites and none of the custom client apps, with no processes running for it. Reads as an in-progress v16 upgrade trial, not confirmed as active or abandoned.</p><p><strong>Installed apps, shared across every site:</strong> frappe (engine), erpnext (core), hrms (HR/payroll), india_compliance (Indian GST/tax rules), insights (BI dashboard), banking_integration (bank feed sync), easy_common (shared login page), plus one custom app per client — gentexerp, pixelederp, powertexerp, sun_consultancy_services_app, urja_shakti.</p><p><strong>Flagged:</strong> a folder outstanding_receivables_report sits loose at the top level of the bench, outside any app — not how Frappe normally organizes things, looks like a stray or half-installed custom report.</p>",
     "detailText": "One Frappe/ERPNext bench (/opt/erp) is the real, live system — Frappe is the underlying engine, ERPNext the business app on top (accounting, sales, purchases, inventory, invoicing) — shared across 5 client companies, each isolated in its own site and database on the same codebase. A second copy (/opt/erplatest) sits on disk a full major version ahead — Frappe v16.13 / ERPNext v16.12 versus the live v15.96 / v15.94 — holding only 2 of the 5 sites and none of the custom client apps, with no processes running for it. Reads as an in-progress v16 upgrade trial, not confirmed as active or abandoned. Installed apps, shared across every site: frappe (engine), erpnext (core), hrms (HR/payroll), india_compliance (Indian GST/tax rules), insights (BI dashboard), banking_integration (bank feed sync), easy_common (shared login page), plus one custom app per client — gentexerp, pixelederp, powertexerp, sun_consultancy_services_app, urja_shakti. Flagged: a folder outstanding_receivables_report sits loose at the top level of the bench, outside any app — not how Frappe normally organizes things, looks like a stray or half-installed custom report.",
     "phase": "Server & Site Infrastructure Audit",
-    "phaseId": "phase-23"
+    "phaseId": "phase-23",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-12",
@@ -1401,7 +1615,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<p>nginx reads the domain on port 80/443 and routes to the matching site; ports 8001–8004 also expose each company directly, for testing without needing the right domain name. Requests reach gunicorn (5 worker processes) on port 8000; real-time features like notification popups go through socket.io (Node.js) on port 9000. MariaDB holds the data, Redis handles caching and background jobs. Every domain carries a real Let's Encrypt certificate.</p><p>A separate stack watches server health: Prometheus polls every 30 seconds via node/mysql/redis exporters, Loki stores logs so they're searchable after the fact, Grafana is the dashboard a human actually looks at, at monitorpowertexuat.easycloud.co.in.</p><p><strong>Flagged:</strong> Alertmanager is installed but not running, and its config folder is completely empty — right now nothing pages anyone when something breaks off-hours, Prometheus just quietly collects numbers. Also found a docker-exp scrape target still in prometheus.yml (ports 19100/18081) — Docker isn't installed on this machine, so it's unreachable; either leftover from a past setup or meant for a different remote server.</p>",
     "detailText": "nginx reads the domain on port 80/443 and routes to the matching site; ports 8001–8004 also expose each company directly, for testing without needing the right domain name. Requests reach gunicorn (5 worker processes) on port 8000; real-time features like notification popups go through socket.io (Node.js) on port 9000. MariaDB holds the data, Redis handles caching and background jobs. Every domain carries a real Let's Encrypt certificate. A separate stack watches server health: Prometheus polls every 30 seconds via node/mysql/redis exporters, Loki stores logs so they're searchable after the fact, Grafana is the dashboard a human actually looks at, at monitorpowertexuat.easycloud.co.in. Flagged: Alertmanager is installed but not running, and its config folder is completely empty — right now nothing pages anyone when something breaks off-hours, Prometheus just quietly collects numbers. Also found a docker-exp scrape target still in prometheus.yml (ports 19100/18081) — Docker isn't installed on this machine, so it's unreachable; either leftover from a past setup or meant for a different remote server.",
     "phase": "Server & Site Infrastructure Audit",
-    "phaseId": "phase-23"
+    "phaseId": "phase-23",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-12",
@@ -1414,7 +1630,9 @@ window.WORKLOG_ENTRIES = [
     "detail": "<div class=\"tech-table-wrap\"><table><thead><tr><th>Site</th><th>Company</th><th>Users</th><th>Data</th><th>Custom app</th><th>Status</th></tr></thead><tbody><tr><td>gentex</td><td>Nantong Gentex Tools Co., Ltd (China)</td><td>6</td><td>1.4MB db, 32K files</td><td>gentexerp</td><td>Light use</td></tr><tr><td>pixeled</td><td>Pixeled India Pvt Ltd</td><td>14</td><td>2.9MB db, 48K files</td><td>pixelederp</td><td>Active</td></tr><tr><td>powertexuat</td><td>Powertex Group (6 linked companies)</td><td>32</td><td>10MB db, 6.7MB files</td><td>powertexerp + banking_integration</td><td>Most active · default site</td></tr><tr><td>sunconsultancyservices</td><td>Sun Consultancy Services</td><td>41</td><td>2MB db</td><td>sun_consultancy_services_app</td><td>Active, user-heavy</td></tr><tr><td>urjashakti_test</td><td>— no Company record yet</td><td>2</td><td>1.1MB db, 4KB files</td><td>urja_shakti + banking_integration + insights</td><td>Empty test site</td></tr></tbody></table></div><p>pixeled carries india_compliance (Indian GST/tax rules); gentex doesn't — consistent with one being an Indian company and the other Chinese. sunconsultancyservices has the most users (41) on one of the smaller databases, the usual signature of a services firm with people logging timesheets rather than a manufacturer pushing inventory volume. powertexuat is the default site — any request nginx can't match to a domain lands here.</p><p><strong>Flagged:</strong> Powertex Group's own company list includes one named just \"Pixel\" — close enough to the separate Pixeled client's name to look like a stray or misfiled company record, not confirmed.</p>",
     "detailText": "gentex — Nantong Gentex Tools Co., Ltd (China), 6 users, 1.4MB db / 32K files, gentexerp, light use. pixeled — Pixeled India Pvt Ltd, 14 users, 2.9MB db / 48K files, pixelederp, active. powertexuat — Powertex Group (6 linked companies), 32 users, 10MB db / 6.7MB files, powertexerp + banking_integration, most active, default site. sunconsultancyservices — Sun Consultancy Services, 41 users, 2MB db, sun_consultancy_services_app, active and user-heavy. urjashakti_test — no Company record yet, 2 users, 1.1MB db / 4KB files, urja_shakti + banking_integration + insights, empty test site. pixeled carries india_compliance; gentex doesn't — consistent with one being Indian, one Chinese. sunconsultancyservices' high user count on a smaller database is the usual signature of a services firm logging timesheets rather than a manufacturer pushing inventory volume. powertexuat is the default site. Flagged: Powertex Group's own company list includes one named just \"Pixel\" — close enough to the separate Pixeled client's name to look like a stray or misfiled company record, not confirmed.",
     "phase": "Server & Site Infrastructure Audit",
-    "phaseId": "phase-23"
+    "phaseId": "phase-23",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   },
   {
     "date": "2026-08-12",
@@ -1427,6 +1645,8 @@ window.WORKLOG_ENTRIES = [
     "detail": "<ul><li><strong>Alertmanager off:</strong> installed, config folder empty, not running as a service — nobody gets paged if something breaks off-hours.</li><li><strong>gentex domain mismatch:</strong> site_config.json says gentex.easycloud.co.in; nginx only answers for gentexuat.easycloud.co.in. Best guess, unconfirmed: the site was renamed at some point and the config field never followed — every other site follows the &lt;name&gt;uat pattern.</li><li><strong>Stray report folder:</strong> outstanding_receivables_report sits at the top level of the bench, outside any app.</li><li><strong>Dead Prometheus target:</strong> a docker-exp scrape block in prometheus.yml points at ports Docker would use — Docker isn't installed on this machine, so it's unreachable.</li><li><strong>Idle v16 test bench:</strong> /opt/erplatest is a full major-version-ahead copy with 2 of 5 sites, no custom apps, and nothing running — an upgrade trial, not confirmed active or abandoned.</li><li><strong>Stray \"Pixel\" company record</strong> inside Powertex Group's company list — resembles the separate Pixeled client closely enough to be worth checking.</li></ul>",
     "detailText": "Alertmanager off: installed, config folder empty, not running as a service — nobody gets paged if something breaks off-hours. gentex domain mismatch: site_config.json says gentex.easycloud.co.in; nginx only answers for gentexuat.easycloud.co.in — best guess, unconfirmed, is the site was renamed and the config field never followed. Stray report folder: outstanding_receivables_report sits at the top level of the bench, outside any app. Dead Prometheus target: a docker-exp scrape block in prometheus.yml points at ports Docker would use, but Docker isn't installed on this machine. Idle v16 test bench: /opt/erplatest is a full major-version-ahead copy with 2 of 5 sites, no custom apps, nothing running. Stray \"Pixel\" company record inside Powertex Group's company list, resembling the separate Pixeled client's name.",
     "phase": "Server & Site Infrastructure Audit",
-    "phaseId": "phase-23"
+    "phaseId": "phase-23",
+    "projectId": "infrastructure",
+    "project": "Server & Platform Infrastructure"
   }
 ];

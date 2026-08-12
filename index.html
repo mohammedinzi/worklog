@@ -125,6 +125,17 @@
     .filters-toggle{ display:flex; }
   }
 
+  .view-tabs{
+    display:flex; align-items:center; gap:2px; padding:3px; border-radius:10px;
+    background:var(--surface-2); border:1px solid var(--border);
+  }
+  .view-tab{
+    border:none; background:transparent; color:var(--text-muted); font-size:13px; font-weight:600;
+    padding:7px 14px; border-radius:8px; cursor:pointer; transition:background .12s ease, color .12s ease;
+  }
+  .view-tab:hover{ color:var(--text); }
+  .view-tab.is-active{ background:var(--surface); color:var(--text); box-shadow:var(--shadow-sm); }
+
   /* ---------- Hero ---------- */
   .hero{ max-width:1280px; margin:0 auto; padding:40px 24px 0; }
   .hero-eyebrow{
@@ -330,6 +341,68 @@
     font-size:12.5px; color:var(--text-faint); font-family:var(--font-mono);
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
   }
+
+  /* ---------- Projects view ---------- */
+  .projects-layout{ max-width:1280px; margin:0 auto; padding:8px 24px 60px; }
+  .projects-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px;
+  }
+  .project-card{
+    text-align:left; cursor:pointer; padding:18px; border-radius:14px; background:var(--surface);
+    border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:border-color .12s ease, transform .12s ease;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .project-card:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .project-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .project-mark{
+    width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-weight:700; font-size:13px; color:#fff; background:var(--accent); flex:0 0 auto;
+  }
+  .project-card-name{ font-size:15px; font-weight:700; color:var(--text); margin:0; }
+  .project-card-tagline{ font-size:13px; color:var(--text-muted); margin:2px 0 0; line-height:1.5; }
+  .project-card-meta{
+    display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-faint);
+    font-family:var(--font-mono); margin-top:auto; padding-top:8px; border-top:1px solid var(--border);
+  }
+  .project-card-badge{
+    padding:2px 8px; border-radius:6px; background:var(--surface-2); border:1px solid var(--border); font-weight:600;
+  }
+  .project-card-badge.is-empty{ color:var(--text-faint); }
+  .project-card-badge.is-active{ color:var(--good); }
+
+  .project-detail{ max-width:1000px; margin:0 auto; padding:8px 24px 60px; }
+  .project-back{
+    border:none; background:transparent; color:var(--text-muted); font-size:13px; font-weight:600;
+    cursor:pointer; padding:8px 0; margin-bottom:6px;
+  }
+  .project-back:hover{ color:var(--accent); }
+  .project-detail-head{ display:flex; align-items:flex-start; gap:14px; margin-bottom:6px; }
+  .project-detail-head .project-mark{ width:48px; height:48px; font-size:16px; }
+  .project-detail-head h2{ margin:0 0 4px; font-size:22px; }
+  .project-detail-head .project-card-tagline{ font-size:14.5px; }
+  .project-stats{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0; }
+  .project-stat{
+    padding:10px 14px; border-radius:10px; background:var(--surface); border:1px solid var(--border);
+    font-size:12.5px; color:var(--text-muted);
+  }
+  .project-stat strong{ display:block; font-size:18px; color:var(--text); font-family:var(--font-mono); }
+  .project-bigpicture{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 18px;
+    font-size:14px; line-height:1.65; color:var(--text); margin-bottom:20px;
+  }
+  .project-bigpicture p{ margin:0 0 10px; }
+  .project-bigpicture p:last-child{ margin-bottom:0; }
+  .project-bigpicture ul{ margin:0 0 10px; padding-left:20px; }
+  .project-history-title{
+    font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint);
+    margin:24px 0 10px;
+  }
+  .project-phase-heading{
+    font-size:15px; font-weight:700; color:var(--text); margin:22px 0 10px;
+    padding-bottom:8px; border-bottom:1px solid var(--border);
+  }
+  .project-phase-heading .count{ font-size:12.5px; font-weight:600; color:var(--text-faint); font-family:var(--font-mono); }
+  .project-empty{ font-size:14px; color:var(--text-muted); padding:20px 0; }
 </style>
 </head>
 <body>
@@ -345,6 +418,10 @@
       </div>
     </div>
     <div class="topbar-actions">
+      <div class="view-tabs" id="view-tabs" role="tablist">
+        <button class="view-tab is-active" id="tab-timeline" type="button" role="tab" aria-selected="true">Timeline</button>
+        <button class="view-tab" id="tab-projects" type="button" role="tab" aria-selected="false">Projects</button>
+      </div>
       <button class="icon-btn filters-toggle" id="filters-toggle" type="button" aria-expanded="false" aria-controls="sidebar" title="Show filters &amp; calendar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="9" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
       </button>
@@ -356,6 +433,7 @@
   </div>
 </header>
 
+<div id="view-timeline">
 <section class="hero">
   <p class="hero-eyebrow">Status report · Jul 3 – Aug 6, 2026</p>
   <h1>Engineering Worklog</h1>
@@ -449,6 +527,23 @@
       <p>Try clearing the search or filters.</p>
     </div>
   </main>
+</div>
+</div>
+
+<div id="view-projects" hidden>
+  <section class="hero">
+    <p class="hero-eyebrow">Every app and site this work touches</p>
+    <h1>Projects</h1>
+    <p class="hero-sub">One card per app or client site — the shared platform, the in-house products, and every custom ERP build. Click a card for the full picture and its logged history.</p>
+  </section>
+  <div class="projects-layout">
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+
+  <div class="project-detail" id="project-detail" hidden>
+    <button class="project-back" id="project-back" type="button">&larr; All projects</button>
+    <div id="project-detail-body"></div>
+  </div>
 </div>
 
 <footer class="foot">
@@ -587,14 +682,7 @@
         dayEntries.forEach(function(e){
           var art = document.createElement('article');
           art.className = 'entry';
-          var metaTime = e.time ? '<span class="entry-time">' + e.time + '</span>' : '<span></span>';
-          var detailHtml = e.detail ? '<details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">' + e.detail + '</div></details>' : '';
-          art.innerHTML =
-            '<div class="entry-meta">' + metaTime + '<span class="pill pill-' + e.status + '">' + escapeHtml(e.statusLabel) + '</span></div>' +
-            '<h4 class="entry-title">' + escapeHtml(e.title) + '</h4>' +
-            '<div class="entry-taglist"><span class="entry-tag">' + escapeHtml(e.tag) + '</span><span class="entry-phase-tag">' + escapeHtml(e.phase) + '</span></div>' +
-            '<p class="entry-purpose">' + escapeHtml(e.purpose) + '</p>' +
-            detailHtml;
+          art.innerHTML = entryArticleHtml(e);
           entriesWrap.appendChild(art);
         });
 
@@ -606,6 +694,16 @@
     });
 
     renderCalendar(filtered);
+  }
+
+  function entryArticleHtml(e){
+    var metaTime = e.time ? '<span class="entry-time">' + e.time + '</span>' : '<span></span>';
+    var detailHtml = e.detail ? '<details class="entry-tech"><summary>Technical detail</summary><div class="tech-body">' + e.detail + '</div></details>' : '';
+    return '<div class="entry-meta">' + metaTime + '<span class="pill pill-' + e.status + '">' + escapeHtml(e.statusLabel) + '</span></div>' +
+      '<h4 class="entry-title">' + escapeHtml(e.title) + '</h4>' +
+      '<div class="entry-taglist"><span class="entry-tag">' + escapeHtml(e.tag) + '</span><span class="entry-phase-tag">' + escapeHtml(e.phase) + '</span></div>' +
+      '<p class="entry-purpose">' + escapeHtml(e.purpose) + '</p>' +
+      detailHtml;
   }
 
   function escapeHtml(str){
@@ -717,6 +815,181 @@
   }
 
   render();
+
+  /* ---------- Projects view ---------- */
+  var PROJECTS_META = [
+    {
+      id: 'easycloud-crm', mark: 'CRM', name: 'EasyCloud CRM',
+      tagline: 'In-house sales CRM — leads, deals, Kanban board, voice notes, Meta ads sync, and the Zoho Bigin migration.',
+      bigPicture: '<p>The product this team builds and runs itself, not a client site. Covers the full pipeline from a lead landing (Meta/Instagram ad forms) through to a won Deal, including voice-note call logging with AI transcription, tag-based filtering, automated notifications, and the migration of the client\'s full sales history off Zoho Bigin.</p><p>Also includes the CRM portal automations built directly on the underlying Frappe CRM app — Contact visibility rules for the portal, tag-based quick filters, and the docs scaffolding that keeps the app\'s own brief and TODOs in one place.</p>'
+    },
+    {
+      id: 'wadi-hrms', mark: 'HR', name: 'Wadi Surgicals HRMS',
+      tagline: 'easycloud_saksham_hrms — a dedicated HR & attendance product built for Wadi Surgicals.',
+      bigPicture: '<p>A separate product from the shared HRMS add-on used on the ERP sites — this one is purpose-built for Wadi Surgicals\' own attendance rules, including flexible-shift handling, per-shift grace periods, and hours-worked-based Present/Half Day/Absent grading.</p>'
+    },
+    {
+      id: 'powertex-erp', mark: 'PX', name: 'Powertex ERP',
+      tagline: 'powertexerp — custom ERPNext build for Powertex Group (6 linked companies), the busiest site on the server.',
+      bigPicture: '<p>Runs on the powertexuat site — the default site on the shared bench, meaning any request nginx can\'t match to a domain lands here. Powertex Group covers 6 linked companies (Powertex Group, Powertex Tools Company Private Limited, Powertex Punjab, Powertex Thailand, Powertex China, and one flagged as possibly misfiled). 32 users, the largest database on the server, plus its own banking_integration add-on for automatic bank-feed sync.</p><p>Work here has covered GL Ledger and Journal Entry print-format fixes, branded UAT domain mapping (uat.powertex.in), the original corrected build of the Child/Parent/Grandparent barcode label printer, and the powertexdubaiuat TLS certificate fix.</p>'
+    },
+    {
+      id: 'pixeled-erp', mark: 'PXL', name: 'Pixeled ERP',
+      tagline: 'pixelederp — custom ERPNext build for Pixeled India Pvt Ltd: packaging tiers, barcode/label printing, and stock sync.',
+      bigPicture: '<p>The most actively developed client app on the server. Carries india_compliance (Indian GST/tax rules), confirming it as an Indian company, with 14 users on the pixeled site.</p><p>The core of the work here is the packaging hierarchy — Grandparent/Parent/Child box tiers, deboxing, SKU-based label naming, and an outbound stock feed that pushes live inventory to the client\'s own endpoint. Also includes a critical mass-update vulnerability that was found and fixed in the deboxing endpoints before it reached wider use.</p>'
+    },
+    {
+      id: 'sun-consultancy', mark: 'SC', name: 'Sun Consultancy Services App',
+      tagline: 'sun_consultancy_services_app — custom build for Sun Consultancy Services, the most user-heavy site on the server.',
+      bigPicture: '<p>41 users on one of the smaller databases on the server — the usual signature of a services/consulting firm where people log timesheets and light records rather than push inventory volume. Given its own branded UAT domain, with the old internal address retired via a redirect rather than left dangling.</p>'
+    },
+    {
+      id: 'infrastructure', mark: 'OPS', name: 'Server & Platform Infrastructure',
+      tagline: 'The shared bench, nginx, TLS, and monitoring stack every client site runs on.',
+      bigPicture: '<p>One Frappe/ERPNext bench (/opt/erp) serves all 5 client sites from the same codebase — server hardening, Docker platform, database/app stack, reverse proxy and edge security, and the monitoring stack (Prometheus, Loki, Grafana) all live here, not inside any one client\'s app.</p><p>A second copy (/opt/erplatest) sits idle, one major version ahead (Frappe v16 vs. the live v15), holding only 2 of 5 sites and no custom apps — reads as an in-progress upgrade trial, not yet confirmed as active or abandoned.</p><p><strong>Known open items:</strong> Alertmanager is installed but not running, so nothing currently pages anyone off-hours; a gentex domain mismatch between site_config.json and nginx; a stray outstanding_receivables_report folder outside any app; and a dead docker-exp Prometheus target left over from elsewhere.</p>'
+    },
+    {
+      id: 'gentexerp', mark: 'GX', name: 'Gentex ERP',
+      tagline: 'gentexerp — custom app for Nantong Gentex Tools Co., Ltd (China). Light use, 6 users.',
+      bigPicture: '<p>Small install on the gentex site — a tools manufacturer in China. Doesn\'t carry india_compliance, consistent with it not being an Indian company. Shares the login page (easy_common) and HR module with the rest of the bench.</p><p><strong>Known issue:</strong> site_config.json lists its domain as gentex.easycloud.co.in, but nginx only answers for gentexuat.easycloud.co.in — likely a stale config field from a rename, unconfirmed.</p>'
+    },
+    {
+      id: 'urja-shakti', mark: 'US', name: 'Urja Shakti',
+      tagline: 'urja_shakti — sandbox site, no Company record set up yet. 2 users.',
+      bigPicture: '<p>Essentially an empty test site — the _test suffix in the site name matches reality. No Company record exists yet, only 2 users. Carries insights and banking_integration, presumably to trial those features before rolling out to a real client.</p>'
+    },
+    {
+      id: 'banking-integration', mark: 'BK', name: 'Banking Integration',
+      tagline: 'Shared add-on that pulls bank transactions automatically — installed on Powertex and Urja Shakti.',
+      bigPicture: '<p>A shared Frappe app, not tied to one client — connects live bank feeds into ERPNext so transactions land automatically instead of manual entry. Currently installed on powertexuat and urjashakti_test.</p>'
+    },
+    {
+      id: 'hrms-module', mark: 'HM', name: 'HRMS Module (shared add-on)',
+      tagline: "Frappe's own HR & payroll module, shared across sites — distinct from the dedicated Wadi Surgicals HRMS product.",
+      bigPicture: '<p>The stock Frappe HRMS app, installed alongside ERPNext on multiple sites for standard HR/payroll features. Not to be confused with easycloud_saksham_hrms, which is a separate, purpose-built product for one client.</p>'
+    },
+    {
+      id: 'india-compliance', mark: 'IC', name: 'India Compliance',
+      tagline: 'Shared GST/tax-rules add-on, installed on every Indian-company site.',
+      bigPicture: '<p>Handles Indian GST and tax compliance rules for ERPNext. Its presence on a site is itself a signal — pixeled carries it, gentex doesn\'t, which lines up with one being an Indian company and the other Chinese.</p>'
+    },
+    {
+      id: 'insights', mark: 'IN', name: 'Insights',
+      tagline: "Frappe's BI/reporting dashboard tool, installed on Urja Shakti to trial before wider rollout.",
+      bigPicture: '<p>A general-purpose reporting/BI layer on top of Frappe. Currently only installed on the urjashakti_test sandbox site — not yet rolled out to a real client site.</p>'
+    },
+    {
+      id: 'easy-common', mark: 'EC', name: 'Easy Common',
+      tagline: 'Shared custom login page app used across every client site.',
+      bigPicture: '<p>A small shared app providing one consistent, branded login page across every client site on the bench, instead of each site carrying its own copy.</p>'
+    }
+  ];
+
+  function renderProjectsGrid(){
+    var grid = document.getElementById('projects-grid');
+    grid.innerHTML = '';
+    PROJECTS_META.forEach(function(p){
+      var items = ENTRIES.filter(function(e){ return e.projectId === p.id; });
+      var card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'project-card';
+      var badge = items.length
+        ? '<span class="project-card-badge is-active">' + items.length + ' item' + (items.length===1?'':'s') + '</span>'
+        : '<span class="project-card-badge is-empty">No work logged yet</span>';
+      card.innerHTML =
+        '<div class="project-card-top">' +
+          '<div class="project-mark">' + escapeHtml(p.mark) + '</div>' +
+        '</div>' +
+        '<div><p class="project-card-name">' + escapeHtml(p.name) + '</p>' +
+        '<p class="project-card-tagline">' + escapeHtml(p.tagline) + '</p></div>' +
+        '<div class="project-card-meta">' + badge + '</div>';
+      card.addEventListener('click', function(){ showProjectDetail(p.id); });
+      grid.appendChild(card);
+    });
+  }
+
+  function showProjectDetail(projectId){
+    var p = PROJECTS_META.filter(function(x){ return x.id === projectId; })[0];
+    if(!p) return;
+    var items = ENTRIES.filter(function(e){ return e.projectId === p.id; })
+      .sort(function(a,b){ return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
+
+    document.getElementById('projects-grid').closest('.projects-layout').hidden = true;
+    var detail = document.getElementById('project-detail');
+    detail.hidden = false;
+
+    var firstDate = items.length ? items[items.length-1].date : null;
+    var lastDate = items.length ? items[0].date : null;
+    var phaseCount = new Set(items.map(function(e){ return e.phaseId; })).size;
+
+    var statsHtml = items.length
+      ? '<div class="project-stats">' +
+          '<div class="project-stat"><strong>' + items.length + '</strong>work items</div>' +
+          '<div class="project-stat"><strong>' + phaseCount + '</strong>workstream' + (phaseCount===1?'':'s') + '</div>' +
+          '<div class="project-stat"><strong>' + firstDate + '</strong>first logged</div>' +
+          '<div class="project-stat"><strong>' + lastDate + '</strong>last logged</div>' +
+        '</div>'
+      : '<div class="project-stats"><div class="project-stat"><strong>0</strong>work items logged</div></div>';
+
+    var historyHtml = '';
+    if(items.length){
+      var byPhase = {};
+      var phaseOrder = [];
+      items.forEach(function(e){
+        if(!byPhase[e.phaseId]){ byPhase[e.phaseId] = []; phaseOrder.push(e.phaseId); }
+        byPhase[e.phaseId].push(e);
+      });
+      historyHtml += '<p class="project-history-title">Logged history</p>';
+      phaseOrder.forEach(function(pid){
+        var group = byPhase[pid];
+        historyHtml += '<h3 class="project-phase-heading">' + escapeHtml(group[0].phase) +
+          ' <span class="count">' + group.length + ' item' + (group.length===1?'':'s') + '</span></h3>';
+        historyHtml += '<div class="entries">';
+        group.forEach(function(e){
+          historyHtml += '<article class="entry">' + entryArticleHtml(e) + '</article>';
+        });
+        historyHtml += '</div>';
+      });
+    } else {
+      historyHtml = '<p class="project-empty">No work items logged against this app yet — it\'s installed and running, but hasn\'t needed a custom change.</p>';
+    }
+
+    document.getElementById('project-detail-body').innerHTML =
+      '<div class="project-detail-head">' +
+        '<div class="project-mark">' + escapeHtml(p.mark) + '</div>' +
+        '<div><h2>' + escapeHtml(p.name) + '</h2><p class="project-card-tagline">' + escapeHtml(p.tagline) + '</p></div>' +
+      '</div>' +
+      statsHtml +
+      '<div class="project-bigpicture">' + p.bigPicture + '</div>' +
+      historyHtml;
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function showProjectsGrid(){
+    document.getElementById('project-detail').hidden = true;
+    document.getElementById('projects-grid').closest('.projects-layout').hidden = false;
+  }
+
+  document.getElementById('project-back').addEventListener('click', showProjectsGrid);
+
+  var tabTimeline = document.getElementById('tab-timeline');
+  var tabProjects = document.getElementById('tab-projects');
+  tabTimeline.addEventListener('click', function(){
+    document.getElementById('view-timeline').hidden = false;
+    document.getElementById('view-projects').hidden = true;
+    tabTimeline.classList.add('is-active'); tabTimeline.setAttribute('aria-selected','true');
+    tabProjects.classList.remove('is-active'); tabProjects.setAttribute('aria-selected','false');
+  });
+  tabProjects.addEventListener('click', function(){
+    document.getElementById('view-timeline').hidden = true;
+    document.getElementById('view-projects').hidden = false;
+    tabProjects.classList.add('is-active'); tabProjects.setAttribute('aria-selected','true');
+    tabTimeline.classList.remove('is-active'); tabTimeline.setAttribute('aria-selected','false');
+    showProjectsGrid();
+  });
+
+  renderProjectsGrid();
 })();
 </script>
 </body>
