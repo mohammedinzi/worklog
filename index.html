@@ -575,6 +575,21 @@
         <option value="phase-34">Packaging Status UI Overhaul & Box-Code Search</option>
         <option value="phase-35">Meta Lead Sync Audit & Repair</option>
         <option value="phase-36">CRM Frontend Fixes & PWA Service-Worker Repair</option>
+        <option value="phase-37">Cross-Bench Security Audit — Sept 22</option>
+        <option value="phase-38">Vaidyagrama — Aug 24 Correction & Billing Fixes</option>
+        <option value="phase-39">Vaidyagrama — Booking, Billing & Approval Workflow</option>
+        <option value="phase-40">Vaidyagrama — 24-Hour Billing Cycles & Co-Occupant Diet Gap</option>
+        <option value="phase-41">Vaidyagrama — Bundled Commits, Letterhead Fix, Unresolved Race Condition</option>
+        <option value="phase-42">Vaidyagrama — Sept 21 Session: Advice Master & Medicine Scheduling</option>
+        <option value="phase-43">Vaidyagrama — Uncommitted Work & Untracked Artifacts</option>
+        <option value="phase-44">Pixelederp — Warehouse Fixes & Abandoned Branch</option>
+        <option value="phase-45">Pixelederp — GL Ledger Refactor & SKU Format Rework</option>
+        <option value="phase-46">Pixelederp — Sales Intake API & Guest-to-Admin Elevation</option>
+        <option value="phase-47">Pixelederp — Bin Allocation, GL Hotfix & Supplier Portal</option>
+        <option value="phase-48">Powertexerp — AR Reports, GL Ledger, and a Customer-Data Leak</option>
+        <option value="phase-49">Powertexerp — CERT-In Security Pass & Its Regression</option>
+        <option value="phase-50">Sun Consultancy, Urja Shakti & Powertex Dubai — Scattered Fixes</option>
+        <option value="phase-51">Review & Continuation Work — Sept 12</option>
       </select>
     </div>
 
@@ -931,6 +946,11 @@
       id: 'sun-consultancy', mark: 'SC', name: 'Sun Consultancy Services App',
       tagline: 'sun_consultancy_services_app — custom build for Sun Consultancy Services, the most user-heavy site on the server.',
       bigPicture: '<p>41 users on one of the smaller databases on the server — the usual signature of a services/consulting firm where people log timesheets and light records rather than push inventory volume. Given its own branded UAT domain, with the old internal address retired via a redirect rather than left dangling.</p>'
+    },
+    {
+      id: 'powertexdubai-erp', mark: 'PXD', name: 'Powertex Dubai ERP',
+      tagline: 'powertexdubaierp — custom build for Powertex General Trading LLC, UAE, on its own site (powertexdubai).',
+      bigPicture: '<p>A separate tenant from the main Powertex Group site, for the UAE entity — Employee/Checkin/Attendance customizations (Emirates ID relabeling, approver/employee-type auto-fill, selfie attachment on check-in) configured hands-on and exported to fixtures.</p><p><strong>Flagged:</strong> a duplicate of the api_secret-leak login endpoint found elsewhere on the bench exists here too, but only as an untracked file with zero git history — invisible to any code review.</p>'
     },
     {
       id: 'infrastructure', mark: 'OPS', name: 'Server & Platform Infrastructure',
