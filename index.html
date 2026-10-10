@@ -475,6 +475,19 @@
   .sum-list.risk li::marker{ color:var(--bad); }
   .sum-open{ align-self:flex-start; border:none; background:transparent; color:var(--accent-text); font-weight:600; font-size:13px; cursor:pointer; padding:0; font-family:var(--font-mono); }
   .sum-open:hover{ text-decoration:underline; }
+  /* ---------- Profile ---------- */
+  .profile{ display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:start; background:var(--surface); border:1px solid var(--border); border-left:2px solid var(--accent); border-radius:var(--radius); padding:22px; margin:0 0 28px; box-shadow:var(--shadow-sm); }
+  .profile img{ width:96px; height:96px; border-radius:50%; border:2px solid var(--accent); object-fit:cover; display:block; }
+  .profile-name{ font-family:var(--font-display); font-style:italic; font-weight:600; font-size:26px; margin:0 0 2px; line-height:1.15; }
+  .profile-role{ font-family:var(--font-mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--accent-text); margin:0 0 10px; }
+  .profile-tag{ margin:0 0 16px; font-size:15px; color:var(--text-muted); font-style:italic; }
+  .profile-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px; margin:0 0 16px; }
+  .profile-fact{ border-top:1px solid var(--border-strong); padding-top:10px; }
+  .profile-fact strong{ display:block; font-family:var(--font-display); font-size:26px; font-weight:600; color:var(--accent-text); line-height:1.1; }
+  .profile-fact span{ font-size:13px; color:var(--text-muted); line-height:1.45; }
+  .profile-links{ font-family:var(--font-mono); font-size:12px; }
+  .profile-links a{ color:var(--accent-text); }
+  @media (max-width:640px){ .profile{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -511,6 +524,23 @@
   <p class="hero-eyebrow">Status report · <span id="hero-date-range">—</span></p>
   <h1>Engineering Worklog</h1>
   <p class="hero-sub">Every task logged the day it happened — server hardening, the EasyCloud CRM build, client deployments, and production fixes. Search, filter, or jump straight to any date.</p>
+
+<div class="profile" id="profile">
+    <img src="https://github.com/mohammedinzi.png" alt="Mohammed Inzemam" width="96" height="96">
+    <div>
+      <h2 class="profile-name">Mohammed Inzemam</h2>
+      <p class="profile-role">Cloud Security &amp; DevSecOps Engineer · Platform Engineer · SRE Aspirant</p>
+      <p class="profile-tag">Transforming ideas into secure, scalable, and automated solutions for production environments.</p>
+      <div class="profile-grid">
+        <div class="profile-fact"><strong id="pf-items">—</strong><span>documented work items across <span id="pf-projects">—</span> projects, each with root cause and verification</span></div>
+        <div class="profile-fact"><strong id="pf-sec">—</strong><span>security and data-integrity findings surfaced, several before they reached a customer</span></div>
+        <div class="profile-fact"><strong>100+</strong><span>commits authored in two months across four client codebases (ERPNext / Frappe)</span></div>
+        <div class="profile-fact"><strong>2 benches</strong><span>production audited end to end: git history, error logs, patch logs and deploy state</span></div>
+      </div>
+      <p class="profile-tag" style="margin-bottom:10px;font-style:normal">What I bring: I find the real cause, not the symptom. I say plainly what is verified and what is not. I treat money, access and data integrity as first-class concerns, and I leave a written trail others can follow.</p>
+      <p class="profile-links"><a href="https://github.com/mohammedinzi" target="_blank" rel="noopener">github.com/mohammedinzi</a></p>
+    </div>
+  </div>
 
   <div class="stats">
     <div class="stat"><span class="stat-num" id="stat-items">—</span><div class="stat-label">Work items logged</div></div>
@@ -713,6 +743,11 @@
     workstreamsEl.textContent = new Set(ENTRIES.map(function(e){ return e.phaseId; })).size;
     openEl.textContent = ENTRIES.filter(function(e){ return e.status === 'bad'; }).length;
 
+    var pI=document.getElementById('pf-items'); if(pI){
+      pI.textContent=ENTRIES.length;
+      document.getElementById('pf-projects').textContent=new Set(ENTRIES.map(function(e){return e.projectId;})).size;
+      document.getElementById('pf-sec').textContent=ENTRIES.filter(function(e){return /^Security/.test(e.tag)||/security|leak|bypass|token/i.test(e.title);}).length;
+    }
     var MONTH_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     function fmtShort(iso, withYear){
       var p = iso.split('-').map(Number);
