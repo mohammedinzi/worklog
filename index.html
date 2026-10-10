@@ -459,6 +459,22 @@
   }
   .project-phase-heading .count{ font-size:12px; font-weight:500; font-style:normal; color:var(--text-faint); font-family:var(--font-mono); }
   .project-empty{ font-size:14px; color:var(--text-muted); padding:20px 0; }
+  /* ---------- Summary view ---------- */
+  .summary-grid-view{ display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:16px; }
+  .sum-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:14px; }
+  .sum-top{ display:flex; align-items:flex-start; gap:12px; }
+  .sum-name{ font-family:var(--font-display); font-style:italic; font-weight:600; font-size:19px; margin:0; line-height:1.2; }
+  .sum-badge{ margin-left:auto; flex:0 0 auto; font-family:var(--font-mono); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; padding:3px 8px; border-radius:5px; border:1px solid currentColor; }
+  .sum-badge.is-good{ color:var(--good); } .sum-badge.is-warn{ color:var(--warn); } .sum-badge.is-bad{ color:var(--bad); } .sum-badge.is-quiet{ color:var(--text-faint); }
+  .sum-line{ margin:0; font-size:14.5px; color:var(--text); line-height:1.55; }
+  .sum-meta{ display:flex; gap:18px; flex-wrap:wrap; font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.03em; padding:10px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .sum-meta strong{ color:var(--accent-text); font-family:var(--font-display); font-size:16px; font-style:normal; text-transform:none; margin-right:4px; }
+  .sum-h{ font-family:var(--font-mono); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin:0 0 6px; }
+  .sum-list{ margin:0; padding-left:18px; font-size:13.5px; color:var(--text-muted); line-height:1.55; }
+  .sum-list li{ margin:0 0 4px; }
+  .sum-list.risk li::marker{ color:var(--bad); }
+  .sum-open{ align-self:flex-start; border:none; background:transparent; color:var(--accent-text); font-weight:600; font-size:13px; cursor:pointer; padding:0; font-family:var(--font-mono); }
+  .sum-open:hover{ text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -477,6 +493,7 @@
       <div class="view-tabs" id="view-tabs" role="tablist">
         <button class="view-tab is-active" id="tab-timeline" type="button" role="tab" aria-selected="true">Timeline</button>
         <button class="view-tab" id="tab-projects" type="button" role="tab" aria-selected="false">Projects</button>
+        <button class="view-tab" id="tab-summary" type="button" role="tab" aria-selected="false">Summary</button>
       </div>
       <button class="icon-btn filters-toggle" id="filters-toggle" type="button" aria-expanded="false" aria-controls="sidebar" title="Show filters &amp; calendar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="9" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
@@ -590,6 +607,14 @@
         <option value="phase-49">Powertexerp — CERT-In Security Pass & Its Regression</option>
         <option value="phase-50">Sun Consultancy, Urja Shakti & Powertex Dubai — Scattered Fixes</option>
         <option value="phase-51">Review & Continuation Work — Sept 12</option>
+        <option value="phase-52">Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)</option>
+        <option value="phase-53">Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)</option>
+        <option value="phase-54">Vaidyagrama — Regressions, Patches & Uncommitted State</option>
+        <option value="phase-55">Pixelederp — Supplier Portal Money & Access Controls (Sep 26–30)</option>
+        <option value="phase-56">Pixelederp — Warehouse, Print Formats & Reports (Sep 22 – Oct 10)</option>
+        <option value="phase-57">Powertexerp — Mobile API, Secret Regression & e-Invoice QR</option>
+        <option value="phase-58">Other Repos — Urja Shakti, Sun Consultancy & Vendored Apps</option>
+        <option value="phase-59">Bench Controls & Delivery Process (Oct 10)</option>
       </select>
     </div>
 
@@ -612,6 +637,16 @@
     </div>
   </main>
 </div>
+</div>
+
+<div id="view-summary" hidden>
+  <section class="hero">
+    <p class="hero-eyebrow">Big picture · by project</p>
+    <h1>Summary</h1>
+    <p class="hero-sub">One card per project: what was delivered, what needs attention, and what is next. No commit hashes. Click a card for the full history.</p>
+    <div class="stats" id="summary-stats"></div>
+  </section>
+  <div class="projects-layout"><div class="summary-grid-view" id="summary-grid"></div></div>
 </div>
 
 <div id="view-projects" hidden>
@@ -1082,23 +1117,91 @@
 
   document.getElementById('project-back').addEventListener('click', showProjectsGrid);
 
-  var tabTimeline = document.getElementById('tab-timeline');
-  var tabProjects = document.getElementById('tab-projects');
-  tabTimeline.addEventListener('click', function(){
-    document.getElementById('view-timeline').hidden = false;
-    document.getElementById('view-projects').hidden = true;
-    tabTimeline.classList.add('is-active'); tabTimeline.setAttribute('aria-selected','true');
-    tabProjects.classList.remove('is-active'); tabProjects.setAttribute('aria-selected','false');
-  });
-  tabProjects.addEventListener('click', function(){
-    document.getElementById('view-timeline').hidden = true;
-    document.getElementById('view-projects').hidden = false;
-    tabProjects.classList.add('is-active'); tabProjects.setAttribute('aria-selected','true');
-    tabTimeline.classList.remove('is-active'); tabTimeline.setAttribute('aria-selected','false');
-    showProjectsGrid();
+  var VIEWS = { timeline:['tab-timeline','view-timeline'], projects:['tab-projects','view-projects'], summary:['tab-summary','view-summary'] };
+  function showView(name){
+    Object.keys(VIEWS).forEach(function(k){
+      var on = k === name;
+      document.getElementById(VIEWS[k][1]).hidden = !on;
+      var t = document.getElementById(VIEWS[k][0]);
+      t.classList.toggle('is-active', on); t.setAttribute('aria-selected', String(on));
+    });
+    if(name === 'projects'){ showProjectsGrid(); }
+    window.scrollTo(0,0);
+  }
+  Object.keys(VIEWS).forEach(function(k){
+    document.getElementById(VIEWS[k][0]).addEventListener('click', function(){ showView(k); });
   });
 
+  /* ---------- Summary view (plain-language, as of 2026-10-10) ---------- */
+  var PROJECT_SUMMARIES = {
+    'vaidyagrama-app': { status:['Needs attention','warn'],
+      line:'The most active project. Inpatient billing was rebuilt over two months and now follows the clinic\'s real policies; clinical forms and reports kept shipping alongside it.',
+      delivered:['Day-charge billing rules (arrival, discharge, cancelled treatments, package price) built, corrected twice and checked against a real patient bill','Money leaks closed: shared-room diet charges, double-billed combination treatments, readmitted patients re-billed for old stays','New discharge-day billing rule and Saranya 24-hour billing cycles','Treatment approval workflow, Advice Master, medicine scheduling, external medication page, six new reports'],
+      risks:['Three times a stale copy of a whole file overwrote working code; each stayed broken 2 to 13 days','Three database fixes ran on production with no code in git, so they cannot be reviewed or repeated','A pharmacy billing change and 1,260 lines of work are uncommitted or stashed','Billing has been checked by server calls, never clicked through in a browser','Automated lint and test checks were removed on 8 Oct'],
+      next:['Commit or discard the uncommitted pharmacy change and stashed work','Merge dev into main (two commits are on dev only)','Click-test the billing dialog with a real patient'] },
+    'pixeled-erp': { status:['Needs attention','bad'],
+      line:'Warehouse tooling and a full supplier portal were delivered, but the stock feed to the client\'s storefront has been failing for weeks and a supplier-facing payment control is missing.',
+      delivered:['Box lookup by printed code, packaging tiers, and a redesigned Packaging Status page','Supplier Portal: ordering, proformas, remittance, catalog, section access control and English/Chinese switch','Online order intake API with automatic delivery and invoicing','Bin Allocation, Warehouse Control Tower redesign and clearer print formats and reports'],
+      risks:['Stock feed to the storefront failed about 288 times a day for three weeks; no fix yet','Suppliers can change their own bank accounts with no staff approval','A leaked access token was fixed in code but not confirmed live','Guest requests to the order API run as Administrator for their duration','Supplier text goes to an external AI service once a key is set'],
+      next:['Restart live workers and confirm the token leak is gone','Add an approval step for supplier bank changes','Investigate the storefront endpoint with the client'] },
+    'powertex-erp': { status:['Needs attention','bad'],
+      line:'Reporting, a customer-facing ledger and a mobile sales API were delivered, but a security fix from September was quietly undone and one site\'s scheduler has been off for a month.',
+      delivered:['Receivables and GL Ledger reports reworked, including a portal customer data-leak fix','Security pass ahead of the CERT-In audit, then a regression found and fixed','Mobile API for catalog, quotations and reports','Signed e-Invoice QR on invoices and a Sales Person Trip Planner'],
+      risks:['The login endpoint returns the decrypted API secret again (30 Sep) and is live','Two summary endpoints show any sales person\'s totals to any logged-in user','Scheduler on the main site last ran on 7 Sep','A previous security patch broke four features for 12 days before anyone noticed'],
+      next:['Remove the secret from the login response and redeploy','Scope the summary endpoints to the caller','Re-enable and verify the scheduler'] },
+    'easycloud-crm': { status:['Quiet since Aug 22','quiet'],
+      line:'The in-house CRM was repaired and extended in August; no new work has been reported since, because those repositories were not reachable from the audited machine.',
+      delivered:['Facebook/Instagram lead sync audited and repaired; duplicates cleaned','Contact notes, voice-note recorder, tags filter and PWA reliability fixes'],
+      risks:['Meta app appears to be in Development mode, so leads arrive up to an hour late','Seven commits plus eleven more across three repos are unpushed and not click-tested'],
+      next:['Run the audit on these repositories directly','Confirm the Meta app is Live'] },
+    'wadi-hrms': { status:['Quiet','quiet'], line:'Attendance rules fixed on 12 Aug so flexible-shift staff are graded on hours worked. No activity reported since.',
+      delivered:['Present, Half Day and Absent now follow hours worked, with per-shift grace periods'], risks:[], next:['None planned'] },
+    'sun-consultancy': { status:['Low activity','warn'], line:'One real fix (organisation chart crash) is pushed but not on the server that runs the site; errors from a malformed caller keep recurring.',
+      delivered:['Employee Org Chart "Expand All" crash fixed'],
+      risks:['The fix is not on this bench','40 JSON decode errors from a caller sending a placeholder','Reminder jobs fail for lack of an outgoing email account'], next:['Pull the fix onto the bench','Find the caller sending the placeholder'] },
+    'urja-shakti': { status:['Sandbox','quiet'], line:'A test site that other contributors are working on; their changes are not on the server that runs it.',
+      delivered:['Dashboard charts, Number Card permissions and FY27 numbering (by another contributor)','Material Request auto-fill of stock and last purchase details'],
+      risks:['Two invoice validations were switched off in an unrelated commit','Three upstream commits are missing from the bench','A GitHub token sits in the git remote'], next:['Confirm whether the validations should stay off','Pull upstream'] },
+    'powertexdubai-erp': { status:['Needs attention','warn'], line:'UAE entity customisations were exported; its login endpoint exists only as an untracked file.',
+      delivered:['Employee, Check-in and Attendance customisations for the UAE entity'],
+      risks:['Login endpoint returns the API secret and has never been committed','Repository has no remote, so nothing is backed up'], next:['Commit or remove the endpoint','Add a remote'] },
+    'infrastructure': { status:['Needs attention','bad'], line:'Cross-cutting items: fixes that exist in git but are not deployed, commits made directly on production, and work that has nowhere to be pushed.',
+      delivered:['Full audit of every repository on the bench','Dev-to-main pull request automation'],
+      risks:['A GitHub token is stored in plain text in git remotes','14 commits on vendored apps would be lost by a bench update','Several fixes are committed but not running on live','No automated checks guard main'], next:['Rotate the token','Move vendored-app changes into custom apps','Agree a deploy checklist'] }
+  };
+  var SUMMARY_ORDER = ['vaidyagrama-app','pixeled-erp','powertex-erp','easycloud-crm','powertexdubai-erp','sun-consultancy','urja-shakti','wadi-hrms','infrastructure'];
+  function renderSummary(){
+    var grid = document.getElementById('summary-grid'); grid.innerHTML='';
+    var totalOpen = ENTRIES.filter(function(e){ return e.status==='bad'; }).length;
+    document.getElementById('summary-stats').innerHTML =
+      '<div class="stat"><span class="stat-num">'+SUMMARY_ORDER.length+'</span><div class="stat-label">Projects</div></div>'+
+      '<div class="stat"><span class="stat-num">'+ENTRIES.length+'</span><div class="stat-label">Work items</div></div>'+
+      '<div class="stat"><span class="stat-num">'+totalOpen+'</span><div class="stat-label">Open / blocked</div></div>'+
+      '<div class="stat"><span class="stat-num">'+ENTRIES.map(function(e){return e.date;}).sort().pop()+'</span><div class="stat-label">Latest entry</div></div>';
+    function li(a){ return a.map(function(x){ return '<li>'+escapeHtml(x)+'</li>'; }).join(''); }
+    SUMMARY_ORDER.forEach(function(id){
+      var s = PROJECT_SUMMARIES[id], meta = PROJECTS_META.filter(function(p){return p.id===id;})[0];
+      if(!s || !meta) return;
+      var items = ENTRIES.filter(function(e){ return e.projectId===id; });
+      var open = items.filter(function(e){ return e.status==='bad'; }).length;
+      var last = items.length ? items.map(function(e){return e.date;}).sort().pop() : '—';
+      var cls = {good:'is-good',warn:'is-warn',bad:'is-bad',quiet:'is-quiet'}[s.status[1]];
+      var card = document.createElement('article'); card.className='sum-card';
+      card.innerHTML =
+        '<div class="sum-top"><div class="project-mark">'+escapeHtml(meta.mark)+'</div><h3 class="sum-name">'+escapeHtml(meta.name)+'</h3><span class="sum-badge '+cls+'">'+escapeHtml(s.status[0])+'</span></div>'+
+        '<p class="sum-line">'+escapeHtml(s.line)+'</p>'+
+        '<div class="sum-meta"><span><strong>'+items.length+'</strong>items</span><span><strong>'+open+'</strong>open</span><span><strong>'+last+'</strong>last</span></div>'+
+        '<div><p class="sum-h">Delivered</p><ul class="sum-list">'+li(s.delivered)+'</ul></div>'+
+        (s.risks.length ? '<div><p class="sum-h">Needs attention</p><ul class="sum-list risk">'+li(s.risks)+'</ul></div>' : '')+
+        '<div><p class="sum-h">Next</p><ul class="sum-list">'+li(s.next)+'</ul></div>'+
+        '<button type="button" class="sum-open">Full history →</button>';
+      card.querySelector('.sum-open').addEventListener('click', function(){ showView('projects'); showProjectDetail(id); });
+      grid.appendChild(card);
+    });
+  }
+
   renderProjectsGrid();
+  renderSummary();
 })();
 </script>
 </body>
