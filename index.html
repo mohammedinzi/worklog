@@ -7,12 +7,12 @@
 <meta name="description" content="Daily engineering worklog — ERPNext infrastructure, the EasyCloud CRM build, and client deployments.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#070707; --surface:#0E0D0B; --surface-2:#15130F; --surface-hover:#1D1A14;
     --border:#2A2519; --border-strong:#4A3F22; --spine:#4A3F22;
-    --text:#F4EFE6; --text-muted:#B5AC9A; --text-faint:#8A816F;
+    --text:#F4EFE6; --text-muted:#D2CAB8; --text-faint:#ADA48F;
     --accent:#C9A961; --accent-strong:#E6CC8E; --accent-soft:#1E190D; --accent-text:#E0C78A;
     --accent-2:#8C6D2F; --on-accent:#0A0805;
     --good:#7FB88F; --good-soft:#0F1A12;
@@ -22,15 +22,15 @@
     --shadow-md: 0 18px 40px -18px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,169,97,0.25);
     --shadow-lg: 0 30px 70px -24px rgba(0,0,0,0.9);
     --radius: 0px;
-    --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-    --font: 'Jost', 'Helvetica Neue', Arial, sans-serif;
-    --font-mono: 'Fira Code', ui-monospace, Menlo, Consolas, monospace;
+    --font-display: 'Source Serif 4', Georgia, serif;
+    --font: 'Atkinson Hyperlegible', 'Segoe UI', Arial, sans-serif;
+    --font-mono: 'Atkinson Hyperlegible', 'Segoe UI', Arial, sans-serif;
     color-scheme: dark;
   }
   html[data-theme="light"]{
     --bg:#F5F1E8; --surface:#FFFDF8; --surface-2:#EFE9DA; --surface-hover:#E7DFCB;
     --border:#DCD1B6; --border-strong:#B79F63; --spine:#B79F63;
-    --text:#14110B; --text-muted:#4F4733; --text-faint:#6E6550;
+    --text:#14110B; --text-muted:#3A3322; --text-faint:#574E39;
     --accent:#8A6A24; --accent-strong:#6B5018; --accent-soft:#F1E7C9; --accent-text:#6B5018;
     --accent-2:#B08D3C; --on-accent:#FFFDF8;
     --good:#2F6B44; --good-soft:#E3F0E6; --warn:#946414; --warn-soft:#F8EBCB; --bad:#A3382E; --bad-soft:#F7DFDB;
@@ -537,6 +537,58 @@
   a:focus-visible, summary:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{ outline:1px solid var(--accent-strong); outline-offset:3px; }
   ::selection{ background:rgba(201,169,97,0.35); color:var(--text); }
   @media (prefers-reduced-motion: reduce){ .entry:hover,.project-card:hover,.sum-card:hover{ transform:none; } }
+
+  /* ---------- Legibility pass: larger type, solid weights, high contrast ---------- */
+  body{ font-size:18px; line-height:1.7; letter-spacing:0; font-weight:400; }
+  h1{ font-weight:600; letter-spacing:0.05em; font-size:clamp(34px,4.6vw,56px); }
+  .hero-sub{ font-weight:400; font-size:19px; line-height:1.65; color:var(--text-muted); max-width:62ch; }
+  .hero-eyebrow{ font-size:13px; letter-spacing:0.16em; font-weight:700; }
+  .brand-title{ font-size:16px; letter-spacing:0.12em; font-weight:700; }
+  .brand-sub{ font-size:12px; letter-spacing:0.04em; text-transform:none; }
+  .view-tab{ font-size:14px; letter-spacing:0.1em; font-weight:700; padding:12px 14px; }
+  .profile-name{ font-size:38px; font-weight:600; }
+  .profile-role{ font-size:13px; letter-spacing:0.1em; font-weight:700; }
+  .profile-tag{ font-weight:400; font-size:18px; color:var(--text); }
+  .profile-fact span, .profile-fact span *{ font-size:15.5px; line-height:1.55; color:var(--text-muted); letter-spacing:0; }
+  .profile-fact strong, .stat-num, .project-stat strong{ font-weight:700; font-size:38px; }
+  .stat-label{ font-size:13px; letter-spacing:0.06em; color:var(--text-muted); }
+  .panel-title, .sum-h, .project-history-title{ font-size:13px; letter-spacing:0.12em; font-weight:700; }
+  .month-heading{ font-size:32px; font-weight:600; letter-spacing:0.06em; }
+  .month-heading .count{ font-size:15px; letter-spacing:0; }
+  .day-heading h3{ font-size:15px; letter-spacing:0.1em; font-weight:700; }
+  .day-heading .day-count, .entry-time, #result-count{ font-size:14px; letter-spacing:0; }
+  .entry{ padding:20px 22px; }
+  .entry-title{ font-size:24px; font-weight:700; line-height:1.3; }
+  .entry-purpose{ font-weight:400; font-size:17px; line-height:1.65; }
+  .pill{ font-size:12.5px; letter-spacing:0.06em; font-weight:700; }
+  .entry-tag, .entry-phase-tag{ font-size:12.5px; letter-spacing:0.03em; padding:3px 9px; }
+  .entry-phase-tag{ color:var(--text-muted); }
+  details.entry-tech summary, details.summary-box summary{ font-size:14px; letter-spacing:0.08em; font-weight:700; color:var(--accent-text); }
+  .tech-body{ font-size:16px; line-height:1.7; color:var(--text-muted); }
+  .tech-body code{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:14px; }
+  .summary-item p{ font-size:17px; }
+  .chip{ font-size:13px; letter-spacing:0.06em; padding:8px 12px; font-weight:700; }
+  #search, select#phase-filter{ font-size:16px; padding:12px 14px 12px 38px; }
+  select#phase-filter{ padding-left:12px; }
+  .cal-day{ font-size:13.5px; }
+  .cal-dow{ font-size:12px; }
+  .cal-month-label{ font-size:15px; }
+  .legend, .clear-filters{ font-size:13.5px; }
+  .project-card-name{ font-size:19px; font-weight:700; }
+  .project-card-tagline{ font-size:15px; line-height:1.55; color:var(--text-muted); }
+  .project-card-meta{ font-size:13px; letter-spacing:0.04em; }
+  .project-stat{ font-size:13px; letter-spacing:0.04em; }
+  .project-bigpicture{ font-size:17px; }
+  .sum-name{ font-size:26px; font-weight:700; }
+  .sum-line{ font-size:17px; line-height:1.6; }
+  .sum-list{ font-size:16px; line-height:1.6; color:var(--text-muted); }
+  .sum-meta{ font-size:13px; letter-spacing:0.04em; }
+  .sum-badge{ font-size:12px; letter-spacing:0.08em; }
+  .sum-open{ font-size:15px; }
+  .foot{ font-size:13.5px; }
+  .layout > *, main, .entries, .entry, .entry-meta{ min-width:0; }
+  .pill{ white-space:normal; }
+  .entry-title, .entry-purpose{ overflow-wrap:anywhere; }
 </style>
 </head>
 <body>
