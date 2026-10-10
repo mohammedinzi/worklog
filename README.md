@@ -1,4 +1,4 @@
-# Engineering Worklog
+# Production Operations Report
 
 Daily work log for EasyCloud, kept by Inzi. Every task done during the day — infra work, CRM
 features, bug fixes, client rollouts — gets logged here the same day. When someone asks "what
