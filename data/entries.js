@@ -1661,8 +1661,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Added a Fetch OP Data button next to the existing Create OP button. The new fetch_op_data(frm) handler pulls the patient's latest Patient Encounter and copies it into the matching IP casesheet fields: treating doctor, presenting/associated complaints, comorbidities, current medications, investigation reports, allergies (medicine + general), family history, physical exam vitals (height/weight/BP/SpO2/BMI/pulse/temperature), sleep/appetite/bowels/urination, nutritional status, and namaste diagnosis. Skips rows already present and only sets a field if it's blank or differs, rather than overwriting. Also repaints the custom <select> overlay used on the nutritional fields, since frm.set_value alone doesn't update that overlay's display.",
     "phase": "Vaidyagrama Casesheet & Insurance Intimation",
     "phaseId": "phase-24",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-15",
@@ -1676,8 +1676,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Added validate_dates(frm), throwing if the discharge date is before the admission date, hooked into validate plus the date_of_admission, date_of_discharge, and date fields directly. The date auto-set on validate is now awaited via a promise before the diagnosis fetch runs, fixing a race where diagnosis could fetch against a not-yet-set date. The inpatient_casesheet link handler now also pulls the date from the linked casesheet, falling back to today only if blank since the field is mandatory, and the admission datetime is now split down to date-only.",
     "phase": "Vaidyagrama Casesheet & Insurance Intimation",
     "phaseId": "phase-24",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-15",
@@ -1691,8 +1691,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Reorganized into sections: Patient & Admission Details, Diagnosis & Treatment Rationale, Patient History, Admission & Rate Details, Billing Split-up (INR), Footer. Removed the unused vg_address field, added a required intimation_stage Select (Pre Admission / On Admission / Post Admission), and made inpatient_casesheet, patient_uid, and date required. date_of_admission changed from Data to a real Date fieldtype. treating_doctors_name now fetches from inpatient_casesheet.medical_director_treating_doctor instead of being entered by hand. Minor label cleanup — trailing spaces removed on several Currency field labels.",
     "phase": "Vaidyagrama Casesheet & Insurance Intimation",
     "phaseId": "phase-24",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-17",
@@ -1856,8 +1856,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Policy handed down: arrival after 4 PM with no treatment → no charge; discharge before noon with no treatment → no charge, after noon → 30% discount; a doctor-cancelled treatment mid-stay → 30% discount that day; a package price above the actual bill → automatic invoice discount for the difference. Traced the live invoicing path end to end — Sales Invoice form → \"Treatment & Medicine Charges\" → a dialog fed by get_patient_charges, backed by _get_room_stay_charges and _get_consultation_charges — and confirmed via a full-codebase search that no discount logic, treatment-break concept, or time-of-day cutoff existed anywhere in the app before today. Confirmed Room Reservation.actual_arraival / actual_departure are real, staff-stamped Datetime fields reliable enough to key the 4 PM / noon cutoffs off directly, with no schema change needed there. Four ambiguities resolved before coding: rules 1–3 zero or discount the whole day's room and diet together, not room alone; the package-price rule replaces the old \"Consultation\" line item that used to top the bill up to package price — the new rule only ever discounts down, never adds a charge; \"doctor cancelled\" needed a new field, since nothing distinguished a doctor cancellation from a patient or therapist one; the discharge-after-noon discount auto-applies and gets flagged for later review, rather than blocking on approval. Full plan saved to ~/.claude/plans/in-vaidyagrama-app-arrival-groovy-reef.md before any code was touched.",
     "phase": "Day-Charge Billing Rollout",
     "phaseId": "phase-29",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-19",
@@ -1871,8 +1871,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Added a cancelled_by (Doctor / Patient / Therapist) select to Patient Treatment Prescription Table and Treatment Schedule; update_treatment_prescription_action now requires and persists it whenever a treatment is cancelled, with a matching selector added to the Inpatient Casesheet cancel dialog. New _day_charge_multiplier() implements all four rules per stay-day; new _get_doctor_cancelled_dates() finds treatment-break days. _get_room_stay_charges() rewritten to apply the multiplier to both room rate and that day's diet rate together. _get_consultation_charges() removed and replaced with _get_package_adjustment() — a pure, one-directional discount. get_patient_charges() rewired end-to-end onto the new pipeline. Added custom_billing_needs_review (check) and custom_billing_review_notes (text) to Sales Invoice, so a discharge-after-noon discount stays visible for follow-up after the invoice is created without blocking anyone at the counter. Rebuilt the billing dialog client script: per-day notes and flags in the Room and Diet tabs, the old Consultation tab replaced with a Package Adjustment summary (package total vs. actual bill vs. discount), and add_charges_to_bill now applies the invoice-level discount and sets the review flag automatically on Add To Bill. Update (2026-08-20): re-reviewing the policy in full detail found two of these four rules wrong — the cancellation rule only matched Doctor, not Therapist, and the package-adjustment rule was discount-only when it needed to be bidirectional. Both corrected the next day; see the Aug 20 entry.",
     "phase": "Day-Charge Billing Rollout",
     "phaseId": "phase-29",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-19",
@@ -1886,8 +1886,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Caught in the diff review, reverted, and redid the edit as a surgical two-line replacement instead — the final diff touches only the intended entry, nothing else in the fixture.",
     "phase": "Day-Charge Billing Rollout",
     "phaseId": "phase-29",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-19",
@@ -1901,8 +1901,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "554 rows held an empty string instead of a time value; ~700 more spanned roughly 50 free-text formats — \"5pm\", \"12.30pm\", \"8: 30 pm\", bare \"5\" — left over from a time field that was never validated on input. Confirmed with you before touching data. Nulled the empty rows, then wrote a small regex parser and converted 44 of ~51 distinct patterns to proper times. The 7 patterns with no AM/PM marker at all — genuinely ambiguous — were set to NULL rather than guessed.",
     "phase": "Day-Charge Billing Rollout",
     "phaseId": "phase-29",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-19",
@@ -1916,8 +1916,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "bench --site uat.local clear-cache, then migrate — confirmed all four new columns landed with DESCRIBE: cancelled_by on both doctypes, custom_billing_needs_review and custom_billing_review_notes on Sales Invoice. bench start doesn't work on this machine — no process manager (honcho/foreman) installed, so it fails outright. Started every service by hand instead: redis_cache (13000), redis_queue (11000), bench serve, and bench worker. Port 8000 was already held by an unrelated local process, so the web server runs on 8080. Verified every changed file before calling it done: python -c \"ast.parse(...)\" on api.py, node --check on both JS files (including reading the script back out of the JSON to check the actual stored string), and json.load on every touched fixture / custom-field file.",
     "phase": "Day-Charge Billing Rollout",
     "phaseId": "phase-29",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-19",
@@ -1931,8 +1931,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Not committed — everything is sitting uncommitted on feature/day-charge-billing-rules. Not click-tested through the UI end-to-end: schema verified, but the dialog hasn't been exercised against real data yet. patient_expected_day_wise_billing report intentionally left as-is — a separate, simpler implementation that doesn't share code with the rules above. process_room_checkout's Sales Order day-count path intentionally left untouched — a different document type, out of scope. Update (2026-08-22): the full branch — including two more days of corrections and a critical billing bug found on real patient data — committed as a single commit, 9 files, 486 insertions. Still not click-tested end to end; see the Aug 20–22 entries.",
     "phase": "Day-Charge Billing Rollout",
     "phaseId": "phase-29",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-20",
@@ -1946,8 +1946,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Rule 3 only fired for cancelled_by = 'Doctor'; the policy covers Doctor or Therapist. Widened the SQL filter and renamed _get_doctor_cancelled_dates to _get_cancelled_treatment_dates to match what it actually does. Rule 4 (package adjustment) was discount-only, but the policy is bidirectional: package price above the actual bill tops up via a restored \"Physician Consultation & Other Services\" line; actual bill above package price discounts the excess. Rebuilt both directions and re-added the Consultation tab the top-up needs, after the user caught it missing from a screenshot.",
     "phase": "Day-Charge Billing — Rules Corrected & Bench Fixed",
     "phaseId": "phase-30",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-20",
@@ -1961,8 +1961,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Exposed honcho globally and moved the site to port 8080.",
     "phase": "Day-Charge Billing — Rules Corrected & Bench Fixed",
     "phaseId": "phase-30",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-21",
@@ -1976,8 +1976,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Now gets its own dedicated invoice line item. The AN/BG/NG/VG items already existed in the Item master, unused — just needed wiring up.",
     "phase": "Day-Charge Billing — Critical Bug Found on Real Patient Data",
     "phaseId": "phase-31",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-21",
@@ -1991,8 +1991,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Root cause: _get_package_adjustment computed the package baseline as flat rate × days, never applying the same multiplier already used for room/diet. Since the top-up line always inflates the bill back up to that baseline, any day-charge discount was invisibly cancelled out the moment a patient was on package pricing. Verified against the live patient: ₹1,80,000 → ₹1,71,000, the exact ₹9,000 drop the two 30%-off days should produce.",
     "phase": "Day-Charge Billing — Critical Bug Found on Real Patient Data",
     "phaseId": "phase-31",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-21",
@@ -2006,8 +2006,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Added the same discount note to the Treatment and Consultation tabs, plus a placeholder row on any day with a discount but no billable treatment.",
     "phase": "Day-Charge Billing — Critical Bug Found on Real Patient Data",
     "phaseId": "phase-31",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-21",
@@ -2021,8 +2021,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Flat room/diet rates, a flat package total, and no status filter on treatments at all — even Cancelled and Refused procedures were being billed at full price. Rewired to import _day_charge_multiplier and _get_cancelled_treatment_dates directly from api.py, excluded Cancelled/Refused, and replaced the Therapist column with Discount. Cross-checked against the invoice for the same patient: grand total matches, line for line — ₹1,71,000.",
     "phase": "Day-Charge Billing — Critical Bug Found on Real Patient Data",
     "phaseId": "phase-31",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-21",
@@ -2036,8 +2036,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Added Summary, Diet, Room Stay, and Consultation sheets, each carrying the same Discount column. Verified by generating the actual file and reading it back with openpyxl.",
     "phase": "Day-Charge Billing — Critical Bug Found on Real Patient Data",
     "phaseId": "phase-31",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-22",
@@ -2051,8 +2051,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "First: server-side output was correct on every check; the running web worker just had yesterday's Python module cached in memory — a code edit alone doesn't reach an already-running process. Killed and restarted the dev server cleanly, re-ran migrate and clear-cache. Second: the background job worker exited cleanly (no error) after a long idle stretch, and honcho has no auto-restart — one process exiting took the entire group (web, redis, scheduler) down with it. Caught via a background task notification, not a user report. Restarted and logged the failure mode for next time.",
     "phase": "Day-Charge Billing — Committed",
     "phaseId": "phase-32",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-22",
@@ -2066,8 +2066,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "9 files, 486 insertions, staged deliberately — leaving the local .claude / .claude-flow tooling directories untracked since they aren't application code. Commit 5e3d093 on feature/day-charge-billing-rules, one commit ahead of where it branched from main. Not merged, not pushed. Still open: no end-to-end browser click-through — every fix is verified via direct server calls and DB checks, never an actual click. No real Therapist-cancelled row exists in live data yet to test the Doctor-or-Therapist logic against, so it's regression-safe by inspection only. The report's Medicine sheet is still on the old, narrower query. The report page's own \"Add to Bill\" popup is a fourth surface, still unsynced — its own Therapist column, no discount notes.",
     "phase": "Day-Charge Billing — Committed",
     "phaseId": "phase-32",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-22",
@@ -2516,8 +2516,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "ca5b584 (09:43:56) converted Jihva/Nadi in Progress Notes Table from Data to Select — but Progress Notes Table is shared between Vaidyagrama and Saranya, so the change leaked onto both. Reverted six hours later (737566d, 10:48:59) back to plain Data. Re-implemented correctly the same hour (782b951): a manually-run Property Setter script scoped to Saranya's own site database, deliberately left out of patches.txt and the hooks.py fixtures list — either would sync it back onto Vaidyagrama through the next bench migrate, defeating the point.",
     "phase": "Vaidyagrama — Aug 24 Correction & Billing Fixes",
     "phaseId": "phase-38",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-08-24",
@@ -2531,8 +2531,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "send_ip_indent() always fell through to a fallback warehouse for Saranya and fired a \"could not resolve Illam warehouse\" warning that was simply the wrong terminology for a site with no Illams. Fixed to route Saranya straight to IP Pharmacy Store with no warning, and to auto-submit + auto-approve the resulting Material Request — skipping the therapist-submit/doctor-approve two-step Vaidyagrama uses, since a direct-to-pharmacy indent has no equivalent approval step at Saranya. Vaidyagrama's own behavior is untouched, gated by an explicit company check.",
     "phase": "Vaidyagrama — Aug 24 Correction & Billing Fixes",
     "phaseId": "phase-38",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-08-24",
@@ -2546,8 +2546,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Root cause: get_patient_charges grouped by procedure name, so a combo booking came back as two separately-priced rows and billed the sum of both instead of the combined price. New _collapse_treatment_combinations() collapses same-schedule rows into one line at the combination's max procedure price, named \"Procedure A + Procedure B.\" Gated to Saranya only — Vaidyagrama's billing was unaffected. Live in production billing until this fix landed; no before/after invoice comparison was available to establish how many real invoices were affected.",
     "phase": "Vaidyagrama — Aug 24 Correction & Billing Fixes",
     "phaseId": "phase-38",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-08-28",
@@ -2561,8 +2561,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Other Occupants (Student/Guest/NG Resident) added to the Room Occupancy Dashboard as a distinct booking category — 334 lines across 6 files. Scheduled/upcoming treatment and medicine billing added to the Sales Invoice, Vaidyagrama-only.",
     "phase": "Vaidyagrama — Booking, Billing & Approval Workflow",
     "phaseId": "phase-39",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-31",
@@ -2576,8 +2576,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "No treatment row at all, or every row Cancelled → bill 0%. Every row Refused → bill 30%. Any real clinical status (Completed/Started/Not Started/Rescheduled/blank) → bill 100%, unchanged. New get_first_day_billing_pct() threaded through Room, Diet, Consultation, and the day-wise billing report. Explicitly gated off for Saranya, which keeps billing every day in full.",
     "phase": "Vaidyagrama — Booking, Billing & Approval Workflow",
     "phaseId": "phase-39",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-08-31",
@@ -2591,8 +2591,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "a0238a5 (921 lines, 8 files): a 3-stage approval workflow for Vaidyagrama, new Workflow + Workflow State fixtures, a role-assignment script, a new module. 7eefcc0 same day added stat cards (patients, status, main/local split, missing-Rx count) to the same dashboard. Real bug found and fixed same day: \"Deadlock Occurred\" errors on the dashboard. Root cause: the page's load handler fired its data-load function twice — once explicitly, once implicitly via the date filter's own change handler — racing two concurrent check-then-insert calls for the same new approval row, a classic check-then-act race. Fixed on two layers: removed the redundant explicit call, and added insert(ignore_if_duplicate=True) plus a 3-attempt retry loop catching the specific deadlock error class on the backend. The commit's own claim of a captured Error Log entry proving this couldn't be independently verified during the Sept 22 audit — the site's Error Log table's retention doesn't reach back that far, so the claim is neither confirmed nor contradicted.",
     "phase": "Vaidyagrama — Booking, Billing & Approval Workflow",
     "phaseId": "phase-39",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-09-07",
@@ -2606,8 +2606,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "A patient admitted at 2pm bills in [2pm day1–2pm day2), [2pm day2–2pm day3), etc.; only fully-elapsed cycles are billed, a still-open partial cycle is dropped entirely with no pro-rating. Treatment/Medicine still bill independently of which cycle they fall in. Also switched Saranya's Physician Consultation to a flat per-day rate from settings, since Saranya has no \"package rate\" concept the way Vaidyagrama does.",
     "phase": "Vaidyagrama — 24-Hour Billing Cycles & Co-Occupant Diet Gap",
     "phaseId": "phase-40",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-09-08",
@@ -2621,8 +2621,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Room itself stays primary-only (billed once at the correct Double per-person rate), but Diet — each person's own consumption — now bills to the co-occupant too, via a new get_co_patient_reservation_days() shared between the Sales Invoice popup and the day-wise billing report so the two can't drift apart. Gated off for Saranya, whose Diet-folded-into-Accommodation model doesn't need it. Real data-integrity defect found while building this: a self-referential Co Patient row where the co-patient field pointed back at the reservation's own primary patient (concrete example cited in the commit: RSV-00310) — would have double-counted that reservation's days. Query now explicitly excludes rows where the co-patient equals the primary patient.",
     "phase": "Vaidyagrama — 24-Hour Billing Cycles & Co-Occupant Diet Gap",
     "phaseId": "phase-40",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-09-11",
@@ -2636,8 +2636,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Root cause: frappe/core/doctype/file/utils.py failing to re-open a missing image file on every Letter Head on_update. Both sites' Error Log showed 90 occurrences between Sept 8–11. The fix removed the broken fixture and its hook rather than restoring the missing image, which stopped the error — but that means the fixture defining the letterhead is now gone, not repaired; worth confirming actual print output still looks right on real invoices. Zero occurrences of this error in either site's log after the fix landed — a real, verified before/after.",
     "phase": "Vaidyagrama — Bundled Commits, Letterhead Fix, Unresolved Race Condition",
     "phaseId": "phase-41",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-15",
@@ -2651,8 +2651,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Both sites' Error Log show 20 occurrences of \"Medicine Schedule sync: slot save failed\" the same day, tracing to a TimestampMismatchError inside the retry-on-conflict logic that exists specifically to handle this case — the retry path is still losing the race under concurrent edits to the same casesheet. No commit in this window touches it. Also 8 tracebacks in the clinical dashboard's Daily Information Report, and one framework-level bug: a Script Report saved with its json field as a bare Python dict instead of a JSON string, which the MySQL driver can't escape — not application code, but it blocks saving that report from the desk UI when it happens.",
     "phase": "Vaidyagrama — Bundled Commits, Letterhead Fix, Unresolved Race Condition",
     "phaseId": "phase-41",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-19",
@@ -2666,8 +2666,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Flagging the pattern, not any specific line: individual changes this large and this bundled are hard to isolate later if one of the fifteen needs reverting on its own. Two harmless dangling git stash artifact commits landed at the same timestamp right after this one — not real history, just stash internals surfaced by a full-reflog walk.",
     "phase": "Vaidyagrama — Bundled Commits, Letterhead Fix, Unresolved Race Condition",
     "phaseId": "phase-41",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-21",
@@ -2681,8 +2681,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Opens with a commit whose own message says \"previously uncommitted changes in the working tree, committed together\" — Clinical Audit doctypes, core API, five print formats, and workspace links, swept into one commit at session start rather than left sitting uncommitted. Advice Master doctype built for Diet/Regimen advices, then wired through Patient Encounter, Inpatient Casesheet, the OP Case Record print, and the Inpatient Discharge Summary print — roughly 9 commits, all gated to Saranya.",
     "phase": "Vaidyagrama — Sept 21 Session: Advice Master & Medicine Scheduling",
     "phaseId": "phase-42",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-09-21",
@@ -2696,8 +2696,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Concomitant Medicine Schedule: new doctype + API + page + workspace link, over 1,700 combined lines across 4 commits. Non-Formulary Medicine additions on both Inpatient Casesheet and Patient Encounter, explicitly kept out of the pharmacy indent by design. One self-correction mid-session: a Saranya-only workspace link had been added to the shared workspace JSON by mistake — caught and fixed nine minutes after it was introduced.",
     "phase": "Vaidyagrama — Sept 21 Session: Advice Master & Medicine Scheduling",
     "phaseId": "phase-42",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-09-22",
@@ -2711,8 +2711,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Also removed two stray Custom Field DB records on the Saranya site that duplicated real DocType fields and were causing every companion-record insert to fail via a double db_insert — a manual production data change the commit message reports but git itself doesn't track, the same category of gap as the two undocumented patches below.",
     "phase": "Vaidyagrama — Sept 21 Session: Advice Master & Medicine Scheduling",
     "phaseId": "phase-42",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-09-22",
@@ -2726,8 +2726,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "The Patient form's advance-payments section was gated on frappe.boot.sitename !== \"vaidyagrama\" — but the real live site is named vaidyagramalive, so that condition was always true in production, meaning the advance-payments UI was hidden on the live site when it should have been shown. Corrected to the real site name, but the fix is not yet committed or live. A second real change in the same tree: the Clinical Audit on_submit hook is commented out, not deleted — deliberately disabled but left in place for a possible re-enable, per the working tree's own state. Also uncommitted: a genuinely new 87-option dropdown on Visitor Registration (kitchen + every room number + illam codes), and six new, entirely untracked Panchakarma sub-treatment checklist print formats (Nasyam, Niruha Vasti, Snehapanam, Swedanam, Vamanam, Virechanam) sitting untracked for weeks.",
     "phase": "Vaidyagrama — Uncommitted Work & Untracked Artifacts",
     "phaseId": "phase-43",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-09-22",
@@ -2741,8 +2741,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "fix_preferred_time_select_values and sync_treatment_schedule_time_with_prescription both ran against production (vaidyagrama 2026-09-09, saranya 2026-09-10) with no matching entry in git log --all for either patch name, on any branch, ever. Someone ran a real data-fix against production that was never committed, anywhere — not reproducible, no code-review trail.",
     "phase": "Vaidyagrama — Uncommitted Work & Untracked Artifacts",
     "phaseId": "phase-43",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-08-25",
@@ -3146,8 +3146,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Commit 35a867e (ganesh-codebase) adds billing_window.py with resolve_admission_window, filter_rows_to_window and get_current_admission_window, wired into the charge, room-stay and diet queries. The commit cites a live case where a Sept 11 bill pulled July treatments and 5 extra room/diet days; I could not reproduce it from the report. Lowers billed totals for readmitted patients. Pure OPD patients with no casesheet keep the unbounded behaviour. Unit tests were added but not run in this audit. Left undone: room reservations have no casesheet link, so they are filtered day-by-day on dates.",
     "phase": "Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)",
     "phaseId": "phase-52",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-28",
@@ -3161,8 +3161,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "be1b5c7 replaces frappe.db.count()+1 with getseries(), which takes a row lock, seeded once from the existing count. Seed is guarded by exists so a gap in existing names cannot re-issue one. No test added; not verified.",
     "phase": "Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)",
     "phaseId": "phase-52",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-10-02",
@@ -3176,8 +3176,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "dd70cab: 100% of Room, Diet and Consultation if a treatment happened that day; the Vaidyagrama Settings \"Discharge Day Charge %\" (default 70) if no treatment and checkout at or after 12:00; not billed if checkout before 12:00. get_discharge_day_info returns nothing on Saranya, so Saranya billing is unchanged by construction. Not verified.",
     "phase": "Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)",
     "phaseId": "phase-52",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-10-03",
@@ -3191,8 +3191,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "12eb71b hooks Sales Invoice before_validate/validate: forces currency to the company currency and conversion_rate to 1, sets allocate_advances_automatically when an inpatient casesheet is linked, and recalculates totals. It is not gated by site or company, so it applies to Vaidyagrama and Saranya alike. Docstring says to drop it once exchange rates are supported. Related 6c2ba0f adds custom_foreign_currency/custom_foreign_amount to Payment Entry, editable after submit — the INR hook and the foreign-amount fields pull in opposite directions until exchange support exists. Not verified.",
     "phase": "Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)",
     "phaseId": "phase-52",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-10-05",
@@ -3206,8 +3206,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "f37ae39: the custom field custom_approximate_days is created only by a one-off setup script the commit says to run manually on Vaidyagrama (vaidyagrama_payment_request_fields.execute). The report found no evidence whether it ran. The 30% discount is hard-coded in the print format and changes the Total Bill and Balance shown on the form. Tests for count_break_days added, not run.",
     "phase": "Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)",
     "phaseId": "phase-52",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-10-06",
@@ -3221,8 +3221,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "86368e9 (Mohammed Inzi): the billed-days count included an unbilled arrival day because the day was appended before the 0-percent test; now skipped so \"N days\" matches billing. No test added. 9e7f8a6: upsert_treatment_schedule no longer commits a Treatment Schedule for an unsaved casesheet row; it links to a saved row in the same commit. Existing orphans are not cleaned up.",
     "phase": "Vaidyagrama — Billing Correctness (Sep 28 – Oct 6)",
     "phaseId": "phase-52",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-09-24",
@@ -3236,8 +3236,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "c34b442 alone is 23 files (+736 −99). Read from stat and message only; not verified in the UI.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-09-30",
@@ -3251,8 +3251,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "c642617 adds the Room Reservation Update page and Change Log (9 files +648); da395ff and c642617 register patches (add_front_desk_links_vaidyagrama, add_room_reservation_update_links), both run 09-30 on both sites. Also: room reservation dashboard projected occupancy, IP list status-aware dates, naming-series changes.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-10-02",
@@ -3266,8 +3266,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Same day 14c7bd1 changes behaviour: the pre-arrival email is now sent only after a confirmed advance payment. Not verified.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "saranya",
+    "project": "Saranya"
   },
   {
     "date": "2026-10-05",
@@ -3281,8 +3281,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Read from the patch for the seed patch; not verified on the UI.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-10-09",
@@ -3296,8 +3296,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "baca829 (conflict guard for Vaidyagrama) and 7cae467 are on origin/dev but not on main: dev is 2 ahead and 6 behind upstream/main.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-10-07",
@@ -3311,8 +3311,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "It does not touch api.py, but the active-schedule page rewrites were not diffed for lost behaviour.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-10-07",
@@ -3326,8 +3326,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Gated on company and guarded with ifnull so they do not overwrite. Ran 10-07 and 10-08. Neither is reversible. Also b08dd82 widens site-name gates to accept saranyalive/vaidyagramalive — without it the Saranya OP Case Record button and Vaidyagrama Zoom link do not work on Live.",
     "phase": "Vaidyagrama — Clinical Feature Batches (Sep 24 – Oct 9)",
     "phaseId": "phase-53",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-09-30",
@@ -3341,8 +3341,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "f09050e (09-17) dropped tab-role visibility and a Saranya discharge-exam section, restored by 59899b5 on 09-30 — 13 days. b5a54b0 (09-28, Veerkukreja-Work) changed inpatient_casesheet.js by −1,150 lines, silently reverting Saranya Start/End Visit, usage picker, signatures, non-formulary button and advices block; restored by 8433856 on 09-30. cf4376b (10-07, PavanKumar-Tech9391) removed two whitelisted API methods, breaking Previous Visits and OP Case Record; restored by ff67ecb the same day. None was caught by a test or review. Each was found by users noticing something missing.",
     "phase": "Vaidyagrama — Regressions, Patches & Uncommitted State",
     "phaseId": "phase-54",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-29",
@@ -3356,23 +3356,23 @@ window.WORKLOG_ENTRIES = [
     "detailText": "git log --all -S finds nothing. The name suggests it set allow_on_submit on Room Reservation bystander fields, but what it actually changed is unknown. Second case alongside the two undocumented patches from Sept 9–10. Also 6845194 deliberately leaves move_encounter_advice_fields_to_doctype out of patches.txt: it deletes Custom Fields and needs a go/no-op decision.",
     "phase": "Vaidyagrama — Regressions, Patches & Uncommitted State",
     "phaseId": "phase-54",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-10-10",
     "time": null,
-    "status": "bad",
-    "statusLabel": "Uncommitted",
-    "title": "Pharmacy billing quantity change sitting uncommitted: Vaidyagrama would bill loose millilitres instead of whole bottles",
+    "status": "warn",
+    "statusLabel": "Committed 2026-10-10 · on dev, not in main",
+    "title": "Pharmacy now bills loose millilitres for Vaidyagrama instead of whole bottles — committed, not yet in main",
     "tag": "Billing / Pharmacy",
     "purpose": "Four modified files, +45 −12, not on any branch.",
-    "detail": "<p><code>pharmacy.py</code>: for non-Saranya, 450 ml is billed as 450 ml instead of rounding to a whole bottle — changes money billed. <code>ip_active_list.py</code>/<code>.js</code>: actual and expected discharge returned separately; an overdue patient with no actual discharge counts as present. <code>vaidya_wise_ip_patients.py</code>: <code>total_billing</code> summed through <code>flt()</code> because it is a free-text Data field. Not verified.</p>",
-    "detailText": "pharmacy.py: for non-Saranya, 450 ml is billed as 450 ml instead of rounding to a whole bottle — changes money billed. ip_active_list.py/.js: actual and expected discharge returned separately; an overdue patient with no actual discharge counts as present. vaidya_wise_ip_patients.py: total_billing summed through flt() because it is a free-text Data field. Not verified.",
+    "detail": "<p><code>pharmacy.py</code>: for non-Saranya, 450 ml is billed as 450 ml instead of rounding to a whole bottle — changes money billed. <code>ip_active_list.py</code>/<code>.js</code>: actual and expected discharge returned separately; an overdue patient with no actual discharge counts as present. <code>vaidya_wise_ip_patients.py</code>: <code>total_billing</code> summed through <code>flt()</code> because it is a free-text Data field. Not verified.</p><p><strong>Update (2026-10-10 04:29 UTC):</strong> the four files were committed by ganesh-codebase as <code>3abb2e7</code>, <code>eb92193</code> and <code>f86918f</code>. They sit on <code>dev</code> and are not in <code>main</code>. Whether they are deployed on Live is not verified.</p>",
+    "detailText": "pharmacy.py: for non-Saranya, 450 ml is billed as 450 ml instead of rounding to a whole bottle — changes money billed. ip_active_list.py/.js: actual and expected discharge returned separately; an overdue patient with no actual discharge counts as present. vaidya_wise_ip_patients.py: total_billing summed through flt() because it is a free-text Data field. Not verified. Update (2026-10-10 04:29 UTC): committed as 3abb2e7, eb92193 and f86918f on dev, not in main. Live deployment not verified.",
     "phase": "Vaidyagrama — Regressions, Patches & Uncommitted State",
     "phaseId": "phase-54",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   },
   {
     "date": "2026-10-10",
@@ -3386,8 +3386,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Two stash-internal commits (376bd3b, b7313cb) are the only reference. Nothing else points to this work.",
     "phase": "Vaidyagrama — Regressions, Patches & Uncommitted State",
     "phaseId": "phase-54",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-10-10",
@@ -3401,8 +3401,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "22 \"Failed to decrypt key Email Account password\" rows plus 3 GST Settings rows on vaidyagrama and 16 on saranya: the site's encryption_key does not match the key that encrypted the stored password (inferred, e.g. after a restore). 32+20 \"Appointment Debug\" rows are a frappe.log_error left in production at api.py:607. 19 send_tomorrow_ip_indents failures are disabled items. 8 \"Daily Information Report\" SQL errors (%(to_date)s not substituted) trace to SQL that is in no git ref and no Report/Server Script. 32 SMTP 535 errors on saranya (09-26/27). 5 High Risk Medicine Consent column errors on 09-29, fixed once the Item custom field migrated.",
     "phase": "Vaidyagrama — Regressions, Patches & Uncommitted State",
     "phaseId": "phase-54",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-29",
@@ -3761,8 +3761,8 @@ window.WORKLOG_ENTRIES = [
     "detailText": "Several commits are duplicates of the same message and two were reverted. The lint/test checks were removed on 10-08 (d54a6bc, −106 lines); only the dev→main PR workflow remains. PRs #29–37 were merged 10-05 to 10-09 (#36 by dineshbandaru-dev). No automated check now guards main.",
     "phase": "Bench Controls & Delivery Process (Oct 10)",
     "phaseId": "phase-59",
-    "projectId": "vaidyagrama-app",
-    "project": "Vaidyagrama App"
+    "projectId": "clinic-shared",
+    "project": "Shared Code (Vaidyagrama + Saranya)"
   },
   {
     "date": "2026-09-16",
@@ -3778,5 +3778,140 @@ window.WORKLOG_ENTRIES = [
     "phaseId": "phase-57",
     "projectId": "powertex-erp",
     "project": "Powertex ERP"
+  },
+  {
+    "date": "2026-10-06",
+    "time": null,
+    "status": "good",
+    "statusLabel": "Completed",
+    "title": "Saranya OP Case Record opens from the appointment, with a Previous Visits popup; Panchakarma Intimation and Consent forms in Saranya's own format",
+    "tag": "Clinical / Case Records",
+    "purpose": "Saranya's front desk and doctors can start an OP case record straight from Patient Appointment and see prior visits, and Panchakarma paperwork now follows Saranya's own layout.",
+    "detail": "<p><code>bf3b70a</code>, <code>656e674</code>, <code>3ba4040</code>, <code>254d259</code> (ganesh-codebase, 10-06): Panchakarma Intimation and Consent forms (+1,735 lines), Progress Notes with the duplicate Nadi hidden and Weight made optional, and the case-record print showing full vitals and signatures. Read from stat and message only; not verified in the UI.</p>",
+    "detailText": "bf3b70a, 656e674, 3ba4040, 254d259 (ganesh-codebase, 10-06): Panchakarma Intimation and Consent forms (+1,735 lines), Progress Notes with the duplicate Nadi hidden and Weight made optional, and the case-record print showing full vitals and signatures. Read from stat and message only; not verified in the UI.",
+    "phase": "Saranya — Clinical Forms & Case Records (Sep 22 – Oct 10)",
+    "phaseId": "phase-60",
+    "projectId": "saranya",
+    "project": "Saranya"
+  },
+  {
+    "date": "2026-10-07",
+    "time": null,
+    "status": "good",
+    "statusLabel": "Completed",
+    "title": "Nurse vitals recorded on the Details tab and filled into the Physical Examination automatically",
+    "tag": "Clinical / Case Records",
+    "purpose": "Removes re-typing of vitals between the nurse's entry and the doctor's examination.",
+    "detail": "<p><code>70fc9c8</code>, <code>67e0ac7</code> and <code>01f6a9a</code> (ganesh-codebase, 10-07) add nurse vitals on the Details tab and Patient, auto-filled into Physical Examination, plus a Previous Case Sheet link. Not verified in the UI.</p>",
+    "detailText": "70fc9c8, 67e0ac7 and 01f6a9a (ganesh-codebase, 10-07) add nurse vitals on the Details tab and Patient, auto-filled into Physical Examination, plus a Previous Case Sheet link. Not verified in the UI.",
+    "phase": "Saranya — Clinical Forms & Case Records (Sep 22 – Oct 10)",
+    "phaseId": "phase-60",
+    "projectId": "saranya",
+    "project": "Saranya"
+  },
+  {
+    "date": "2026-10-05",
+    "time": null,
+    "status": "good",
+    "statusLabel": "Completed",
+    "title": "Casesheet keeps unsaved entries when someone else saves first",
+    "tag": "Platform / Concurrency",
+    "purpose": "Two people editing the same casesheet no longer silently lose the second person's typing.",
+    "detail": "<p><code>60b34d0</code> (ganesh-codebase, 391 lines) adds a conflict guard for Saranya; <code>baca829</code> (10-09) enables the same guard for Vaidyagrama but sits on dev only. The Sept 15 Medicine Schedule race condition is a related problem this does not fully close.</p>",
+    "detailText": "60b34d0 (ganesh-codebase, 391 lines) adds a conflict guard for Saranya; baca829 (10-09) enables the same guard for Vaidyagrama but sits on dev only. The Sept 15 Medicine Schedule race condition is a related problem this does not fully close.",
+    "phase": "Saranya — Clinical Forms & Case Records (Sep 22 – Oct 10)",
+    "phaseId": "phase-60",
+    "projectId": "saranya",
+    "project": "Saranya"
+  },
+  {
+    "date": "2026-09-22",
+    "time": null,
+    "status": "good",
+    "statusLabel": "Completed",
+    "title": "Floor/Room filter cascade repaired on the Treatment, Diet, Medicine and Concomitant schedules",
+    "tag": "Clinical / Scheduling",
+    "purpose": "Choosing a floor now narrows the room list correctly on all four schedule pages.",
+    "detail": "<p><code>3c616ee</code> and <code>5d25d2e</code> (mohammedinzi, 09-22). Read from stat and message only.</p>",
+    "detailText": "3c616ee and 5d25d2e (mohammedinzi, 09-22). Read from stat and message only.",
+    "phase": "Saranya — Clinical Forms & Case Records (Sep 22 – Oct 10)",
+    "phaseId": "phase-60",
+    "projectId": "saranya",
+    "project": "Saranya"
+  },
+  {
+    "date": "2026-10-10",
+    "time": null,
+    "status": "warn",
+    "statusLabel": "Errors only · Saranya site",
+    "title": "Saranya's own error picture: mail login rejected, an encryption-key mismatch, and a debug log left running",
+    "tag": "Platform / Monitoring",
+    "purpose": "Evidence for the Saranya site alone, separated from Vaidyagrama's.",
+    "detail": "<p>Error Log rows: 68 from 09-26 to 10-10 (39 on 09-26, then single digits). 32 are <code>SMTPAuthenticationError 535</code> on 09-26 and 09-27 (the configured account's login was rejected). 20 are the \"Appointment Debug\" <code>frappe.log_error</code> left in production. 16 are \"Failed to decrypt key Email Account.frontdesk.password\" from 10-01 to 10-10 — the site's encryption key does not match the key that encrypted the stored password, likely after a restore (inferred).</p><p>Scheduled Job Log from 10-02: about 2,009 rows per full day, all Complete. No Integration Requests. Error Log retention starts 09-26, so earlier days are not covered. The Saranya billing path was left untouched by the discharge-day and pharmacy changes by design.</p>",
+    "detailText": "Error Log rows: 68 from 09-26 to 10-10 (39 on 09-26, then single digits). 32 are SMTPAuthenticationError 535 on 09-26 and 09-27 (the configured account's login was rejected). 20 are the \"Appointment Debug\" frappe.log_error left in production. 16 are \"Failed to decrypt key Email Account.frontdesk.password\" from 10-01 to 10-10 — the site's encryption key does not match the key that encrypted the stored password, likely after a restore (inferred). Scheduled Job Log from 10-02: about 2,009 rows per full day, all Complete. No Integration Requests. Error Log retention starts 09-26, so earlier days are not covered. The Saranya billing path was left untouched by the discharge-day and pharmacy changes by design.",
+    "phase": "Saranya — Clinical Forms & Case Records (Sep 22 – Oct 10)",
+    "phaseId": "phase-60",
+    "projectId": "saranya",
+    "project": "Saranya"
+  },
+  {
+    "date": "2026-09-28",
+    "time": null,
+    "status": "warn",
+    "statusLabel": "Committed · control loosened",
+    "title": "Clinical Audit completion hook switched off; list access moved from designation to the Doctor role",
+    "tag": "Platform / Controls",
+    "purpose": "Two behaviour changes that affect who can see and what updates automatically.",
+    "detail": "<p><code>682d0f8</code> comments out the Clinical Audit <code>on_submit</code> hook, so the assignment row no longer flips to Completed automatically; it also disabled the Discharge Summary print format, which <code>fc07cae</code> re-enabled. <code>b4e2b8a</code> gates IP/OP list access on the Doctor role instead of the Employee designation. Read the first as a patch; the second from stat and message.</p>",
+    "detailText": "682d0f8 comments out the Clinical Audit on_submit hook, so the assignment row no longer flips to Completed automatically; it also disabled the Discharge Summary print format, which fc07cae re-enabled. b4e2b8a gates IP/OP list access on the Doctor role instead of the Employee designation. Read the first as a patch; the second from stat and message.",
+    "phase": "Vaidyagrama — Clinic Workflow & Controls (Sep 28 – Oct 10)",
+    "phaseId": "phase-61",
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
+  },
+  {
+    "date": "2026-09-28",
+    "time": null,
+    "status": "good",
+    "statusLabel": "Completed",
+    "title": "Zoom confirmation and day-before reminder; occupancy export excludes unpaid rooms",
+    "tag": "Clinical / Operations",
+    "purpose": "Smaller operational improvements from the same day.",
+    "detail": "<p><code>979da85</code> adds a Zoom confirmation and reminder; <code>e96c02e</code> keeps Unpaid rooms out of the occupancy export; <code>7935496</code> and <code>0614d9d</code> are schema and workspace syncs. <code>b08dd82</code> (10-07) widens site-name gates to accept <code>vaidyagramalive</code> — without it the Zoom link does not work on Live.</p>",
+    "detailText": "979da85 adds a Zoom confirmation and reminder; e96c02e keeps Unpaid rooms out of the occupancy export; 7935496 and 0614d9d are schema and workspace syncs. b08dd82 (10-07) widens site-name gates to accept vaidyagramalive — without it the Zoom link does not work on Live.",
+    "phase": "Vaidyagrama — Clinic Workflow & Controls (Sep 28 – Oct 10)",
+    "phaseId": "phase-61",
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
+  },
+  {
+    "date": "2026-10-10",
+    "time": null,
+    "status": "good",
+    "statusLabel": "Completed · on dev",
+    "title": "Overdue IP patients with no actual discharge stay in the active list",
+    "tag": "Clinical / Reports",
+    "purpose": "A patient past their expected date but not yet discharged is no longer dropped from the in-house list.",
+    "detail": "<p>Part of <code>3abb2e7</code> / <code>f86918f</code> (ganesh-codebase, 10-10 04:29): actual and expected discharge are returned separately, an actual discharge is final, and <code>total_billing</code> is summed through <code>flt()</code> because it is a free-text field. On dev, not in main.</p>",
+    "detailText": "Part of 3abb2e7 / f86918f (ganesh-codebase, 10-10 04:29): actual and expected discharge are returned separately, an actual discharge is final, and total_billing is summed through flt() because it is a free-text field. On dev, not in main.",
+    "phase": "Vaidyagrama — Clinic Workflow & Controls (Sep 28 – Oct 10)",
+    "phaseId": "phase-61",
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
+  },
+  {
+    "date": "2026-10-10",
+    "time": null,
+    "status": "warn",
+    "statusLabel": "Committed 2026-10-10",
+    "title": "Vaidyagrama site evidence: decryption failures, a disabled-items job, and a report query with no source in git",
+    "tag": "Platform / Monitoring",
+    "purpose": "Vaidyagrama's own error picture, separated from Saranya's.",
+    "detail": "<p>115 Error Log rows from 09-26. 32 are the same debug log. 22 are \"Failed to decrypt key Email Account password\" and 3 are GST Settings — an encryption-key mismatch. 19 are <code>send_tomorrow_ip_indents</code> hitting disabled Items. 8 are a \"Daily Information Report: patients\" SQL error (<code>%(to_date)s</code> not substituted) whose source is in no git ref and no Report or Server Script. 6 are SMTP connection drops on 10-09. 5 on 09-29 were High Risk Medicine Consent column errors, since fixed once the Item custom field migrated.</p><p>Scheduled Job Log from 10-02: about 1,936 rows a day, all Complete.</p>",
+    "detailText": "115 Error Log rows from 09-26. 32 are the same debug log. 22 are \"Failed to decrypt key Email Account password\" and 3 are GST Settings — an encryption-key mismatch. 19 are send_tomorrow_ip_indents hitting disabled Items. 8 are a \"Daily Information Report: patients\" SQL error (%(to_date)s not substituted) whose source is in no git ref and no Report or Server Script. 6 are SMTP connection drops on 10-09. 5 on 09-29 were High Risk Medicine Consent column errors, since fixed once the Item custom field migrated. Scheduled Job Log from 10-02: about 1,936 rows a day, all Complete.",
+    "phase": "Vaidyagrama — Clinic Workflow & Controls (Sep 28 – Oct 10)",
+    "phaseId": "phase-61",
+    "projectId": "vaidyagrama",
+    "project": "Vaidyagrama"
   }
 ];

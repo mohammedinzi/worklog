@@ -746,6 +746,8 @@
         <option value="phase-57">Powertexerp — Mobile API, Secret Regression & e-Invoice QR</option>
         <option value="phase-58">Other Repos — Urja Shakti, Sun Consultancy & Vendored Apps</option>
         <option value="phase-59">Bench Controls & Delivery Process (Oct 10)</option>
+        <option value="phase-60">Saranya — Clinical Forms & Case Records (Sep 22 – Oct 10)</option>
+        <option value="phase-61">Vaidyagrama — Clinic Workflow & Controls (Sep 28 – Oct 10)</option>
       </select>
     </div>
 
@@ -1111,9 +1113,19 @@
       bigPicture: '<p>A separate product from the shared HRMS add-on used on the ERP sites — this one is purpose-built for Wadi Surgicals\' own attendance rules, including flexible-shift handling, per-shift grace periods, and hours-worked-based Present/Half Day/Absent grading.</p>'
     },
     {
-      id: 'vaidyagrama-app', mark: 'VG', name: 'Vaidyagrama App',
-      tagline: 'A dedicated healthcare app — inpatient casesheets and the insurance intimation workflow for Vaidyagrama.',
-      bigPicture: '<p>A separate healthcare-focused Frappe app, distinct from the ERP client sites — covers inpatient casesheet documentation and the insurance intimation process end to end, from admission through discharge, including diagnosis, rate details, and billing split-up.</p><p>Current work includes pulling outpatient encounter data straight into an inpatient casesheet, and tightening the insurance intimation form with date validation and required fields.</p>'
+      id: 'vaidyagrama', mark: 'VG', name: 'Vaidyagrama',
+      tagline: 'The Vaidyagrama clinic site: inpatient billing rules, scheduling approval, Panchakarma reports and discharge-day charging.',
+      bigPicture: '<p>One of two clinics running on the shared <code>vaidyagrama_app</code> codebase, each with its own database. Work gated to this site covers the day-charge billing rules, first-day and discharge-day charging, co-occupant diet billing, the 3-stage treatment approval workflow, Panchakarma and Vasti records and the loose-quantity pharmacy billing change.</p><p>Billing here follows a package-minus-actuals model; the Saranya site uses a different one and is deliberately left untouched by these rules.</p>'
+    },
+    {
+      id: 'saranya', mark: 'SA', name: 'Saranya',
+      tagline: 'The Saranya clinic site: 24-hour admission billing cycles, Advice Master, medicine scheduling, case records and external medication.',
+      bigPicture: '<p>The second clinic on the shared <code>vaidyagrama_app</code> codebase. Saranya bills in 24-hour admission-anchored cycles and folds diet into accommodation, so most Vaidyagrama billing rules are explicitly switched off for it.</p><p>Work gated to this site covers the Advice Master and Advices blocks, Concomitant and Non-Formulary medicine, OP Case Record and Previous Visits, Panchakarma consent forms in Saranya\'s own format, nurse vitals, and the Active External Medication page.</p>'
+    },
+    {
+      id: 'clinic-shared', mark: 'VS', name: 'Shared Code (Vaidyagrama + Saranya)',
+      tagline: 'Changes that apply to both clinics once deployed: billing windows, numbering, hooks, regressions and repository controls.',
+      bigPicture: '<p>Everything in <code>vaidyagrama_app</code> with no site gate in the diff. A change here reaches both clinics, which is why the three file-overwrite regressions, the undocumented patches and the Sales Invoice currency hook are tracked in this bucket rather than under one client.</p>'
     },
     {
       id: 'powertex-erp', mark: 'PX', name: 'Powertex ERP',
@@ -1282,11 +1294,21 @@
 
   /* ---------- Summary view (plain-language, as of 2026-10-10) ---------- */
   var PROJECT_SUMMARIES = {
-    'vaidyagrama-app': { status:['Needs attention','warn'],
-      line:'The most active project. Inpatient billing was rebuilt over two months and now follows the clinic\'s real policies; clinical forms and reports kept shipping alongside it.',
-      delivered:['Day-charge billing rules (arrival, discharge, cancelled treatments, package price) built, corrected twice and checked against a real patient bill','Money leaks closed: shared-room diet charges, double-billed combination treatments, readmitted patients re-billed for old stays','New discharge-day billing rule and Saranya 24-hour billing cycles','Treatment approval workflow, Advice Master, medicine scheduling, external medication page, six new reports'],
-      risks:['Three times a stale copy of a whole file overwrote working code; each stayed broken 2 to 13 days','Three database fixes ran on production with no code in git, so they cannot be reviewed or repeated','A pharmacy billing change and 1,260 lines of work are uncommitted or stashed','Billing has been checked by server calls, never clicked through in a browser','Automated lint and test checks were removed on 8 Oct'],
-      next:['Commit or discard the uncommitted pharmacy change and stashed work','Merge dev into main (two commits are on dev only)','Click-test the billing dialog with a real patient'] },
+    'vaidyagrama': { status:['Needs attention','warn'],
+      line:'Billing rules for the Vaidyagrama clinic were rebuilt over two months and now follow the clinic\'s real policies, checked against a real patient bill.',
+      delivered:['Day-charge billing rules built, corrected twice and verified on a real patient','Money leaks closed: shared-room diet charges, readmitted patients re-billed for old stays','Discharge-day charging and a 3-stage treatment approval workflow','Panchakarma and Vasti records, six new reports, loose-quantity pharmacy billing'],
+      risks:['The pharmacy billing change and four related commits are on dev, not main','A database patch ran on this site with no code in git','Clinical Audit completion hook is switched off','Billing was checked by server calls, never clicked through in a browser'],
+      next:['Merge dev into main','Click-test the billing dialog with a real patient','Decide on the Clinical Audit hook'] },
+    'saranya': { status:['Active','good'],
+      line:'The Saranya clinic got its own billing cycle and a run of clinical forms, with its billing deliberately left separate from Vaidyagrama\'s.',
+      delivered:['24-hour admission billing cycles and a double-billing fix for combination treatments','Advice Master, Concomitant and Non-Formulary medicine, Active External Medication page','OP Case Record, Previous Visits, Panchakarma consent forms and nurse vitals','Conflict guard so simultaneous casesheet edits are not lost'],
+      risks:['Two file-overwrite regressions broke Saranya features for days before being restored','Mail login is rejected and a stored email password cannot be decrypted','A debug log is still running in production'],
+      next:['Fix the mail account and encryption key','Remove the debug logging'] },
+    'clinic-shared': { status:['Needs attention','bad'],
+      line:'Shared code reaches both clinics at once, and this is where the most serious process problems sit.',
+      delivered:['Billing window fix so readmitted patients are not re-billed','Row-locked appointment numbering','Orphan treatment-schedule guard and a room-reservation change log'],
+      risks:['Three times a stale copy of a whole file overwrote working code (2 to 13 days each)','A hook forces every invoice to company currency on both sites','Three database fixes ran on production with no code in git','Lint and test checks were removed on 8 Oct','A GitHub token sits in plain text in git remotes','129 stashes, one holding 1,260 unsaved lines'],
+      next:['Rotate the token','Restore automated checks','Clear or commit the stashes'] },
     'pixeled-erp': { status:['Needs attention','bad'],
       line:'Warehouse tooling and a full supplier portal were delivered, but the stock feed to the client\'s storefront has been failing for weeks and a supplier-facing payment control is missing.',
       delivered:['Box lookup by printed code, packaging tiers, and a redesigned Packaging Status page','Supplier Portal: ordering, proformas, remittance, catalog, section access control and English/Chinese switch','Online order intake API with automatic delivery and invoicing','Bin Allocation, Warehouse Control Tower redesign and clearer print formats and reports'],
@@ -1317,7 +1339,7 @@
       delivered:['Full audit of every repository on the bench','Dev-to-main pull request automation'],
       risks:['A GitHub token is stored in plain text in git remotes','14 commits on vendored apps would be lost by a bench update','Several fixes are committed but not running on live','No automated checks guard main'], next:['Rotate the token','Move vendored-app changes into custom apps','Agree a deploy checklist'] }
   };
-  var SUMMARY_ORDER = ['vaidyagrama-app','pixeled-erp','powertex-erp','easycloud-crm','powertexdubai-erp','sun-consultancy','urja-shakti','wadi-hrms','infrastructure'];
+  var SUMMARY_ORDER = ['vaidyagrama','saranya','clinic-shared','pixeled-erp','powertex-erp','easycloud-crm','powertexdubai-erp','sun-consultancy','urja-shakti','wadi-hrms','infrastructure'];
   function renderSummary(){
     var grid = document.getElementById('summary-grid'); grid.innerHTML='';
     var totalOpen = ENTRIES.filter(function(e){ return e.status==='bad'; }).length;
