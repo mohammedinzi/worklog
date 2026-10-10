@@ -675,6 +675,18 @@
     <h1>Summary</h1>
     <p class="hero-sub">One card per project: what was delivered, what needs attention, and what is next. No commit hashes. Click a card for the full history.</p>
     <div class="stats" id="summary-stats"></div>
+    <div class="profile" style="margin-top:8px">
+      <div style="grid-column:1/-1">
+        <h2 class="profile-name" style="font-size:22px">How I work</h2>
+        <div class="profile-grid" style="margin-top:12px">
+          <div class="profile-fact"><strong id="hw-days">—</strong><span>days with documented activity out of <span id="hw-span">—</span> calendar days, each entry tied to a commit, log or session record</span></div>
+          <div class="profile-fact"><strong>29 commits</strong><span>in one uninterrupted ~5.5 hour session on 21 Sep: three features shipped, one self-correction caught within nine minutes</span></div>
+          <div class="profile-fact"><strong>Root cause first</strong><span>billing leaks, a race condition, a missing warehouse name, a 12-day regression: each traced to the actual line, not patched around</span></div>
+          <div class="profile-fact"><strong>Own the audit</strong><span>two production benches walked end to end, including my own mistakes, logged plainly with what is verified and what is not</span></div>
+        </div>
+        <p class="profile-tag" style="margin:0;font-style:normal">What you can expect from me going forward: the same pace and the same honesty. I keep a written trail of every change, I ask what a fix could break before I ship it, and I flag the risk instead of hiding it. I show up for the hard, unglamorous production problems as well as the new features.</p>
+      </div>
+    </div>
   </section>
   <div class="projects-layout"><div class="summary-grid-view" id="summary-grid"></div></div>
 </div>
@@ -1213,6 +1225,11 @@
       '<div class="stat"><span class="stat-num">'+ENTRIES.length+'</span><div class="stat-label">Work items</div></div>'+
       '<div class="stat"><span class="stat-num">'+totalOpen+'</span><div class="stat-label">Open / blocked</div></div>'+
       '<div class="stat"><span class="stat-num">'+ENTRIES.map(function(e){return e.date;}).sort().pop()+'</span><div class="stat-label">Latest entry</div></div>';
+    var hwD=document.getElementById('hw-days'); if(hwD){
+      var ds=ENTRIES.map(function(e){return e.date;}).sort();
+      hwD.textContent=new Set(ds).size;
+      document.getElementById('hw-span').textContent=Math.round((new Date(ds[ds.length-1])-new Date(ds[0]))/86400000)+1;
+    }
     function li(a){ return a.map(function(x){ return '<li>'+escapeHtml(x)+'</li>'; }).join(''); }
     SUMMARY_ORDER.forEach(function(id){
       var s = PROJECT_SUMMARIES[id], meta = PROJECTS_META.filter(function(p){return p.id===id;})[0];
